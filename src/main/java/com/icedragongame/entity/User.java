@@ -13,12 +13,15 @@ import lombok.Data;
 @Data
 @Builder
 public class User {
-    private String userName;
+    private String username;
     private String userPassword;
     private String userNickname;
 
-    public User(String userName, String userPassword, String userNickname, int userIdentity, int userPoints) {
-        this.userName = userName;
+    private int userIdentity;
+    private int userPoints;
+
+    public User(String username, String userPassword, String userNickname, int userIdentity, int userPoints) {
+        this.username = username;
         this.userPassword = userPassword;
         this.userNickname = userNickname;
         this.userIdentity = userIdentity;
@@ -26,11 +29,11 @@ public class User {
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = username;
     }
 
     public String getUserPassword() {
@@ -65,8 +68,6 @@ public class User {
         this.userPoints = userPoints;
     }
 
-    private int userIdentity;
-    private int userPoints;
 
 
 
