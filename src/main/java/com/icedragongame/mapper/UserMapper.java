@@ -1,11 +1,13 @@
 package com.icedragongame.mapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.icedragongame.entity.Reply;
 import com.icedragongame.entity.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 @Mapper
-public interface UserMapper {
-    //查询全部
+public interface UserMapper extends BaseMapper<User> {
+/*    //查询全部
     @Select("select * from user")
     public List<User> queryAll();
     //根据用户名查询数据
@@ -24,5 +26,5 @@ public interface UserMapper {
             "user_identity = #{userIdentity},"+
             "user_points = #{userPoints},"+
             " where username = #{username}")
-    public int updadeByName(String User);
+    public int updadeByName(String User);*/
 }
