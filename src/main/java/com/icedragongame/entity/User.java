@@ -16,4 +16,6 @@ public class User {
 
     private int userIdentity;
     private int userPoints;
+
+
 }
