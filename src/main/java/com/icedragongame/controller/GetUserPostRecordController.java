@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * @ClassName : GetUserPostRecordController  //类名
- * @Description : 获取某人的发帖记录，查询帖子表  //描述
+ * @Description :  获取某人的发帖记录，查询帖子表  //描述
  * @Author : wenrui //作者
  * @Date: 2023/6/27  16:11
  */
