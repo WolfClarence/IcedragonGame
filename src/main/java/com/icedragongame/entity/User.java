@@ -2,7 +2,7 @@ package com.icedragongame.entity;
 
 import lombok.Builder;
 import lombok.Data;
-import org.apache.camel.language.Bean;
+
 
 /**
  * @ClassName : User  //类名
@@ -13,61 +13,64 @@ import org.apache.camel.language.Bean;
 @Data
 @Builder
 public class User {
-    private String user_name;
-    private String user_password;
-    private String user_nickname;
+    private String userName;
+    private String userPassword;
+    private String userNickname;
 
-    private int user_identity;
-    private int user_points;
-
-
-    public User(String user_name, String user_password, String user_nickname, int user_identity, int user_points) {
-        this.user_name = user_name;
-        this.user_password = user_password;
-        this.user_nickname = user_nickname;
-        this.user_identity = user_identity;
-        this.user_points = user_points;
+    public User(String userName, String userPassword, String userNickname, int userIdentity, int userPoints) {
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.userNickname = userNickname;
+        this.userIdentity = userIdentity;
+        this.userPoints = userPoints;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getUser_password() {
-        return user_password;
+    public String getUserPassword() {
+        return userPassword;
     }
 
-    public void setUser_password(String user_password) {
-        this.user_password = user_password;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
-    public String getUser_nickname() {
-        return user_nickname;
+    public String getUserNickname() {
+        return userNickname;
     }
 
-    public void setUser_nickname(String user_nickname) {
-        this.user_nickname = user_nickname;
+    public void setUserNickname(String userNickname) {
+        this.userNickname = userNickname;
     }
 
-    public int getUser_identity() {
-        return user_identity;
+    public int getUserIdentity() {
+        return userIdentity;
     }
 
-    public void setUser_identity(int user_identity) {
-        this.user_identity = user_identity;
+    public void setUserIdentity(int userIdentity) {
+        this.userIdentity = userIdentity;
     }
 
-    public int getUser_points() {
-        return user_points;
+    public int getUserPoints() {
+        return userPoints;
     }
 
-    public void setUser_points(int user_points) {
-        this.user_points = user_points;
+    public void setUserPoints(int userPoints) {
+        this.userPoints = userPoints;
     }
+
+    private int userIdentity;
+    private int userPoints;
+
+
+
+
 
 
 }
