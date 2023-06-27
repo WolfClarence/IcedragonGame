@@ -14,7 +14,7 @@ import java.sql.Timestamp;
  */
 
 @Data
-public class Post implements Serializable {
+public class Post {
 
     private Integer postId;//id
 
