@@ -20,26 +20,17 @@ import java.time.LocalDateTime;
 public class Post {
 
     private Integer postId;//id
-
     private String title;//标题
-
     private BigInteger scanNum;//浏览量
-
     private BigInteger replyNum;//回复量
-
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime buildTime;//创建时间
 
     private String gameName;//游戏名
-
     private String describe;//介绍
-
     private String category;//分类
-
     private String downloadUrl;//下载链接
-
     private Integer points;//积分点
-
     private String auditStatus;//审核状态
 
 }

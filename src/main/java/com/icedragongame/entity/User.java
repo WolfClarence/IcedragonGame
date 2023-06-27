@@ -16,4 +16,5 @@ public class User {
 
     private int userIdentity;
     private int userPoints;
+    private String userStatus;
 }
