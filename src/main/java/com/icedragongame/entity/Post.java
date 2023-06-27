@@ -1,10 +1,13 @@
 package com.icedragongame.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * @ClassName : Post
@@ -24,7 +27,8 @@ public class Post {
 
     private BigInteger replyNum;//回复量
 
-    private Timestamp buildTime;//创建时间
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime buildTime;//创建时间
 
     private String gameName;//游戏名
 

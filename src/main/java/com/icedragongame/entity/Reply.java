@@ -1,6 +1,10 @@
 package com.icedragongame.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 /**
  * @ClassName : Reply  //类名
@@ -13,5 +17,7 @@ import lombok.Data;
 public class Reply {
     private int replyId;
     private String replyContext;
-    private String replyTime;
+
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime buildTime;
 }
