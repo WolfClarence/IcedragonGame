@@ -44,4 +44,12 @@ public class HomeController {
         List<Post> list = postService.list(query);
         return R.success(list);
     }
+
+    @GetMapping("/category/{category}")
+    public R<List<Post>> category(@PathVariable(value = "category") String category) {
+        QueryWrapper<Post> query = new QueryWrapper<>();
+        query.eq("category",category);
+        List<Post> list = postService.list(query);
+        return R.success(list);
+    }
 }
