@@ -29,7 +29,7 @@ public class Post {
     private LocalDateTime buildTime;//创建时间
 
     private String gameName;//游戏名
-    private String describe;//介绍
+    private String gameDescribe;//介绍
     private String category;//分类
     private String downloadUrl;//下载链接
     private Integer points;//积分点
