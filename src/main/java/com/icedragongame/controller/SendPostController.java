@@ -1,16 +1,14 @@
 package com.icedragongame.controller;
 
+import com.icedragongame.common.BeanConvertUtils;
 import com.icedragongame.common.R;
+import com.icedragongame.dto.PostDto;
 import com.icedragongame.entity.Post;
-import com.icedragongame.entity.User;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.ReplyService;
-import com.icedragongame.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.xml.soap.Text;
-import java.util.List;
 
 /**
  * @ClassName : SendPostController  //类名
@@ -27,8 +25,10 @@ public class SendPostController {
     private PostService postService;
 
     @PostMapping ("/postingPage")
-    public R<Boolean> sendPost(@RequestBody Post post){
-
+    public R<Boolean> sendPost(@RequestBody PostDto postDto){
+        System.out.println(postDto.toString());
+        Post post = BeanConvertUtils.convert(postDto,Post.class);
+        System.out.println(post.toString());
         return R.success(postService.save(post));
     }
 
