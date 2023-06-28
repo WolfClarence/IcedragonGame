@@ -6,5 +6,5 @@ import com.icedragongame.entity.Post;
 import java.io.Serializable;
 
 public interface PostService extends IService<Post> {
-    Post selectPostById(Serializable postId);
+    //Post selectPostById(Serializable postId);
 }
