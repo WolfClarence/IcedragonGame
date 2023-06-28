@@ -2,6 +2,7 @@ package com.icedragongame.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
 import java.io.Serializable;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 @Data
 public class Post {
 
+    @TableId
     private Integer postId;//id
     private String title;//标题
     private BigInteger scanNum;//浏览量
@@ -32,7 +34,8 @@ public class Post {
     private String downloadUrl;//下载链接
     private Integer points;//积分点
     private String auditStatus;//审核状态
-
+    @TableField("username")
+    private User user;//作者
 }
 
 

@@ -2,6 +2,7 @@ package com.icedragongame.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -15,9 +16,15 @@ import java.time.LocalDateTime;
 
 @Data
 public class Reply {
+    @TableId
     private int replyId;
     private String replyContext;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime buildTime;
+
+    @TableField("username")
+    private User user;//作者
+    @TableField("post_id")
+    private Post post;//在哪个帖子之下
 }
