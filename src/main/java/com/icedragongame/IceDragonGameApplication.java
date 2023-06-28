@@ -9,6 +9,5 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 @ServletComponentScan
 public class IceDragonGameApplication {
     public static void main(String[] args) {
-        SpringApplication.run(IceDragonGameApplication.class,args);
-    }
+        SpringApplication.run(IceDragonGameApplication.class, args);}
 }
