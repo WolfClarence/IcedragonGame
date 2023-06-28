@@ -13,8 +13,9 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="1be21d30-1cb4-4192-b18f-240411862fae">
-      <console name="mydb@10.13.0.126" type="STANDARD" schema="mydb" session="Main"><![CDATA[select * from post order by (scan_num + 2 * reply_num) as clout desc limit 3;
-select * from post;]]></console>
+      <console name="mydb@10.13.0.126" type="STANDARD" schema="mydb" session="Main"><![CDATA[select * from post;
+select * from user;
+insert into post values('1','t1','2','1','2004-05-23T14:25:10','g1','d1','c1','url1','1','已通过','sb');]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
