@@ -10,8 +10,8 @@ import java.io.Serializable;
 
 @Mapper
 public interface PostMapper extends BaseMapper<Post> {
-    @Select("SELECT * FROM post WHERE post_id = #{postId}")
-    @Results({
+
+    @Results(id = "postMap", value = {
             @Result(property = "postId", column = "post_id"),
             @Result(property = "title", column = "title"),
             @Result(property = "scanNum", column = "scan_num"),
@@ -25,6 +25,7 @@ public interface PostMapper extends BaseMapper<Post> {
             @Result(property = "auditStatus", column = "audit_status"),
             @Result(property = "user", column = "username",javaType = User.class, one = @One(select = "selectUser"))
     })
+    @Select("SELECT * FROM post WHERE post_id = #{postId}")
     Post selectPostById(Serializable postId);
 
     @Select("SELECT * FROM user WHERE username = #{username}")

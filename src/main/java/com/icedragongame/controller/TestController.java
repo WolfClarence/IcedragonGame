@@ -30,10 +30,6 @@ public class TestController {
     private UserService userService;
     @Resource
     private PostService postService;
-    @Resource
-    private ReplyMapper replyMapper;
-    @Resource
-    private PostMapper postMapper;
 
     @GetMapping("/getuser")
     public R<List<User>> getUserByUsername(){
@@ -58,11 +54,11 @@ public class TestController {
 
     @GetMapping("/getreply1")
     public R<Reply> getReply1(){
-        return R.success(replyMapper.selectReplyById(333));
+        return R.success(replyService.selectReplyById(333));
     }
 
     @GetMapping("/getpost")
     public R<Post> getPost(){
-        return R.success(postMapper.selectPostById(122));
+        return R.success(postService.selectPostById(122));
     }
 }

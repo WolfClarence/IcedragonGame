@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 @Mapper
 public interface ReplyMapper extends BaseMapper<Reply> {
+
     @Select("SELECT * FROM reply WHERE reply_id = #{replyId}")
     @Results({
             @Result(property = "replyId", column = "reply_id"),
@@ -24,5 +25,6 @@ public interface ReplyMapper extends BaseMapper<Reply> {
     User selectUser(String username);
 
     @Select("SELECT * FROM post WHERE post_id = #{postId}")
+    @ResultMap("com.icedragongame.mapper.PostMapper.postMap")
     Post selectPostById(Serializable postId);
 }
