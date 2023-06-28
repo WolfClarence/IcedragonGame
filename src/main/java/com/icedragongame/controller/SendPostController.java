@@ -26,7 +26,7 @@ public class SendPostController {
     @Resource
     private PostService postService;
 
-    @PostMapping ("/sendPost")
+    @PostMapping ("/postingPage")
     public R<Boolean> sendPost(@RequestBody Post post){
 
         return R.success(postService.save(post));

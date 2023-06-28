@@ -21,7 +21,7 @@ import java.util.List;
  * @Date: 2023/6/28  14:08
  */
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api")
 public class UserController {
     @Resource
     private ReplyService replyService;
@@ -32,24 +32,15 @@ public class UserController {
     @Resource
     private UserPostService userPostService;
 
-    //获取未审核的帖子
-    @GetMapping("/getUnauditedPost")
-    public R<List<Post>> getUnauditedPost(){
-        QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("audit_status",0);
-        List<Post> postList = postService.list(queryWrapper);
-        return R.success(postList);
-    }
-
     //获取用户基本信息
-    @GetMapping("/getUserInfo")
+    @GetMapping("/personal/userinfo/{username}")
     public R<User> getUserInfoByName(@RequestParam("username") String username){
 
         return R.success(userService.getById(username));
     }
 
     //获取用户发帖记录
-    @GetMapping("/getUserPostRecord")
+    @GetMapping("/personal/post/{username}")
     public R<List<Post>> getUserPostRecordByName(@RequestParam("username") String username){
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username); // 根据用户名查询
@@ -57,8 +48,18 @@ public class UserController {
         return R.success(postList);
     }
 
+    //获取未审核的帖子
+    @GetMapping("/manager/uncheckedlist")
+    public R<List<Post>> getUnauditedPost(){
+        QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("audit_status",0);
+        List<Post> postList = postService.list(queryWrapper);
+        return R.success(postList);
+    }
+
+
     //删除帖子
-    @PostMapping("/deletePost")
+    @PostMapping("/manager/delete")
     public R<Boolean> deletePostById(@RequestParam("post_id") int id){
 
         return R.success(replyService.removeById(id));
