@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
+
 import java.time.LocalDateTime;
 
 /**
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @Data
 public class Reply {
     @TableId
-    private int replyId;
+    private Integer replyId;
     private String replyContext;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)

@@ -5,9 +5,10 @@ import com.icedragongame.entity.Post;
 import com.icedragongame.entity.User;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.UserService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
@@ -15,8 +16,8 @@ import javax.annotation.Resource;
  * 管理员controller
  */
 
-@Controller
-@RequestMapping("/api/admin")
+@RestController
+@RequestMapping("/admin")
 public class AdminController {
 
     @Resource
@@ -29,15 +30,15 @@ public class AdminController {
      * @param username
      * @return
      */
-    @PostMapping("/banUser/{username}")
-    public R<String> banUser (String username){
+    @GetMapping("/banUser/{username}")
+    public R<User> banUser ( @PathVariable String  username){
         User user = userService.getById(username);
         if (user!=null){
             if (user.getUserStatus().equals("0"))
                 return R.error("该用户已处在封禁态");
             else {
                 user.setUserStatus("0");
-                return R.success("已封禁");
+                return R.success(user);
             }
         }else{
             return R.error("该用户不存在");
@@ -48,15 +49,15 @@ public class AdminController {
      * 解封用户
      * @param username
      */
-    @PostMapping("/freeUser/{username}")
-    public R<String> freeUser (String username){
+    @GetMapping("/freeUser/{username}")
+    public R<User> freeUser ( @PathVariable String username){
         User user = userService.getById(username);
         if (user!=null){
             if (user.getUserStatus().equals("1"))
                 return R.error("该用户已处在解封态");
             else {
                 user.setUserStatus("1");
-                return R.success("已解封");
+                return R.success(user);
             }
         }else{
             return R.error("该用户不存在");
@@ -69,16 +70,20 @@ public class AdminController {
      * @param id
      * @param status
      */
-    @PostMapping ("/changeAuditStatus/{status}")
-    public R<String> changeAuditStatus(int id, String status){
+    @GetMapping ("/changeAuditStatus/{postId}/{status}")
+    public R<Post> changeAuditStatus( @PathVariable("postId") Integer id,@PathVariable String status){
 
             Post post = postService.getById(id);
-            String  result = post.getAuditStatus();
-            if (result.equals(status))
-                return R.error("已在该状态");
-            else{
-                post.setAuditStatus(status);
-                return R.success("修改成功");
+            if(post!=null) {
+                String result = post.getAuditStatus();
+                if (result.equals(status))
+                    return R.error("已在该状态");
+                else {
+                    post.setAuditStatus(status);
+                    return R.success(post);
+                }
+            }else{
+                return R.error("该用户不存在");
             }
     }
 
@@ -86,17 +91,17 @@ public class AdminController {
      * 升级用户为管理员
      * @param username
      */
-    @PostMapping("/upgrade{username}")
-    public R<String> upgrade (String username){
+    @GetMapping("/upGrade/{username}")
+    public R<User> upGrade( @PathVariable String username){
 
-        User user = userService.getById("username");
+        User user = userService.getById(username);
         if(user!=null){
-        if(user.getUserIdentity()==1)
-            return R.error("该用户已是管理员");
-        else{
-            user.setUserIdentity(1);
-            return R.success("修改成功");
-        }
+            if(user.getUserIdentity()==1)
+                return R.error("该用户已是管理员");
+            else{
+                user.setUserIdentity(1);
+                return R.success(user);
+            }
         }
         else{
             return R.error("该用户不存在");
