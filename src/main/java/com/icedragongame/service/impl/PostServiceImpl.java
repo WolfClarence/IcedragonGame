@@ -20,8 +20,10 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
     @Resource
     private PostMapper postMapper;
 
-
+/*
     public Post selectPostById(Serializable postId) {
         return getBaseMapper().selectPostById(postId);
     }
+
+ */
 }
