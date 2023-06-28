@@ -6,10 +6,7 @@ import com.icedragongame.entity.User;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.ReplyService;
 import com.icedragongame.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.xml.soap.Text;
@@ -22,7 +19,7 @@ import java.util.List;
  * @Date: 2023/6/27  16:06
  */
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api")
 public class SendPostController {
     @Resource
     private ReplyService replyService;
@@ -30,7 +27,7 @@ public class SendPostController {
     private PostService postService;
 
     @PostMapping ("/sendPost")
-    public R<Boolean> sendPost(Post post){
+    public R<Boolean> sendPost(@RequestBody Post post){
 
         return R.success(postService.save(post));
     }
