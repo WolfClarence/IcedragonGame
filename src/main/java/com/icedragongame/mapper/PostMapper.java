@@ -18,7 +18,7 @@ public interface PostMapper extends BaseMapper<Post> {
             @Result(property = "replyNum", column = "reply_num"),
             @Result(property = "buildTime", column = "build_time"),
             @Result(property = "gameName", column = "game_name"),
-            @Result(property = "describe", column = "describe"),
+            @Result(property = "gameDescribe", column = "game_describe"),
             @Result(property = "category", column = "category"),
             @Result(property = "downloadUrl", column = "download_url"),
             @Result(property = "points", column = "points"),
