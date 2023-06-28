@@ -1,18 +1,26 @@
 package com.icedragongame.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.icedragongame.common.R;
 import com.icedragongame.entity.Post;
 import com.icedragongame.entity.Reply;
 import com.icedragongame.entity.User;
+import com.icedragongame.mapper.PostMapper;
+import com.icedragongame.mapper.ReplyMapper;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.ReplyService;
 import com.icedragongame.service.UserService;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -57,5 +65,11 @@ public class TestController {
         return R.success(postService.selectPostById(122));
     }
 
-
+    @GetMapping("/alterpost/{id}")
+    public R<String> alterPost(@PathVariable int id){
+        LambdaUpdateWrapper<Post> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(Post::getPostId, id).set(Post::getAuditStatus, "牛逼");
+        postService.update(updateWrapper);
+        return R.success("haole");
+    }
 }
