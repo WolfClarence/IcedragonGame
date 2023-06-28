@@ -3,6 +3,7 @@ package com.icedragongame.dto;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Data;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
  * @Date: 2023/6/28  17:53
  */
 
+@Data
 public class PostDto {
 
     private String title;//标题

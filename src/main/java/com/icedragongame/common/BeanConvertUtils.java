@@ -59,7 +59,7 @@ public class BeanConvertUtils {
                     result.append(Character.toUpperCase(currentChar));
                     toUpper = false;
                 } else {
-                    result.append(Character.toLowerCase(currentChar));
+                    result.append(currentChar);
                 }
             }
         }
