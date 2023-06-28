@@ -1,6 +1,8 @@
 package com.icedragongame.controller;
 
+import com.icedragongame.common.BeanConvertUtils;
 import com.icedragongame.common.R;
+import com.icedragongame.dto.PostDto;
 import com.icedragongame.entity.Post;
 import com.icedragongame.entity.User;
 import com.icedragongame.service.PostService;
@@ -27,8 +29,10 @@ public class SendPostController {
     private PostService postService;
 
     @PostMapping ("/postingPage")
-    public void sendPost(@RequestBody Post post){
-        System.out.println(post);
+    public void sendPost(@RequestBody PostDto postDto){
+        System.out.println(postDto.toString());
+        Post post = BeanConvertUtils.convert(postDto,Post.class);
+        System.out.println(post.toString());
         //return R.success(postService.save(post));
     }
 
