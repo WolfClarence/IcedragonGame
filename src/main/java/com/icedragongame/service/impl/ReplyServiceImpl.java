@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 @Service
 public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements ReplyService {
-
+/*
 
     @Resource
     private ReplyMapper replyMapper;
@@ -21,4 +21,6 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements
     public Reply selectReplyById(Serializable replyId) {
         return replyMapper.selectReplyById(replyId);
     }
+
+ */
 }

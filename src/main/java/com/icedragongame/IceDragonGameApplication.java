@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
 //woshigeshabi
+//test
 @SpringBootApplication
 @ServletComponentScan
 public class IceDragonGameApplication {

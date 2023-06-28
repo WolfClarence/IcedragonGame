@@ -54,16 +54,20 @@ public class TestController {
         lqw.eq(Reply::getReplyId,333);
         return R.success(replyService.getOne(lqw));
     }
-
+    /*
     @GetMapping("/getreply1")
     public R<Reply> getReply1(){
         return R.success(replyService.selectReplyById(333));
     }
 
+     */
+
+    /*
     @GetMapping("/getpost")
     public R<Post> getPost(){
         return R.success(postService.selectPostById(122));
     }
+     */
 
     @GetMapping("/alterpost/{id}")
     public R<String> alterPost(@PathVariable int id){
