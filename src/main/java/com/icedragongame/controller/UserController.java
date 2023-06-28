@@ -34,14 +34,15 @@ public class UserController {
 
     //获取用户基本信息
     @GetMapping("/personal/userinfo/{username}")
-    public R<User> getUserInfoByName(@RequestParam("username") String username){
-
-        return R.success(userService.getById(username));
+    public R<User> getUserInfoByName(@PathVariable("username") String username){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", username); // 根据用户名查询
+        return R.success(userService.getOne(queryWrapper));
     }
 
     //获取用户发帖记录
     @GetMapping("/personal/post/{username}")
-    public R<List<Post>> getUserPostRecordByName(@RequestParam("username") String username){
+    public R<List<Post>> getUserPostRecordByName(@PathVariable("username") String username){
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username); // 根据用户名查询
         List<Post> postList = postService.list(queryWrapper);
@@ -52,16 +53,19 @@ public class UserController {
     @GetMapping("/manager/uncheckedlist")
     public R<List<Post>> getUnauditedPost(){
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("audit_status",0);
+        queryWrapper.eq("audit_status","未审核");
         List<Post> postList = postService.list(queryWrapper);
         return R.success(postList);
     }
 
 
     //删除帖子
-    @PostMapping("/manager/delete")
-    public R<Boolean> deletePostById(@RequestParam("post_id") int id){
+    @PostMapping("/manager/delete/{post_id}")
+    public R<Boolean> deletePostById(@PathVariable("post_id") int id){
 
-        return R.success(replyService.removeById(id));
+        return R.success(postService.removeById(id));
     }
 }
+/**三种参数：query，body，path
+ * get请求对应query，post请求对应body，path两个请求都能用
+ */
