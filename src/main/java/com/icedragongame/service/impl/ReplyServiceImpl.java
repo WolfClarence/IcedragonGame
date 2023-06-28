@@ -6,6 +6,10 @@ import com.icedragongame.mapper.ReplyMapper;
 import com.icedragongame.service.ReplyService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.io.Serializable;
+
 @Service
 public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements ReplyService {
+
 }

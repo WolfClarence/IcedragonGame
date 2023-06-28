@@ -1,25 +1,28 @@
 package com.icedragongame.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.icedragongame.entity.Post;
 import com.icedragongame.entity.Reply;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import com.icedragongame.entity.User;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+
+import java.io.Serializable;
 import java.util.List;
 @Mapper
 public interface ReplyMapper extends BaseMapper<Reply> {
-/*    //查询全部
-    @Select("select * from reply")
-    public List<Reply> queryAll();
-    //根据id查询数据
-    @Select("select from reply where reply_id = #{replyId}")
-    public Reply queryByName(int replyId);
-    //添加数据
-    @Insert("insert into reply value(#{replyId},#{replyContext},#{replyTime})")
-    public int add(Reply reply);
-    //根据id删除数据
-    @Delete("delete from reply where reply_id = #{replyId}")
-    public void delete(int replyId);*/
+    @Select("SELECT * FROM reply WHERE reply_id = #{replyId}")
+    @Results({
+            @Result(property = "replyId", column = "reply_id"),
+            @Result(property = "replyContent", column = "reply_content"),
+            @Result(property = "buildTime", column = "build_time"),
+            @Result(property = "user", column = "username",javaType = User.class, one=@One(select = "selectUser")),
+            @Result(property = "post", column = "post_id",javaType = Post.class, one = @One(select = "selectPostById"))
+    })
+    Reply selectReplyById(Serializable playerId);
 
+    @Select("SELECT * FROM user WHERE username = #{username}")
+    User selectUser(String username);
+
+    @Select("SELECT * FROM post WHERE post_id = #{postId}")
+    Post selectPostById(Serializable postId);
 }
