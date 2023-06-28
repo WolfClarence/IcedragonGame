@@ -12,10 +12,8 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="1be21d30-1cb4-4192-b18f-240411862fae">
-      <console name="mydb@10.13.0.126" type="STANDARD" schema="mydb" session="Main"><![CDATA[select * from post;
-select * from user;
-insert into post values('1','t1','2','1','2004-05-23T14:25:10','g1','d1','c1','url1','1','已通过','sb');]]></console>
+    <connection id="a1462453-f581-414e-b87a-dfec9ca57261">
+      <console name="Connection" type="STANDARD" schema="mydb" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -36,9 +34,9 @@ insert into post values('1','t1','2','1','2004-05-23T14:25:10','g1','d1','c1','u
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="1be21d30-1cb4-4192-b18f-240411862fae" active="true" signed="true">
+      <connection id="a1462453-f581-414e-b87a-dfec9ca57261" active="true" signed="true">
         <database>
-          <name value="mydb@10.13.0.126" />
+          <name value="Connection" />
           <description value="" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
