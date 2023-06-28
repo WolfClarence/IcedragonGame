@@ -3,14 +3,19 @@ package com.icedragongame.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.icedragongame.common.R;
 import com.icedragongame.entity.Post;
+import com.icedragongame.entity.UserPost;
 import com.icedragongame.service.PostService;
+import com.icedragongame.service.UserPostService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/home")
@@ -18,6 +23,9 @@ public class HomeController {
 
     @Resource
     private PostService postService;
+
+    @Resource
+    private UserPostService userPostService;
 
     @GetMapping("/newGame")
     public R<List<Post>> newGame(){
@@ -39,9 +47,11 @@ public class HomeController {
 
     @GetMapping("/followedGame/{username}")
     public R<List<Post>> followedGame(@PathVariable(value = "username") String username) {
-        QueryWrapper<Post> query = new QueryWrapper<>();
-        query.eq("username",username);
-        List<Post> list = postService.list(query);
+        QueryWrapper<UserPost> upQuery = new QueryWrapper<>();
+        upQuery.eq("username",username);
+        List<UserPost> upList =  userPostService.list(upQuery);
+        List<Integer> pidList = upList.stream().map(UserPost::getPostId).collect(Collectors.toList());//PostID表
+        List<Post> list = postService.listByIds(pidList);
         return R.success(list);
     }
 

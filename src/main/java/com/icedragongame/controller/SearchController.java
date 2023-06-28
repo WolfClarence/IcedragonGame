@@ -17,9 +17,9 @@ public class SearchController {
     private PostService postService;
 
     @GetMapping("/search")
-    public R<List<Post>> search(@RequestParam("sort") Integer sort,
-                                @RequestParam("category") String category,
-                                @RequestParam("key_word") String keyWord){
+    public R<List<Post>> search(@RequestParam(value = "sort",required = false) Integer sort,
+                                @RequestParam(value = "category",required = false) String category,
+                                @RequestParam(value = "key_word",required = false) String keyWord){
         QueryWrapper<Post> query = new QueryWrapper<>();
         //排序类型
         if(sort == null) sort = new Integer(0);//未选类别，默认为按时间
@@ -36,7 +36,7 @@ public class SearchController {
 
         //关键字
         if(!(keyWord == null || keyWord.isEmpty())){//类别不为空
-            query.like("category",keyWord);
+            query.like("game_name",keyWord);
         }
         List<Post> list = postService.list(query);
         return R.success(list);

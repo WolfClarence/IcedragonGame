@@ -13,7 +13,9 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="a1462453-f581-414e-b87a-dfec9ca57261">
-      <console name="Connection" type="STANDARD" schema="mydb" session="Main" />
+      <console name="Connection" type="STANDARD" schema="mydb" session="Main"><![CDATA[select * from user_post;
+select * from user;
+insert into user_post values("sb","原神");]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -31,6 +33,9 @@
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />
+  </component>
+  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
+    <recently-used-interfaces />
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
