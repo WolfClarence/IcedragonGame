@@ -25,7 +25,7 @@ public class Reply {
     private LocalDateTime buildTime;
 
     @TableField("username")
-    private User user;//作者
+    String username;//作者
     @TableField("post_id")
-    private Post post;//在哪个帖子之下
+    Integer postId;//在哪个帖子之下
 }

@@ -1,5 +1,6 @@
 package com.icedragongame.controller;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.icedragongame.common.R;
 import com.icedragongame.entity.Post;
 import com.icedragongame.entity.User;
@@ -31,14 +32,18 @@ public class AdminController {
      * @return
      */
     @GetMapping("/banUser/{username}")
-    public R<User> banUser ( @PathVariable String  username){
+    public R<String> banUser ( @PathVariable String  username){
+
+
         User user = userService.getById(username);
         if (user!=null){
-            if (user.getUserStatus().equals("0"))
+            if (user.getUserStatus().equals("已封禁"))
                 return R.error("该用户已处在封禁态");
             else {
-                user.setUserStatus("0");
-                return R.success(user);
+                LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();
+                updateWrapper.eq(User::getUsername, username).set(User::getUserStatus, "已封禁");
+                userService.update(updateWrapper);
+                return R.success("封禁成功");
             }
         }else{
             return R.error("该用户不存在");
@@ -50,14 +55,16 @@ public class AdminController {
      * @param username
      */
     @GetMapping("/freeUser/{username}")
-    public R<User> freeUser ( @PathVariable String username){
+    public R<String> freeUser ( @PathVariable String username){
         User user = userService.getById(username);
         if (user!=null){
-            if (user.getUserStatus().equals("1"))
+            if (user.getUserStatus().equals("已解封"))
                 return R.error("该用户已处在解封态");
             else {
-                user.setUserStatus("1");
-                return R.success(user);
+                LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();
+                updateWrapper.eq(User::getUsername, username).set(User::getUserStatus, "已解封");
+                userService.update(updateWrapper);
+                return R.success("解封成功");
             }
         }else{
             return R.error("该用户不存在");
@@ -71,7 +78,7 @@ public class AdminController {
      * @param status
      */
     @GetMapping ("/changeAuditStatus/{postId}/{status}")
-    public R<Post> changeAuditStatus( @PathVariable("postId") Integer id,@PathVariable String status){
+    public R<String> changeAuditStatus( @PathVariable("postId") Integer id,@PathVariable String status){
 
             Post post = postService.getById(id);
             if(post!=null) {
@@ -79,11 +86,13 @@ public class AdminController {
                 if (result.equals(status))
                     return R.error("已在该状态");
                 else {
-                    post.setAuditStatus(status);
-                    return R.success(post);
+                    LambdaUpdateWrapper<Post> updateWrapper = new LambdaUpdateWrapper<>();
+                    updateWrapper.eq(Post::getPostId, id).set(Post::getAuditStatus, status);
+                    postService.update(updateWrapper);
+                    return R.success("状态更改成功");
                 }
             }else{
-                return R.error("该用户不存在");
+                return R.error("该帖子不存在");
             }
     }
 
@@ -92,15 +101,17 @@ public class AdminController {
      * @param username
      */
     @GetMapping("/upGrade/{username}")
-    public R<User> upGrade( @PathVariable String username){
+    public R<String> upGrade( @PathVariable String username){
 
         User user = userService.getById(username);
         if(user!=null){
             if(user.getUserIdentity()==1)
                 return R.error("该用户已是管理员");
             else{
-                user.setUserIdentity(1);
-                return R.success(user);
+                LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();
+                updateWrapper.eq(User::getUsername, username).set(User::getUserIdentity, "1");
+                userService.update(updateWrapper);
+                return R.success("成功升级为管理员");
             }
         }
         else{

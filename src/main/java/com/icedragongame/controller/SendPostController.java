@@ -2,15 +2,14 @@ package com.icedragongame.controller;
 
 import com.icedragongame.common.R;
 import com.icedragongame.entity.Post;
-import com.icedragongame.entity.User;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.ReplyService;
-import com.icedragongame.service.UserService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.xml.soap.Text;
-import java.util.List;
 
 /**
  * @ClassName : SendPostController  //类名

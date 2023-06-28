@@ -6,17 +6,14 @@ import com.icedragongame.mapper.PostMapper;
 import com.icedragongame.service.PostService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.io.Serializable;
-
 @Service
 public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements PostService {
 
-    @Resource
-    private PostMapper postMapper;
-
-
-    public Post selectPostById(Serializable postId) {
-        return getBaseMapper().selectPostById(postId);
-    }
+//    @Resource
+//    private PostMapper postMapper;
+//
+//
+//    public Post selectPostById(Serializable postId) {
+//        return getBaseMapper().selectPostById(postId);
+//    }
 }
