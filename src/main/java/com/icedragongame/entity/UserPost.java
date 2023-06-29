@@ -1,5 +1,6 @@
 package com.icedragongame.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -12,6 +13,7 @@ import lombok.Data;
 @Data
 @TableName("user_post")
 public class UserPost {
+    @TableId
     private String username;
     private int postId;
 }

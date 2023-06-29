@@ -3,11 +3,9 @@ package com.icedragongame.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import lombok.*;
+import lombok.Data;
 
-import java.io.Serializable;
 import java.math.BigInteger;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -34,7 +32,8 @@ public class Post {
     private String downloadUrl;//下载链接
     private Integer points;//积分点
     private String auditStatus;//审核状态
-    private String username;//作者
+    @TableField("username")
+    private User user;//作者
 }
 
 

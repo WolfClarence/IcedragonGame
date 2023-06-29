@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
 //woshigeshabi
+//test
 @SpringBootApplication
 @ServletComponentScan
 public class IceDragonGameApplication {
     public static void main(String[] args) {
-        SpringApplication.run(IceDragonGameApplication.class,args);
-    }
+        SpringApplication.run(IceDragonGameApplication.class, args);}
 }
