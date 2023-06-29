@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.icedragongame.common.R;
 import com.icedragongame.entity.Post;
 import com.icedragongame.entity.User;
-import com.icedragongame.entity.UserPost;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.ReplyService;
 import com.icedragongame.service.UserPostService;
@@ -66,6 +65,6 @@ public class UserController {
         return R.success(postService.removeById(id));
     }
 }
-/**三种参数：query，body，path
+/*三种参数：query，body，path
  * get请求对应query，post请求对应body，path两个请求都能用
  */

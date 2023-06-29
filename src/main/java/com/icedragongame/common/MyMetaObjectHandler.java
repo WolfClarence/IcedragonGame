@@ -13,10 +13,9 @@ import java.time.LocalDateTime;
  */
 @Component
 @Slf4j
-public class MyMetaObjecthandler implements MetaObjectHandler {
+public class MyMetaObjectHandler implements MetaObjectHandler {
     /**
-     * 插入操作，自动填充
-     * @param metaObject
+     * @param metaObject   插入操作，自动填充
      */
     @Override
     public void insertFill(MetaObject metaObject) {
@@ -30,8 +29,8 @@ public class MyMetaObjecthandler implements MetaObjectHandler {
     }
 
     /**
-     * 更新操作，自动填充
-     * @param metaObject
+     *
+     * @param metaObject 更新操作，自动填充
      */
     @Override
     public void updateFill(MetaObject metaObject) {

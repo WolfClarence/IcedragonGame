@@ -1,6 +1,5 @@
 package com.icedragongame.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.icedragongame.common.BeanConvertUtils;
 import com.icedragongame.common.R;
 import com.icedragongame.dto.PostDto;
@@ -28,7 +27,7 @@ public class SendPostController {
     @PostMapping ("/postingPage")
     public R<Boolean> sendPost(@RequestBody PostDto postDto){
 //        System.out.println(postDto.toString());
-        Post post = BeanConvertUtils.convert(postDto,Post.class);
+        Post post = BeanConvertUtils.beanCopy(postDto,Post.class,true);
 //        System.out.println(post.toString());
         return R.success(postService.save(post));//postService.save(post)
     }

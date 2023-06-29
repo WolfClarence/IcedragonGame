@@ -23,8 +23,8 @@ public class PostController {
 
     /**
      * 查看指定帖子本身详情
-     * @param id
-     * @return
+     * @param id id
+     * @return R
      */
     @RequestMapping("/getPostDetailById/{id}")
     public R<Post> getPostDetailById(@PathVariable Integer id){
@@ -34,15 +34,14 @@ public class PostController {
 
     /**
      * 查看指定帖子回复详情
-     * @param id
+     * @param id id
      * @return post
      */
     @RequestMapping("/getPostReplyById/{id}")
     public List<Reply> getPostReplyById( @PathVariable Integer id){
         LambdaQueryWrapper<Reply> ss = new LambdaQueryWrapper<>();
         ss.eq(Reply::getPostId,id);
-        List<Reply> replyList = replyService.list(ss);
-        return replyList;
+        return replyService.list(ss);
     }
 
 
