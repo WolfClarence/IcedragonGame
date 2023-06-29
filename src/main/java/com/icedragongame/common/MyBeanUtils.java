@@ -1,5 +1,7 @@
 package com.icedragongame.common;
 
+import com.icedragongame.entity.User;
+
 import java.lang.reflect.Field;
 
 /**
@@ -9,7 +11,7 @@ import java.lang.reflect.Field;
  * @Date: 2023/6/28  17:57
  */
 
-public class BeanConvertUtils {
+public class MyBeanUtils {
 
     /**
      * 实现两个类的同名同类型字段的值复制,并返回第二个参数所决定的类型值
@@ -96,6 +98,33 @@ public class BeanConvertUtils {
             }
         }
         return result.toString();
+    }
+
+    public static void initBean(Object bean) {
+        Field[] sourceFields = bean.getClass().getDeclaredFields();
+        for (Field sourceField : sourceFields) {
+            sourceField.setAccessible(true);
+            Class<?> type = sourceField.getType();
+            if(type.equals(String.class)){
+                try {
+                    Object o = sourceField.get(bean);
+                    if(o==null){
+                        sourceField.set(bean,"默认值");
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }else{
+                try {
+                    Object o = sourceField.get(bean);
+                    if(o==null){
+                        sourceField.set(bean,0);
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 
 }

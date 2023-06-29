@@ -6,6 +6,7 @@ import com.icedragongame.common.R;
 import com.icedragongame.common.WebSmallUtils;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -27,6 +28,8 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
             result =R.error(authException.getMessage());
         }else if(authException instanceof InsufficientAuthenticationException){
             result = R.error("无需登陆");
+        }else if(authException instanceof InternalAuthenticationServiceException){
+            result = R.error("用户不存在");
         }else{
             result=R.error("认证或授权失败");
         }

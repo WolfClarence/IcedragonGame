@@ -11,4 +11,6 @@ public interface LoginService {
     public R<Object> login(User user);
 
     R<Object> logout();
+
+    R<Object> register(User user);
 }

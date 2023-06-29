@@ -1,5 +1,6 @@
 package com.icedragongame.config;
 
+
 import com.icedragongame.filter.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,13 +26,12 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
-    @Autowired
-    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
     @Autowired
     AuthenticationEntryPoint authenticationEntryPoint;
     @Autowired
     AccessDeniedHandler accessDeniedHandler;
+    @Autowired
+    JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
 
 

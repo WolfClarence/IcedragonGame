@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
         //打印异常信息
         log.error("出现SystemExceptionBySelf异常: "+e);
         //从异常对象中获取提示信息封装返回
-        return R.error(e.getMessage());
+        return R.error("出现SystemExceptionBySelf异常: "+e.getMessage());
     }
 
 
@@ -23,7 +23,8 @@ public class GlobalExceptionHandler {
     public R<Object> exceptionHandler(Exception e){
         //打印异常信息
         log.error("出现系统异常: "+e);
+        e.printStackTrace();
         //从异常对象中获取提示信息封装返回
-        return R.error(e.getMessage());
+        return R.error("系统异常:"+e.getMessage());
     }
 }

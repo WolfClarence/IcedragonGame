@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginVo {
-    String jwt;
+    String token;
     UserInfoVo userInfoVo;
 }

@@ -5,9 +5,10 @@ import com.icedragongame.common.JwtUtil;
 import com.icedragongame.common.R;
 import com.icedragongame.common.WebSmallUtils;
 import com.icedragongame.dto.LoginUserDetails;
-import com.icedragongame.exception.SystemExceptionBySelf;
 
+import com.sun.istack.internal.NotNull;
 import io.jsonwebtoken.Claims;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,6 +39,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String token = request.getHeader("token");
         if(!StringUtils.hasText(token)){
             //说明该接口不需要登录  直接放行
+            System.out.println("request:"+request);
+            System.out.println("response:"+response);
             filterChain.doFilter(request, response);
             return;
         }

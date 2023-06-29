@@ -125,7 +125,6 @@
 <!--            <version>2.3.0</version>-->
 <!--        </dependency>-->
 
-
         <!--redis依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
@@ -16,6 +17,7 @@ import java.util.Objects;
  * @auther: gengxuelong
  * @date:2023/6/29 12:55
  */
+@Service
 public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
     private UserMapper userMapper;

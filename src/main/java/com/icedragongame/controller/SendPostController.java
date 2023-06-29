@@ -1,6 +1,6 @@
 package com.icedragongame.controller;
 
-import com.icedragongame.common.BeanConvertUtils;
+import com.icedragongame.common.MyBeanUtils;
 import com.icedragongame.common.R;
 import com.icedragongame.dto.PostDto;
 import com.icedragongame.entity.Post;
@@ -27,7 +27,7 @@ public class SendPostController {
     @PostMapping ("/postingPage")
     public R<Boolean> sendPost(@RequestBody PostDto postDto){
 //        System.out.println(postDto.toString());
-        Post post = BeanConvertUtils.beanCopy(postDto,Post.class,true);
+        Post post = MyBeanUtils.beanCopy(postDto,Post.class,true);
 //        System.out.println(post.toString());
         return R.success(postService.save(post));//postService.save(post)
     }

@@ -11,7 +11,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @ServletComponentScan
 @EnableSwagger2
-@EnableCaching
 public class IceDragonGameApplication {
     public static void main(String[] args) {
         SpringApplication.run(IceDragonGameApplication.class, args);}
