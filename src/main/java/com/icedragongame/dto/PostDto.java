@@ -1,12 +1,7 @@
 package com.icedragongame.dto;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
-import java.math.BigInteger;
-import java.time.LocalDateTime;
 
 /**
  * @ClassName : PostDto  //类名
