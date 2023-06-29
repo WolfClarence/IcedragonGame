@@ -24,8 +24,7 @@ public class Reply {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime buildTime;
 
-    @TableField("username")
+
     String username;//作者
-    @TableField("post_id")
     Integer postId;//在哪个帖子之下
 }

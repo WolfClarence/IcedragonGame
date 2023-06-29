@@ -32,8 +32,8 @@ public class Post {
     private String downloadUrl;//下载链接
     private Integer points;//积分点
     private String auditStatus;//审核状态
-    @TableField("username")
-    private User user;//作者
+
+    private String username;//作者
 }
 
 
