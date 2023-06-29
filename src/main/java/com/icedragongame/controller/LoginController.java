@@ -1,6 +1,6 @@
 package com.icedragongame.controller;
 
-import com.icedragongame.common.MyBeanUtils;
+import com.icedragongame.utils.MyBeanUtils;
 import com.icedragongame.common.R;
 import com.icedragongame.dto.UserDto;
 import com.icedragongame.entity.User;

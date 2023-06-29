@@ -1,7 +1,7 @@
 package com.icedragongame.service.impl;
 
-import com.icedragongame.common.MyBeanUtils;
-import com.icedragongame.common.JwtUtil;
+import com.icedragongame.utils.MyBeanUtils;
+import com.icedragongame.utils.JwtUtil;
 import com.icedragongame.common.R;
 import com.icedragongame.dto.LoginUserDetails;
 import com.icedragongame.entity.User;

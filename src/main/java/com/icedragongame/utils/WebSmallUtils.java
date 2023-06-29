@@ -1,4 +1,4 @@
-package com.icedragongame.common;
+package com.icedragongame.utils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -35,8 +35,5 @@ public class WebSmallUtils
         response.setHeader("content-type",mimeType);
         String fname= URLEncoder.encode(filename,"UTF-8");
         response.setHeader("Content-disposition","attachment; filename="+fname);
-
-//        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-//        response.setCharacterEncoding("utf-8");
     }
 }

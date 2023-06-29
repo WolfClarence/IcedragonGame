@@ -1,4 +1,4 @@
-package com.icedragongame.common;
+package com.icedragongame.utils;
 
 import com.icedragongame.entity.User;
 

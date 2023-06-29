@@ -1,14 +1,12 @@
 package com.icedragongame.filter;
 
 import com.alibaba.fastjson.JSON;
-import com.icedragongame.common.JwtUtil;
+import com.icedragongame.utils.JwtUtil;
 import com.icedragongame.common.R;
-import com.icedragongame.common.WebSmallUtils;
+import com.icedragongame.utils.WebSmallUtils;
 import com.icedragongame.dto.LoginUserDetails;
 
-import com.sun.istack.internal.NotNull;
 import io.jsonwebtoken.Claims;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

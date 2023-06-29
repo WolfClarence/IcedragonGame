@@ -1,4 +1,4 @@
-package com.icedragongame.common;
+package com.icedragongame.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;

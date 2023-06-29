@@ -22,3 +22,9 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: ASSIGN_ID
+gxl:
+  oss:
+    access-key: AmjB_zGL0xduM9GgETHt5Lm_TBmc4Lda_ptAv1Mh
+    secret-key: 1V9i1WJY9URmz21paAVEKuPN3IKnkrWrIr1kifCe
+    bucket: gxl-image-store
+    domain: http://rx0irz5ci.hn-bkt.clouddn.com/

@@ -33,6 +33,7 @@ public class Post {
     private Integer points;//积分点
     private String auditStatus;//审核状态
     private String username;//作者
+    private String imageUrl;
 }
 
 
