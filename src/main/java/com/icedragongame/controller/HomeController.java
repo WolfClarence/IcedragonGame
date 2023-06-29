@@ -51,7 +51,12 @@ public class HomeController {
         upQuery.eq("username",username);
         List<UserPost> upList =  userPostService.list(upQuery);
         List<Integer> pidList = upList.stream().map(UserPost::getPostId).collect(Collectors.toList());//PostID表
-        List<Post> list = postService.listByIds(pidList);
+        List<Post> list;
+        if(pidList.size() == 0){//没有关注
+            list = new ArrayList<>();
+        }else {
+            list = postService.listByIds(pidList);
+        }
         return R.success(list);
     }
 
