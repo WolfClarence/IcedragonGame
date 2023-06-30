@@ -1,6 +1,7 @@
 package com.icedragongame.vo;
 
 import com.icedragongame.entity.Reply;
+import com.icedragongame.utils.MyBeanUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,8 +27,10 @@ public class ReplyVo {
     public static List<ReplyVo> getRVbyReply(List<Reply> replyList ){
     int i=0;
     List<ReplyVo> replyVos = new ArrayList<>();
+
     while (i<replyList.size()){
-        replyVos.add(new ReplyVo(replyList.get(i)));
+        ReplyVo replyVo = MyBeanUtils.beanCopy(replyList.get(i),ReplyVo.class,true);
+        replyVos.add(replyVo);
         i++;
     }
     return replyVos;

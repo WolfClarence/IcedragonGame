@@ -6,10 +6,7 @@ import com.icedragongame.entity.Post;
 import com.icedragongame.entity.User;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -32,7 +29,7 @@ public class AdminController {
      * @param username param1
      * @return R
      */
-    @GetMapping("/banUser/{username}")
+    @PostMapping("/banUser/{username}")
     public R<String> banUser ( @PathVariable String  username){
 
 
@@ -55,7 +52,7 @@ public class AdminController {
      * 解封用户
      * @param username param
      */
-    @GetMapping("/freeUser/{username}")
+    @PostMapping("/freeUser/{username}")
     public R<String> freeUser ( @PathVariable String username){
         User user = userService.getById(username);
         if (user!=null){
@@ -78,7 +75,7 @@ public class AdminController {
      * @param id 文章id
      * @param status 状态
      */
-    @GetMapping ("/changeAuditStatus/{postId}/{status}")
+    @PostMapping ("/changeAuditStatus/{postId}/{status}")
     public R<String> changeAuditStatus( @PathVariable("postId") Integer id,@PathVariable String status){
 
             Post post = postService.getById(id);
@@ -101,7 +98,7 @@ public class AdminController {
      * 升级用户为管理员
      * @param username username
      */
-    @GetMapping("/upGrade/{username}")
+    @PostMapping("/upGrade/{username}")
     public R<String> upGrade( @PathVariable String username){
 
         User user = userService.getById(username);
