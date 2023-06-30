@@ -39,7 +39,7 @@ public class HomeController {
     @GetMapping("/hotgame")
     public R<List<BriefPostVo>> hotgame() {
         QueryWrapper<Post> query = new QueryWrapper<>();
-        query.orderByDesc("reply_num", "scan_num");
+        query.orderByDesc("2 * reply_num + scan_num");
         query.last("limit 10");
         List<Post> list = postService.list(query);
         return R.success(BriefPostVo.getBPVbyPosts(list));

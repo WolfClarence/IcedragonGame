@@ -27,7 +27,7 @@ public class SearchController {
         if(sort.equals(0)){//按时间
             query.orderByDesc("build_time");
         }else{//按热度
-            query.orderByDesc("reply_num","scan_num");
+            query.orderByDesc("2 * reply_num + scan_num");
         }
 
         //游戏类别
