@@ -1,4 +1,4 @@
-package com.icedragongame.contanst;
+package com.icedragongame.constant;
 
 /**
  * @author gengxuelong

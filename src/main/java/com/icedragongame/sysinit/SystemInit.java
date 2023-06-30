@@ -1,20 +1,15 @@
 package com.icedragongame.sysinit;
 
-import com.icedragongame.contanst.ConstantBySelf;
+import com.icedragongame.constant.ConstantBySelf;
 import com.icedragongame.entity.Post;
 import com.icedragongame.service.PostService;
 import com.icedragongame.utils.MyRedisUtils;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.math.BigInteger;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

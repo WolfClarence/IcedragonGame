@@ -1,7 +1,7 @@
 package com.icedragongame.sysschedulejob;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.icedragongame.contanst.ConstantBySelf;
+import com.icedragongame.constant.ConstantBySelf;
 import com.icedragongame.entity.Post;
 import com.icedragongame.service.PostService;
 import com.icedragongame.utils.MyRedisUtils;
@@ -29,7 +29,7 @@ public class SysScheduleJob {
     /**
      * 每个十分钟向数据库服务器更新以一次数据
      */
-    @Scheduled(cron = "0/5 * * * * ?")
+    @Scheduled(cron = "${gxl.schedule.time}")
     public void putScanDataToMysqlFromRedis(){
         Map<Integer, Integer> scanForPostList = myRedisUtils.getMap(ConstantBySelf.KEY_SCANS_POST);
         for (Map.Entry<Integer, Integer> integerIntegerEntry : scanForPostList.entrySet()) {

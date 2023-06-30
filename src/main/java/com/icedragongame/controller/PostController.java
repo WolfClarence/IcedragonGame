@@ -2,7 +2,7 @@ package com.icedragongame.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.icedragongame.common.R;
-import com.icedragongame.contanst.ConstantBySelf;
+import com.icedragongame.constant.ConstantBySelf;
 import com.icedragongame.entity.Post;
 import com.icedragongame.entity.Reply;
 import com.icedragongame.service.PostService;

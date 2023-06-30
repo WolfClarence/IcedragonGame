@@ -28,3 +28,5 @@ gxl:
     secret-key: 1V9i1WJY9URmz21paAVEKuPN3IKnkrWrIr1kifCe
     bucket: gxl-image-store
     domain: http://rx0irz5ci.hn-bkt.clouddn.com/
+  schedule:
+    time: * 0/10 * * * ?
