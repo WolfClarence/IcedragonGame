@@ -6,6 +6,7 @@ import com.icedragongame.entity.Post;
 import com.icedragongame.entity.UserPost;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.UserPostService;
+import com.icedragongame.vo.BriefPostVo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,25 +28,25 @@ public class HomeController {
     private UserPostService userPostService;
 
     @GetMapping("/newGame")
-    public R<List<Post>> newGame(){
+    public R<List<BriefPostVo>> newGame(){
         QueryWrapper<Post> query = new QueryWrapper<>();
         query.orderByDesc("build_time");
         query.last("limit 10");
         List<Post> list = postService.list(query);
-        return R.success(list);
+        return R.success(BriefPostVo.getBPVbyPosts(list));
     }
 
     @GetMapping("/hotgame")
-    public R<List<Post>> hotgame() {
+    public R<List<BriefPostVo>> hotgame() {
         QueryWrapper<Post> query = new QueryWrapper<>();
         query.orderByDesc("reply_num", "scan_num");
         query.last("limit 10");
         List<Post> list = postService.list(query);
-        return R.success(list);
+        return R.success(BriefPostVo.getBPVbyPosts(list));
     }
 
     @GetMapping("/followedGame/{username}")
-    public R<List<Post>> followedGame(@PathVariable(value = "username") String username) {
+    public R<List<BriefPostVo>> followedGame(@PathVariable(value = "username") String username) {
         QueryWrapper<UserPost> upQuery = new QueryWrapper<>();
         upQuery.eq("username",username);
         List<UserPost> upList =  userPostService.list(upQuery);
@@ -56,14 +57,14 @@ public class HomeController {
         }else {
             list = postService.listByIds(pidList);
         }
-        return R.success(list);
+        return R.success(BriefPostVo.getBPVbyPosts(list));
     }
 
     @GetMapping("/category/{category}")
-    public R<List<Post>> category(@PathVariable(value = "category") String category) {
+    public R<List<BriefPostVo>> category(@PathVariable(value = "category") String category) {
         QueryWrapper<Post> query = new QueryWrapper<>();
         query.eq("category",category);
         List<Post> list = postService.list(query);
-        return R.success(list);
+        return R.success(BriefPostVo.getBPVbyPosts(list));
     }
 }
