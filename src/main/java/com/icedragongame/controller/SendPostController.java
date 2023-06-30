@@ -1,13 +1,12 @@
 package com.icedragongame.controller;
 
+import com.icedragongame.utils.MyBeanUtils;
 import com.icedragongame.common.R;
+import com.icedragongame.dto.PostDto;
 import com.icedragongame.entity.Post;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.ReplyService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -26,9 +25,11 @@ public class SendPostController {
     private PostService postService;
 
     @PostMapping ("/postingPage")
-    public R<Boolean> sendPost(@RequestBody Post post){
-
-        return R.success(postService.save(post));
+    public R<Boolean> sendPost(@RequestBody PostDto postDto){
+//        System.out.println(postDto.toString());
+        Post post = MyBeanUtils.beanCopy(postDto,Post.class,true);
+//        System.out.println(post.toString());
+        return R.success(postService.save(post));//postService.save(post)
     }
 
 

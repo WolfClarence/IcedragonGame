@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 spring:
   datasource:
     druid:
@@ -7,6 +7,13 @@ spring:
       url: jdbc:mysql://10.13.0.126:3306/mydb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
       username: root
       password: root
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 5MB
+  redis:
+    host: 10.13.0.126
+    port: 6379
 mybatis-plus:
   configuration:
     #在映射实体或者属性时，将数据库中表名和字段名中的下划线去掉，按照驼峰命名法映射
@@ -15,3 +22,11 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: ASSIGN_ID
+gxl:
+  oss:
+    access-key: AmjB_zGL0xduM9GgETHt5Lm_TBmc4Lda_ptAv1Mh
+    secret-key: 1V9i1WJY9URmz21paAVEKuPN3IKnkrWrIr1kifCe
+    bucket: gxl-image-store
+    domain: http://rx0irz5ci.hn-bkt.clouddn.com/
+  schedule:
+    time: "* 0/10 * * * ?"

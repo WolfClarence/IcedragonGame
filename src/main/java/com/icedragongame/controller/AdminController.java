@@ -28,8 +28,8 @@ public class AdminController {
 
     /**
      * 封禁用户
-     * @param username
-     * @return
+     * @param username param1
+     * @return R
      */
     @GetMapping("/banUser/{username}")
     public R<String> banUser ( @PathVariable String  username){
@@ -52,7 +52,7 @@ public class AdminController {
 
     /**
      * 解封用户
-     * @param username
+     * @param username param
      */
     @GetMapping("/freeUser/{username}")
     public R<String> freeUser ( @PathVariable String username){
@@ -74,8 +74,8 @@ public class AdminController {
 
     /**
      * 修改审核状态
-     * @param id
-     * @param status
+     * @param id 文章id
+     * @param status 状态
      */
     @GetMapping ("/changeAuditStatus/{postId}/{status}")
     public R<String> changeAuditStatus( @PathVariable("postId") Integer id,@PathVariable String status){
@@ -98,7 +98,7 @@ public class AdminController {
 
     /**
      * 升级用户为管理员
-     * @param username
+     * @param username username
      */
     @GetMapping("/upGrade/{username}")
     public R<String> upGrade( @PathVariable String username){
