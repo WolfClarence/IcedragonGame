@@ -1,5 +1,6 @@
 package com.icedragongame.common;
 
+import com.icedragongame.common.myenum.SystemError;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -22,23 +23,24 @@ public class R<T> {
     public static <T> R<T> success(T object) {
         R<T> r = new R<T>();
         r.data = object;
-        r.code = 200;
+        r.code = SystemError.SUCCESS.getCode();
+        r.msg = SystemError.SUCCESS.getMsg();
         return r;
     }
 
     public static <T> R<T> success() {
         R<T> r = new R<T>();
         r.data = null;
-        r.code = 200;
+        r.code = SystemError.SUCCESS.getCode();
+        r.msg = SystemError.SUCCESS.getMsg();
         return r;
     }
 
     public static <T> R<T> error(String msg) {
         R<T> r = new R<>();
         r.msg = msg;
-        r.code = 500;
+        r.code = SystemError.UNKNOWN_ERROR.getCode();
         return r;
     }
-
 
 }

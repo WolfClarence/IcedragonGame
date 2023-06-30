@@ -25,7 +25,7 @@ public class Post {
     private String title;//标题
     private BigInteger scanNum;//浏览量
     private BigInteger replyNum;//回复量
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime buildTime;//创建时间
 
     private String gameName;//游戏名
