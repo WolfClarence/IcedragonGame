@@ -8,6 +8,9 @@ import com.icedragongame.service.PostService;
 import com.icedragongame.service.ReplyService;
 import com.icedragongame.service.UserPostService;
 import com.icedragongame.service.UserService;
+import com.icedragongame.vo.BriefPostVo;
+import com.icedragongame.vo.BriefUserVo;
+import com.icedragongame.vo.UserInfoVo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -33,36 +36,40 @@ public class UserController {
 
     //获取用户基本信息
     @GetMapping("/personal/userinfo/{username}")
-    public R<User> getUserInfoByName(@PathVariable("username") String username){
+    public R<BriefUserVo> getUserInfoByName(@PathVariable("username") String username){
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username); // 根据用户名查询
-        return R.success(userService.getOne(queryWrapper));
+        User user = userService.getOne(queryWrapper);
+        BriefUserVo BUV = new BriefUserVo(user);
+        return R.success(BUV);
     }
 
     //获取用户发帖记录
     @GetMapping("/personal/post/{username}")
-    public R<List<Post>> getUserPostRecordByName(@PathVariable("username") String username){
+    public R<List<BriefPostVo>> getUserPostRecordByName(@PathVariable("username") String username){
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username); // 根据用户名查询
         List<Post> postList = postService.list(queryWrapper);
-        return R.success(postList);
+        List<BriefPostVo> BPVs = new BriefPostVo().getBPVbyPosts(postList);
+        return R.success(BPVs);
     }
 
     //获取未审核的帖子
     @GetMapping("/manager/uncheckedlist")
-    public R<List<Post>> getUnauditedPost(){
+    public R<List<BriefPostVo>> getUnauditedPost(){
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("audit_status","未审核");
         List<Post> postList = postService.list(queryWrapper);
-        return R.success(postList);
+        List<BriefPostVo> BPVs = new BriefPostVo().getBPVbyPosts(postList);
+        return R.success(BPVs);
     }
 
 
     //删除帖子
     @PostMapping("/manager/delete/{post_id}")
-    public R<Boolean> deletePostById(@PathVariable("post_id") int id){
-
-        return R.success(postService.removeById(id));
+    public R<String> deletePostById(@PathVariable("post_id") int id){
+        postService.removeById(id);
+        return R.success("删除帖子成功");
     }
 }
 /*三种参数：query，body，path

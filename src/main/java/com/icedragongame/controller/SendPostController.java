@@ -25,11 +25,12 @@ public class SendPostController {
     private PostService postService;
 
     @PostMapping ("/postingPage")
-    public R<Boolean> sendPost(@RequestBody PostDto postDto){
+    public R<String> sendPost(@RequestBody PostDto postDto){
 //        System.out.println(postDto.toString());
         Post post = MyBeanUtils.beanCopy(postDto,Post.class,true);
 //        System.out.println(post.toString());
-        return R.success(postService.save(post));//postService.save(post)
+        postService.save(post);
+        return R.success("帖子写入成功！");//postService.save(post)
     }
 
 

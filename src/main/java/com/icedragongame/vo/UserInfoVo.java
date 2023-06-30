@@ -24,3 +24,10 @@ public class UserInfoVo {
 
 
 }
+   /** UserInfoVo userInfo = new UserInfoVo()
+            .setUsername("admin")
+            .setUserNickname("管理员")
+            .setUserIdentity("管理员身份")
+            .setUserPoints("100")
+            .setUserStatus("正常");
+    **/
