@@ -28,13 +28,8 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         metaObject.setValue("auditStatus", "未审核");
     }
 
-    /**
-     *
-     * @param metaObject 更新操作，自动填充
-     */
     @Override
     public void updateFill(MetaObject metaObject) {
 
-        metaObject.setValue("buildTime",LocalDateTime.now());
     }
 }

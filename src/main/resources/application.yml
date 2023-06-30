@@ -29,4 +29,4 @@ gxl:
     bucket: gxl-image-store
     domain: http://rx0irz5ci.hn-bkt.clouddn.com/
   schedule:
-    time: * 0/10 * * * ?
+    time: "* 0/10 * * * ?"
