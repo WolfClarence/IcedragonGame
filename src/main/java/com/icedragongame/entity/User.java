@@ -1,7 +1,9 @@
 package com.icedragongame.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @ClassName : User  //类名
@@ -10,6 +12,8 @@ import lombok.Data;
  * @Date: 2023/6/27  10:11
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @TableId
     private String username;

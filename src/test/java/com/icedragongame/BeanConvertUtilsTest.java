@@ -33,7 +33,7 @@ public class BeanConvertUtilsTest {
 //        }
         Post post = new Post();
         post.setPostId(122);
-        post.setScanNum(BigInteger.valueOf(110));
+        post.setScanNum(BigInteger.valueOf(111110));
         postService.updateById(post);
 
     }

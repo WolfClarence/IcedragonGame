@@ -1,5 +1,6 @@
 package com.icedragongame.utils;
 
+import com.icedragongame.entity.Post;
 import com.icedragongame.entity.User;
 
 import java.lang.reflect.Field;
@@ -29,9 +30,9 @@ public class MyBeanUtils {
             throw new RuntimeException(e);
         }
         Field[] sourceFields = object.getClass().getDeclaredFields();
-        Field[] targetFields = clazz.getDeclaredFields();
+        Field[] getDeclaredFields = clazz.getDeclaredFields();
         for (Field sourceField : sourceFields) {
-            for (Field targetField : targetFields) {
+            for (Field targetField : getDeclaredFields) {
                 if(isIgnoreUnderLineAndSmallCamel){
                     if (isEqualIgnoreUnderLine(sourceField.getName(),targetField.getName() )&& sourceField.getType() == targetField.getType()) {
                         try {
@@ -125,6 +126,31 @@ public class MyBeanUtils {
                 }
             }
         }
+    }
+
+    /**
+     *  将源类中的不为null的字段赋值给target
+     * @param source
+     * @param target
+     * @return
+     * @param <T>
+     */
+    public static <T> T updateBeanBySource(T source, T target) {
+        Class<?> aClass = source.getClass();
+        Field[] declaredFields = aClass.getDeclaredFields();
+        for (Field declaredField : declaredFields) {
+            try {
+                declaredField.setAccessible(true);
+                Object o = declaredField.get(source);
+                if(o!=null){
+                    declaredField.set(target,o);
+                }
+
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return target;
     }
 
 }

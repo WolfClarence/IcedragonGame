@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.icedragongame.common.R;
 import com.icedragongame.entity.Post;
 import com.icedragongame.service.PostService;
+import com.icedragongame.vo.BriefPostVo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -17,7 +18,7 @@ public class SearchController {
     private PostService postService;
 
     @GetMapping("/search")
-    public R<List<Post>> search(@RequestParam(value = "sort",required = false) Integer sort,
+    public R<List<BriefPostVo>> search(@RequestParam(value = "sort",required = false) Integer sort,
                                 @RequestParam(value = "category",required = false) String category,
                                 @RequestParam(value = "key_word",required = false) String keyWord){
         QueryWrapper<Post> query = new QueryWrapper<>();
@@ -39,6 +40,6 @@ public class SearchController {
             query.like("game_name",keyWord);
         }
         List<Post> list = postService.list(query);
-        return R.success(list);
+        return R.success(BriefPostVo.getBPVbyPosts(list));
     }
 }

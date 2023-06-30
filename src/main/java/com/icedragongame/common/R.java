@@ -42,5 +42,22 @@ public class R<T> {
         r.code = SystemError.UNKNOWN_ERROR.getCode();
         return r;
     }
+    public static <T> R<T> error(SystemError systemError,T data) {
+        R<T> r = new R<>();
+        r.msg = systemError.getMsg();
+        r.code = systemError.getCode();
+        r.data = data;
+        return r;
+    }
+
+    public static <T> R<T> error(SystemError systemError) {
+        return error(systemError,null);
+    }
+
+
+    private   R() {
+    }
+
+
 
 }
