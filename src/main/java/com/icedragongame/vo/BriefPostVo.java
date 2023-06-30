@@ -26,7 +26,7 @@ public class BriefPostVo {
 
     /**
      * 根据post返回brief_post
-     * @param post
+     * @param post post
      */
     public BriefPostVo(Post post){
         post_id = post.getPostId();
@@ -47,5 +47,9 @@ public class BriefPostVo {
                 retList.add(new BriefPostVo(posts.get(i)));
         }
         return retList;
+    }
+
+    public static BriefPostVo getBPVbyAPost(Post post){
+        return  new BriefPostVo(post);
     }
 }
