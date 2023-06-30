@@ -21,7 +21,7 @@ public class Reply {
     private Integer replyId;
     private String replyContext;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime buildTime;
 
     String username;//作者

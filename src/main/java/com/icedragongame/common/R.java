@@ -1,5 +1,6 @@
 package com.icedragongame.common;
 
+import com.icedragongame.common.myenum.MyEnum;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -33,12 +34,23 @@ public class R<T> {
         return r;
     }
 
+    public static <T> R<T> error(Integer code) {
+        R<T> r = new R<>();
+        //根据code获取枚举值，并设置msg
+        MyEnum e = MyEnum.valueOfCode(code);
+        if (e != null) {
+            r.msg = e.getMsg();
+        } else {
+            r.msg = "未知错误";
+        }
+        r.code = code;
+        return r;
+    }
+
     public static <T> R<T> error(String msg) {
         R<T> r = new R<>();
         r.msg = msg;
         r.code = 500;
         return r;
     }
-
-
 }

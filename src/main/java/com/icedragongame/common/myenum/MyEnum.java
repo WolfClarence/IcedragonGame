@@ -22,4 +22,14 @@ public enum MyEnum {
     public String getMsg(){
         return this.msg;
     }
+
+    //添加一个静态方法，根据code返回枚举值
+    public static MyEnum valueOfCode(Integer code) {
+        for (MyEnum e : values()) {
+            if (e.code.equals(code)) {
+                return e;
+            }
+        }
+        return null;
+    }
 }
