@@ -8,6 +8,8 @@ import com.icedragongame.entity.Reply;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.ReplyService;
 import com.icedragongame.utils.MyRedisUtils;
+import com.icedragongame.vo.BriefPostVo;
+import com.icedragongame.vo.ReplyVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,25 +31,27 @@ public class PostController {
 
     /**
      * 查看指定帖子本身详情
-     * @param id id
+     * @param postId postId
      * @return R
      */
-    @RequestMapping("/getPostDetailById/{id}")
-    public R<Post> getPostDetailById(@PathVariable Integer id){
-        Post post = postService.getById(id);
-        return R.success(post);
+    @RequestMapping("/getPostDetailById/{postId}")
+    public R<BriefPostVo> getPostDetailById(@PathVariable Integer postId){
+        Post post = postService.getById(postId);
+        return R.success(BriefPostVo.getBPVbyAPost(post));
     }
 
     /**
      * 查看指定帖子回复详情
-     * @param id id
+     * @param postId postId
      * @return post
      */
-    @RequestMapping("/getPostReplyById/{id}")
-    public List<Reply> getPostReplyById( @PathVariable Integer id){
+    @RequestMapping("/getPostReplyById/{postId}")
+    public R<List<ReplyVo>> getPostReplyById(@PathVariable Integer postId){
         LambdaQueryWrapper<Reply> ss = new LambdaQueryWrapper<>();
-        ss.eq(Reply::getPostId,id);
-        return replyService.list(ss);
+        ss.eq(Reply::getPostId,postId);
+        List<Reply> replyList = replyService.list(ss);
+
+        return R.success(ReplyVo.getRVbyReply(replyList));
     }
 
     @RequestMapping("/scanNumUpOne/{postId}")

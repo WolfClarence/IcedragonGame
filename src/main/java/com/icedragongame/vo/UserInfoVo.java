@@ -3,7 +3,6 @@ package com.icedragongame.vo;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-
 @Data
 @Accessors(chain = true)//set方法返回本身
 public class UserInfoVo {
