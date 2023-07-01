@@ -1,7 +1,5 @@
 package com.icedragongame.vo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.icedragongame.entity.Post;
 import com.icedragongame.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +20,7 @@ import java.util.List;
 public class BriefUserVo {
 
     private String username;
-    private String user_password;
+
     private String user_nickname;
 
     private int user_identity;
@@ -30,7 +28,6 @@ public class BriefUserVo {
     private String user_status;
     public BriefUserVo(User user){
         username = user.getUsername();
-        user_password = user.getUserPassword();
         user_nickname = user.getUserNickname();
         user_identity = user.getUserIdentity();
         user_points = user.getUserPoints();
@@ -40,8 +37,8 @@ public class BriefUserVo {
     public static List<BriefUserVo> getBUVbyUsers(List<User> users){
         int length = users.size();
         List<BriefUserVo> retList = new ArrayList<>();
-        for(int i = 0; i < length; i++) {
-            retList.add(new BriefUserVo(users.get(i)));
+        for (User user : users) {
+            retList.add(new BriefUserVo(user));
         }
         return retList;
     }

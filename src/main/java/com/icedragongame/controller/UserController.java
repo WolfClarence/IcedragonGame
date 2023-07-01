@@ -2,19 +2,19 @@ package com.icedragongame.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.icedragongame.common.R;
+import com.icedragongame.dto.PagingDto;
 import com.icedragongame.entity.Post;
 import com.icedragongame.entity.User;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.ReplyService;
-import com.icedragongame.service.UserPostService;
 import com.icedragongame.service.UserService;
-import com.icedragongame.vo.BriefPostVo;
 import com.icedragongame.vo.BriefUserVo;
-import com.icedragongame.vo.UserInfoVo;
+import com.icedragongame.vo.PageVo;
+import com.icedragongame.vo.PostVo;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * <p>
@@ -73,19 +73,6 @@ public class UserController {
      */
     @Resource
     private PostService postService;
-    /**
-     * <p>
-     *     project: snow_dragonGame blogSystem
-     *
-     *  该参数名称为:
-     *     <name>
-     *
-     *  该参数描述为:
-     *   <effect>
-     *
-     */
-    @Resource
-    private UserPostService userPostService;
 
     /**
      * <p>
@@ -103,6 +90,7 @@ public class UserController {
      *
      */
     @GetMapping("/personal/userinfo/{username}")
+    @ApiOperation("得到一个用户的详细信息")
     public R<BriefUserVo> getUserInfoByName(@PathVariable("username") String username){
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username); // 根据用户名查询
@@ -126,13 +114,13 @@ public class UserController {
      *   <description>
      *
      */
-    @GetMapping("/personal/post/{username}")
-    public R<List<BriefPostVo>> getUserPostRecordByName(@PathVariable("username") String username){
+    @PostMapping("/personal/post/{username}")
+    @ApiOperation("得到一个用户的所有文章,分页方式")
+    public R<Object> getUserPostRecordByName(@PathVariable("username") String username,@RequestBody PagingDto pagingDto){
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username); // 根据用户名查询
-        List<Post> postList = postService.list(queryWrapper);
-        List<BriefPostVo> BPVs = new BriefPostVo().getBPVbyPosts(postList);
-        return R.success(BPVs);
+        PageVo<PostVo> postVoPageVo = postService.pageForPostVO(pagingDto, queryWrapper);
+        return R.success(postVoPageVo);
     }
 
     /**
@@ -150,13 +138,13 @@ public class UserController {
      *   <description>
      *
      */
-    @GetMapping("/manager/uncheckedlist")
-    public R<List<BriefPostVo>> getUnauditedPost(){
+    @PostMapping("/manager/uncheckedlist")
+    @ApiOperation("得到所有未审核的文章,分页方式")
+    public R<Object> getUnauditedPost(@RequestBody PagingDto pagingDto){
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("audit_status","未审核");
-        List<Post> postList = postService.list(queryWrapper);
-        List<BriefPostVo> BPVs = new BriefPostVo().getBPVbyPosts(postList);
-        return R.success(BPVs);
+        PageVo<PostVo> postVoPageVo = postService.pageForPostVO(pagingDto, queryWrapper);
+        return R.success(postVoPageVo);
     }
 
 
@@ -176,6 +164,7 @@ public class UserController {
      *
      */
     @PostMapping("/manager/delete/{post_id}")
+    @ApiOperation("按照id删除帖子")
     public R<String> deletePostById(@PathVariable("post_id") int id){
         postService.removeById(id);
         return R.success("删除帖子成功");

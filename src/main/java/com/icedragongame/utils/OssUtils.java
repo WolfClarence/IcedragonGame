@@ -1,6 +1,8 @@
 package com.icedragongame.utils;
 
 import com.google.gson.Gson;
+import com.icedragongame.common.myenum.SystemError;
+import com.icedragongame.exception.SystemExceptionBySelf;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.Configuration;
@@ -9,12 +11,11 @@ import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -32,8 +33,18 @@ public class OssUtils {
     private String secretKey;
     private String bucket;
     private String domain;
+    private int maxFileSize;
 
-    public   String imageUpload(InputStream inputStream,String suffix){
+    public  String imageUpload(InputStream inputStream,String suffix){
+        int available = 0;
+        try {
+            available = inputStream.available();
+            if(available>maxFileSize){
+                throw new SystemExceptionBySelf(SystemError.FILE_SIZE_OVER_LIMIT);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         //构造一个带指定 Region 对象的配置类
         Configuration cfg = new Configuration(Region.autoRegion());
         cfg.resumableUploadAPIVersion = Configuration.ResumableUploadAPIVersion.V2;// 指定分片上传版本

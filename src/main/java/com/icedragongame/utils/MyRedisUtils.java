@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -73,11 +72,12 @@ public class MyRedisUtils {
         redisTemplate.opsForHash().put(key,k,t);
     }
 
-    public <K,T> void increaseMapValue(String key, K k,int num){
-        redisTemplate.opsForHash().increment(key,k,num);
+    public <K> void increaseMapValue(String key, K k,long num){
+        BoundHashOperations<String,K,K> boundHashOperations = redisTemplate.boundHashOps(key);
+        boundHashOperations.increment(k,num);
     }
-    public <K,T> void increaseOneToMapValue(String key, K k){
-        redisTemplate.opsForHash().increment(key,k,1);
+    public <K> void increaseOneToMapValue(String key, K k){
+        increaseMapValue(key,k,1L);
     }
     public <K,T> void setMultiMapValue(String key,Map<K,T> map){
         redisTemplate.opsForHash().putAll(key,map);

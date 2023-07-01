@@ -1,8 +1,5 @@
 package com.icedragongame.utils;
 
-import com.icedragongame.entity.Post;
-import com.icedragongame.entity.User;
-
 import java.lang.reflect.Field;
 
 /**
@@ -23,12 +20,35 @@ public class MyBeanUtils {
      * @param <T> 返回回值
      */
     public static <T> T beanCopy(Object object, Class<T> clazz,boolean isIgnoreUnderLineAndSmallCamel){
-        T res=null;
+        T target=null;
         try {
-             res = clazz.newInstance();
+             target = clazz.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+        return beanCopy(object,target,isIgnoreUnderLineAndSmallCamel);
+    }
+
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *       默认忽略下划线和小驼峰
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
+     */
+    public static <T> T beanCopy(Object object, Class<T> clazz){
+        return beanCopy(object,clazz,true);
+    }
+    public static <T> T beanCopy(Object object, T target,boolean isIgnoreUnderLineAndSmallCamel){
+        Class<T> clazz = (Class<T>) target.getClass();
         Field[] sourceFields = object.getClass().getDeclaredFields();
         Field[] getDeclaredFields = clazz.getDeclaredFields();
         for (Field sourceField : sourceFields) {
@@ -39,7 +59,7 @@ public class MyBeanUtils {
                             sourceField.setAccessible(true);
                             targetField.setAccessible(true);
                             Object value = sourceField.get(object);
-                            targetField.set(res, value);
+                            targetField.set(target, value);
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
                         }
@@ -50,7 +70,7 @@ public class MyBeanUtils {
                             sourceField.setAccessible(true);
                             targetField.setAccessible(true);
                             Object value = sourceField.get(object);
-                            targetField.set(res, value);
+                            targetField.set(target, value);
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
                         }
@@ -59,7 +79,11 @@ public class MyBeanUtils {
 
             }
         }
-        return res;
+        return target;
+    }
+
+    public static <T> T beanCopy(Object object, T target){
+        return beanCopy(object,target,true);
     }
 
 
@@ -136,8 +160,18 @@ public class MyBeanUtils {
      * @param <T>
      */
     public static <T> T updateBeanBySource(T source, T target) {
-        if(target==null)return null;
+        if(source==null){
+            return target;
+        }
         Class<?> aClass = source.getClass();
+        if(target==null){
+            System.out.println("target = null");
+            try {
+                target = (T) aClass.newInstance();
+            } catch (InstantiationException | IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
         Field[] declaredFields = aClass.getDeclaredFields();
         for (Field declaredField : declaredFields) {
             try {

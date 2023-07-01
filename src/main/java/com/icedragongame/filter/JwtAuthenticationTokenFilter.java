@@ -1,13 +1,13 @@
 package com.icedragongame.filter;
 
 import com.alibaba.fastjson.JSON;
-import com.icedragongame.utils.JwtUtil;
 import com.icedragongame.common.R;
-import com.icedragongame.utils.WebSmallUtils;
+import com.icedragongame.constant.ConstantBySelf;
 import com.icedragongame.dto.LoginUserDetails;
-
+import com.icedragongame.utils.JwtUtil;
+import com.icedragongame.utils.MyRedisUtils;
+import com.icedragongame.utils.WebSmallUtils;
 import io.jsonwebtoken.Claims;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -48,7 +48,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
      *
      */
     @Resource
-    private RedisTemplate<String,Object> redisTemplate;
+    private MyRedisUtils myRedisUtils;
 
     /**
      * <p>
@@ -70,8 +70,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String token = request.getHeader("token");
         if(!StringUtils.hasText(token)){
             //说明该接口不需要登录  直接放行
-            System.out.println("request:"+request);
-            System.out.println("response:"+response);
             filterChain.doFilter(request, response);
             return;
         }
@@ -89,7 +87,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         }
         String userId = claims.getSubject();
         //从redis中获取用户信息
-        LoginUserDetails loginUser = (LoginUserDetails) redisTemplate.opsForValue().get("bloglogin:" + userId);
+        LoginUserDetails loginUser =myRedisUtils.getObject(ConstantBySelf.REDIS_KEY_USERINFO + userId);
         //如果获取不到
         if(Objects.isNull(loginUser)){
             //说明登录过期  提示重新登录

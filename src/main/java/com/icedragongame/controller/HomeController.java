@@ -1,19 +1,25 @@
 package com.icedragongame.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.icedragongame.common.R;
+import com.icedragongame.common.myenum.SystemError;
+import com.icedragongame.dto.PagingDto;
+import com.icedragongame.entity.Category;
+import com.icedragongame.entity.Game;
 import com.icedragongame.entity.Post;
-import com.icedragongame.entity.UserPost;
+import com.icedragongame.entity.User;
+import com.icedragongame.service.CategoryService;
+import com.icedragongame.service.GameService;
 import com.icedragongame.service.PostService;
-import com.icedragongame.service.UserPostService;
-import com.icedragongame.vo.BriefPostVo;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.icedragongame.service.UserService;
+import com.icedragongame.vo.PageVo;
+import com.icedragongame.vo.PostVo;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,19 +54,16 @@ public class HomeController {
     @Resource
     private PostService postService;
 
-    /**
-     * <p>
-     *     project: snow_dragonGame blogSystem
-     *
-     *  该参数名称为:
-     *     <name>
-     *
-     *  该参数描述为:
-     *   <effect>
-     *
-     */
     @Resource
-    private UserPostService userPostService;
+    private GameService gameService;
+
+    @Resource
+    private CategoryService categoryService;
+
+    @Resource
+    private UserService userService;
+
+
 
     /**
      * <p>
@@ -76,13 +79,15 @@ public class HomeController {
      *   <description>
      *
      */
-    @GetMapping("/newGame")
-    public R<List<BriefPostVo>> newGame(){
+    @GetMapping("/newGame/{num}")
+    @ApiOperation(value = "得到最新的若干个文章,默认值为10")
+    public R<List<PostVo>> newGame(@PathVariable("num") Integer num){
+        num = num==null||num<0?10:num;
         QueryWrapper<Post> query = new QueryWrapper<>();
         query.orderByDesc("build_time");
-        query.last("limit 10");
-        List<Post> list = postService.list(query);
-        return R.success(BriefPostVo.getBPVbyPosts(list));
+        query.last("limit "+num);
+        List<PostVo> postVoList = postService.listForVO(query);
+        return R.success(postVoList);
     }
 
     /**
@@ -99,13 +104,15 @@ public class HomeController {
      *   <description>
      *
      */
-    @GetMapping("/hotgame")
-    public R<List<BriefPostVo>> hotgame() {
+    @GetMapping("/hotgame/{num}")
+    @ApiOperation("得到最热的游戏文章,默认值为10,可设置文章数量")
+    public R<List<PostVo>> hotgame(@PathVariable("num") Integer num) {
+        num = (num==null||num<0)? 0 :num;
         QueryWrapper<Post> query = new QueryWrapper<>();
         query.orderByDesc("2 * reply_num + scan_num");
-        query.last("limit 10");
-        List<Post> list = postService.list(query);
-        return R.success(BriefPostVo.getBPVbyPosts(list));
+        query.last("limit "+num);
+        List<PostVo> list = postService.listForVO(query);
+        return R.success(list);
     }
 
     /**
@@ -122,19 +129,17 @@ public class HomeController {
      *   <description>
      *
      */
-    @GetMapping("/followedGame/{username}")
-    public R<List<BriefPostVo>> followedGame(@PathVariable(value = "username") String username) {
-        QueryWrapper<UserPost> upQuery = new QueryWrapper<>();
-        upQuery.eq("username",username);
-        List<UserPost> upList =  userPostService.list(upQuery);
-        List<Integer> pidList = upList.stream().map(UserPost::getPostId).collect(Collectors.toList());//PostID表
-        List<Post> list;
-        if(pidList.size() == 0){//没有关注
-            list = new ArrayList<>();
-        }else {
-            list = postService.listByIds(pidList);
+    @PostMapping("/followedGame/{username}")
+    @ApiOperation("通过用户名得到该用户的文章,方法为分页")
+    public R<Object> followedGame(@PathVariable(value = "username") String username, @RequestBody PagingDto pagingDto) {
+        User user = userService.getById(username);
+        if(user==null){
+            return R.error(SystemError.USER_NOT_FOUND);
         }
-        return R.success(BriefPostVo.getBPVbyPosts(list));
+        LambdaQueryWrapper<Post> upQuery = new LambdaQueryWrapper<>();
+        upQuery.eq(Post::getUsername,username);
+        PageVo<PostVo> postVoPageVo = postService.pageForPostVO(pagingDto, upQuery);
+        return R.success(postVoPageVo);
     }
 
     /**
@@ -151,11 +156,24 @@ public class HomeController {
      *   <description>
      *
      */
-    @GetMapping("/category/{category}")
-    public R<List<BriefPostVo>> category(@PathVariable(value = "category") String category) {
+    @PostMapping("/category/{category}")
+    @ApiOperation(value = "通过类别得到文章列表,方法为分页")
+    public R<Object> category(@PathVariable(value = "category") String category, @RequestBody PagingDto pagingDto) {
+        LambdaQueryWrapper<Game> wrapperForGame = new LambdaQueryWrapper<>();
+        Category category1 = categoryService.getOne( new LambdaUpdateWrapper<Category>().eq(Category::getCategoryName,category));
+        if(category1==null){
+            return R.error(SystemError.NO_THIS_CATEGORY);
+        }
+        wrapperForGame.eq(Game::getCategoryId,category1.getId());
+        List<Game> gameList = gameService.list(wrapperForGame);
         QueryWrapper<Post> query = new QueryWrapper<>();
-        query.eq("category",category);
-        List<Post> list = postService.list(query);
-        return R.success(BriefPostVo.getBPVbyPosts(list));
+        System.out.println(gameList);
+        List<Integer> gameIds = gameList.stream().map(Game::getId).collect(Collectors.toList());
+        if(gameIds.size()==0){
+            gameIds.add(-1);
+        }
+        query.in("game_id",gameIds);
+        PageVo<PostVo> postVoPageVo =postService.pageForPostVO(pagingDto,query);
+        return R.success(postVoPageVo);
     }
 }

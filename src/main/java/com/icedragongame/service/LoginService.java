@@ -1,16 +1,16 @@
 package com.icedragongame.service;
 
-import com.icedragongame.common.R;
 import com.icedragongame.entity.User;
+import com.icedragongame.vo.LoginVo;
 
 /**
  * @auther: gengxuelong
  * @date: 2023/6/29 12:43
  */
 public interface LoginService {
-    public R<Object> login(User user);
+    LoginVo login(User user);
 
-    R<Object> logout();
+    void logout();
 
-    R<Object> register(User user);
+    boolean register(User user);
 }

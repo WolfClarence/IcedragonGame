@@ -1,15 +1,16 @@
 package com.icedragongame.controller;
 
 import com.icedragongame.common.R;
+import com.icedragongame.common.myenum.SystemError;
+import com.icedragongame.dto.ReplyDto;
 import com.icedragongame.entity.Post;
 import com.icedragongame.entity.Reply;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.ReplyService;
 import com.icedragongame.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.icedragongame.utils.MyBeanUtils;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -75,24 +76,18 @@ public class ReplyController {
     //这里回复帖子的用户username应该用session传过来，实际上在replydto中有username属性
     //未测试
     @PostMapping("/ReplyAPost")
-    public R<String> ReplyAPost (@PathVariable ReplyDto replyDto){
+    @ApiOperation("这里回复帖子的用户username应该用session传过来，实际上在replydto中有username属性")
+    public R<Object> ReplyAPost (@RequestBody ReplyDto replyDto){
 
+        Integer postId = replyDto.getPost_id();
         Post post = postService.getById(postId);
         if(post!=null) {
-
-            Reply reply = new Reply();
-            int testId = (postId * 1000);
-            while(replyService.getById(testId)!=null){
-                testId++;
-            }
-            reply.setReplyId(testId);
-            reply.setReplyContext(replyContext);
-            reply.setUsername(username);
-            reply.setPostId(postId);
+            Reply reply = MyBeanUtils.beanCopy(replyDto,Reply.class);
+            System.out.println(reply);
             replyService.save(reply);
-            return R.success(reply);
+            return R.success();
         }else {
-            return R.error("该帖子不存在");
+            return R.error(SystemError.POST_NOT_FOUND);
         }
     }
 

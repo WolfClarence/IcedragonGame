@@ -1,6 +1,8 @@
 server:
   port: 8080
 spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
@@ -14,6 +16,10 @@ spring:
   redis:
     host: 10.13.0.126
     port: 6379
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
 mybatis-plus:
   configuration:
     #在映射实体或者属性时，将数据库中表名和字段名中的下划线去掉，按照驼峰命名法映射
@@ -21,12 +27,14 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
-      id-type: ASSIGN_ID
+      id-type: auto
 gxl:
   oss:
     access-key: AmjB_zGL0xduM9GgETHt5Lm_TBmc4Lda_ptAv1Mh
     secret-key: 1V9i1WJY9URmz21paAVEKuPN3IKnkrWrIr1kifCe
     bucket: gxl-image-store
     domain: http://rx0irz5ci.hn-bkt.clouddn.com/
+    max-file-size: 4194304 # 4MB
   schedule:
     time: "* 0/10 * * * ?"
+

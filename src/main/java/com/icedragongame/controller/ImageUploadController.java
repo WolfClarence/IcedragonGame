@@ -1,8 +1,10 @@
 package com.icedragongame.controller;
 
 import com.icedragongame.common.R;
+import com.icedragongame.common.myenum.SystemError;
 import com.icedragongame.utils.OssUtils;
 import com.icedragongame.vo.ImageUploadVo;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,6 +60,7 @@ public class ImageUploadController {
      *
      */
     @PostMapping("/upload")
+    @ApiOperation("上传图片到云端,得到一个可以全网直接访问到的图片链接")
     public R<Object> imageUpLoad(MultipartFile multipartFile){
         InputStream inputStream = null;
         try {
@@ -70,6 +73,9 @@ public class ImageUploadController {
         assert originalFilename != null;
         String[] split = originalFilename.split("\\.");
         String type = "."+(split[split.length-1]);
+        if(!(".png".equals(type)||".jpg".equals(type))){
+            return R.error(SystemError.IMAGE_TYPE_ERROR);
+        }
         String link = ossUtils.imageUpload(inputStream, type);
         return R.success(new ImageUploadVo(link));
     }

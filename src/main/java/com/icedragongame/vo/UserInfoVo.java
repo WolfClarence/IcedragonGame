@@ -1,6 +1,7 @@
 
 package com.icedragongame.vo;
 
+import io.swagger.models.auth.In;
 import lombok.Data;
 import lombok.experimental.Accessors;
 @Data
@@ -16,9 +17,9 @@ public class UserInfoVo {
      */
     private String user_nickname;
 
-    private String user_identity;
+    private Integer user_identity;
 
-    private String user_points;
+    private Integer user_points;
 
     private String user_status;
 

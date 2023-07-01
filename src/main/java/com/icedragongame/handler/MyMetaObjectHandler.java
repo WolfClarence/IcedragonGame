@@ -1,12 +1,13 @@
 package com.icedragongame.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.icedragongame.constant.ConstantBySelf;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
-import java.math.BigInteger;
-import java.time.LocalDateTime;
+import java.util.Date;
+
 /**
  * <p>
  *     project: snow_dragonGame blogSystem
@@ -43,10 +44,13 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         log.info("公共字段自动填充[insert]...");
         log.info(metaObject.toString());
 
-        metaObject.setValue("buildTime",LocalDateTime.now());
-        metaObject.setValue("scanNum", BigInteger.valueOf(0));
-        metaObject.setValue("replyNum", BigInteger.valueOf(0));
-        metaObject.setValue("auditStatus", "未审核");
+        /*有字段则填写,无则不填*/
+        this.setFieldValByName("buildTime",(new Date(System.currentTimeMillis())),metaObject);
+        this.setFieldValByName("scanNum",(0),metaObject);
+        this.setFieldValByName("replyNum",(0),metaObject);
+        this.setFieldValByName("auditStatus","未审核",metaObject);
+        this.setFieldValByName("userStatus",ConstantBySelf.DEFAULT_USER_STATE,metaObject);
+        this.setFieldValByName("userPoints",ConstantBySelf.DEFAULT_USER_POINTS,metaObject);
     }
 
     @Override

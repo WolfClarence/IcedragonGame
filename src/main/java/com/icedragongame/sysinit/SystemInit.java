@@ -28,10 +28,14 @@ public class SystemInit {
 
     @PostConstruct
     public void init(){
+        log.info("___________systemInit______________");
+        doInit();
+    }
+    private void doInit(){
         log.info("将文章观看次数放置在redis中");
         List<Post> list = postService.list();
-        Map<Integer, Integer> collect = list.stream().collect(Collectors.toMap(Post::getPostId, post->post.getScanNum().intValue()));
-        myRedisUtils.setMap(ConstantBySelf.KEY_SCANS_POST,collect);
+        Map<Integer, Integer> collect = list.stream().collect(Collectors.toMap(Post::getId, Post::getScanNum));
+        myRedisUtils.setMap(ConstantBySelf.REDIS_KEY_SCANS_POST,collect);
         System.out.println("\n" +
                 ".__                                                      .___                                    \n" +
                 "|__| ____  ____             ______ ____   ______  _  ____| _/___________     ____   ____   ____  \n" +

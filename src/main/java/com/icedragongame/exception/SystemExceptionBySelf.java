@@ -1,5 +1,8 @@
 package com.icedragongame.exception;
 
+import com.icedragongame.common.myenum.SystemError;
+import lombok.Data;
+
 /**
  * <p>
  *     project: snow_dragonGame blogSystem
@@ -12,8 +15,12 @@ package com.icedragongame.exception;
  *
  *@author gengxuelong
  *
+ *
  */
+@Data
 public class SystemExceptionBySelf extends RuntimeException{
+
+    SystemError systemError;
     /**
      * <p>
      *     project: snow_dragonGame blogSystem
@@ -29,7 +36,8 @@ public class SystemExceptionBySelf extends RuntimeException{
      *   <description>
      *
      */
-    public SystemExceptionBySelf(String msg){
-        super(msg);
+    public SystemExceptionBySelf(SystemError systemError){
+        super(systemError.getMsg());
+        this.systemError = systemError;
     }
 }

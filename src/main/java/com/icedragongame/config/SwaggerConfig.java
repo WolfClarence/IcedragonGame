@@ -44,8 +44,6 @@ public class SwaggerConfig {
      */
     @Bean
     public Docket docket(Environment environment){
-        //设置要显示的Swagger环境
-        Profiles profiles = Profiles.of("dev");//可以填多个值 用逗号分割或者是|分割
         //通过environment.acceptsProfiles判断是否处在自己设定的环境当中
         return new Docket(DocumentationType.SWAGGER_2)
                 //配置Swagger信息=apiInfo
