@@ -20,10 +20,40 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
 
+/**
+ * <p>
+ *     project: snow_dragonGame blogSystem
+ *
+ *  该类名称为:
+ *     <name>
+ *         RedisConfig
+ *
+ *  该类作用为:
+ *   <effect>
+ *       configuration for redis
+ *
+ *@author gengxuelong
+ *
+ */
 @Configuration
 @EnableCaching
 public class RedisConfig {
- 
+
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *       collocate for cacheManager
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
+     */
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         // 默认Redis缓存过期时间为1小时50分钟
@@ -35,6 +65,21 @@ public class RedisConfig {
                 .cacheDefaults(redisCacheConfiguration).build();
     }
 
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *       collocate for redisTemplate
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
+     */
     @Bean
     public RedisTemplate template(RedisConnectionFactory factory) {
         // 创建RedisTemplate<String, Object>对象
@@ -66,7 +111,22 @@ public class RedisConfig {
         template.afterPropertiesSet();
         return template;
     }
- 
+
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *       collocate for StringRedisTemplate
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
+     */
     @Bean
     public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory factory) {
         StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();

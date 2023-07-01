@@ -17,24 +17,91 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * @ClassName : UserController  //类名
- * @Description : 个人按钮  //描述
- * @Author : wenrui //作者
- * @Date: 2023/6/28  14:08
+ * <p>
+ *     project: snow_dragonGame blogSystem
+ *
+ *  该类名称为:
+ *     <name>
+ *         UserController
+ *
+ *  该类作用为:
+ *   <effect>
+ *       个人按钮
+ *
+ *@author wenrui
+ *
  */
 @RestController
 @RequestMapping("/api")
 public class UserController {
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该参数名称为:
+     *     <name>
+     *
+     *  该参数描述为:
+     *   <effect>
+     *
+     */
     @Resource
     private ReplyService replyService;
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该参数名称为:
+     *     <name>
+     *
+     *  该参数描述为:
+     *   <effect>
+     *
+     */
     @Resource
     private UserService userService;
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该参数名称为:
+     *     <name>
+     *
+     *  该参数描述为:
+     *   <effect>
+     *
+     */
     @Resource
     private PostService postService;
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该参数名称为:
+     *     <name>
+     *
+     *  该参数描述为:
+     *   <effect>
+     *
+     */
     @Resource
     private UserPostService userPostService;
 
-    //获取用户基本信息
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *       获取用户基本信息
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
+     */
     @GetMapping("/personal/userinfo/{username}")
     public R<BriefUserVo> getUserInfoByName(@PathVariable("username") String username){
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
@@ -44,7 +111,21 @@ public class UserController {
         return R.success(BUV);
     }
 
-    //获取用户发帖记录
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *       获取用户发帖记录
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
+     */
     @GetMapping("/personal/post/{username}")
     public R<List<BriefPostVo>> getUserPostRecordByName(@PathVariable("username") String username){
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
@@ -54,7 +135,21 @@ public class UserController {
         return R.success(BPVs);
     }
 
-    //获取未审核的帖子
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *       获取未审核的帖子
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
+     */
     @GetMapping("/manager/uncheckedlist")
     public R<List<BriefPostVo>> getUnauditedPost(){
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
@@ -65,7 +160,21 @@ public class UserController {
     }
 
 
-    //删除帖子
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *       删除帖子
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
+     */
     @PostMapping("/manager/delete/{post_id}")
     public R<String> deletePostById(@PathVariable("post_id") int id){
         postService.removeById(id);

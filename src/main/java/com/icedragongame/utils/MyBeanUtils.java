@@ -136,6 +136,7 @@ public class MyBeanUtils {
      * @param <T>
      */
     public static <T> T updateBeanBySource(T source, T target) {
+        if(target==null)return null;
         Class<?> aClass = source.getClass();
         Field[] declaredFields = aClass.getDeclaredFields();
         for (Field declaredField : declaredFields) {

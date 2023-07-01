@@ -23,6 +23,19 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * <p>
+ *     project: snow_dragonGame blogSystem
+ *
+ *  该类名称为:
+ *     <name>
+ *
+ *  该类作用为:
+ *   <effect>
+ *
+ *@author gengxuelong
+ *
+ */
 @RestController
 @RequestMapping("/test")
 public class TestController {

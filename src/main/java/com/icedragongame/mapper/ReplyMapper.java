@@ -3,6 +3,19 @@ package com.icedragongame.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.icedragongame.entity.Reply;
 import org.apache.ibatis.annotations.Mapper;
+/**
+ * <p>
+ *     project: snow_dragonGame blogSystem
+ *
+ *  该类名称为:
+ *     <name>
+ *
+ *  该类作用为:
+ *   <effect>
+ *
+ *@author wzy
+ *
+ */
 @Mapper
 public interface ReplyMapper extends BaseMapper<Reply> {
 //

@@ -13,7 +13,29 @@ import lombok.Data;
 @Data
 @TableName("user_post")
 public class UserPost {
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该参数名称为:
+     *     <name>
+     *
+     *  该参数描述为:
+     *   <effect>
+     *
+     */
     @TableId
     private String username;
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该参数名称为:
+     *     <name>
+     *
+     *  该参数描述为:
+     *   <effect>
+     *
+     */
     private int postId;
 }

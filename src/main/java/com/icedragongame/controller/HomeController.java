@@ -17,16 +17,65 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * <p>
+ *     project: snow_dragonGame blogSystem
+ *
+ *  该类名称为:
+ *     <name>
+ *
+ *  该类作用为:
+ *   <effect>
+ *
+ *@author py
+ *
+ */
 @RestController
 @RequestMapping(value = "/api/home")
 public class HomeController {
 
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该参数名称为:
+     *     <name>
+     *
+     *  该参数描述为:
+     *   <effect>
+     *
+     */
     @Resource
     private PostService postService;
 
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该参数名称为:
+     *     <name>
+     *
+     *  该参数描述为:
+     *   <effect>
+     *
+     */
     @Resource
     private UserPostService userPostService;
 
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
+     */
     @GetMapping("/newGame")
     public R<List<BriefPostVo>> newGame(){
         QueryWrapper<Post> query = new QueryWrapper<>();
@@ -36,6 +85,20 @@ public class HomeController {
         return R.success(BriefPostVo.getBPVbyPosts(list));
     }
 
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
+     */
     @GetMapping("/hotgame")
     public R<List<BriefPostVo>> hotgame() {
         QueryWrapper<Post> query = new QueryWrapper<>();
@@ -45,6 +108,20 @@ public class HomeController {
         return R.success(BriefPostVo.getBPVbyPosts(list));
     }
 
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
+     */
     @GetMapping("/followedGame/{username}")
     public R<List<BriefPostVo>> followedGame(@PathVariable(value = "username") String username) {
         QueryWrapper<UserPost> upQuery = new QueryWrapper<>();
@@ -60,6 +137,20 @@ public class HomeController {
         return R.success(BriefPostVo.getBPVbyPosts(list));
     }
 
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
+     */
     @GetMapping("/category/{category}")
     public R<List<BriefPostVo>> category(@PathVariable(value = "category") String category) {
         QueryWrapper<Post> query = new QueryWrapper<>();

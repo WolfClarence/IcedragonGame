@@ -7,15 +7,36 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
-
 /**
- * 自定义元数据对象处理器
+ * <p>
+ *     project: snow_dragonGame blogSystem
+ *
+ *  该类名称为:
+ *     <name>
+ *
+ *  该类作用为:
+ *   <effect>
+ *       自定义元数据对象处理器
+ *
+ *@author songyuxuan
+ *
  */
 @Component
 @Slf4j
 public class MyMetaObjectHandler implements MetaObjectHandler {
     /**
-     * @param metaObject   插入操作，自动填充
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
      */
     @Override
     public void insertFill(MetaObject metaObject) {

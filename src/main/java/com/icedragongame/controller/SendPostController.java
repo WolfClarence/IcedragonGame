@@ -10,20 +10,68 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
+
 /**
- * @ClassName : SendPostController  //类名
- * @Description : 发帖人完成帖子信息输入后，将新帖子的信息写入数据库  //描述
- * @Author : wenrui //作者
- * @Date: 2023/6/27  16:06
+ * <p>
+ *     project: snow_dragonGame blogSystem
+ *
+ *  该类名称为:
+ *     <name>
+ *         SendPostController
+ *
+ *  该类作用为:
+ *   <effect>
+ *       发帖人完成帖子信息输入后，将新帖子的信息写入数据库  //描述
+ *
+ *@author wenrui
+ *
  */
 @RestController
 @RequestMapping("/api")
 public class SendPostController {
+
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该参数名称为:
+     *     <name>
+     *
+     *  该参数描述为:
+     *   <effect>
+     *
+     */
     @Resource
     private ReplyService replyService;
+
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该参数名称为:
+     *     <name>
+     *
+     *  该参数描述为:
+     *   <effect>
+     *
+     */
     @Resource
     private PostService postService;
 
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
+     */
     @PostMapping ("/postingPage")
     public R<String> sendPost(@RequestBody PostDto postDto){
 //        System.out.println(postDto.toString());

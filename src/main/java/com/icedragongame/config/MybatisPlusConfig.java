@@ -6,14 +6,36 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @auther: gengxuelong
- * @date: 2023/6/29 12:22
+ * <p>
+ *     project: snow_dragonGame blogSystem
+ *
+ *  该类名称为:
+ *     <name>
+ *         MybatisPlusConfig
+ *
+ *  该类作用为:
+ *   <effect>
+ *       configuration for mp
+ *
+ *@author gengxuelong
+ *
  */
 @Configuration
 public class MybatisPlusConfig {
     /**
-     * 配置分页拦截器,可以直接使用mp的Page类进行分页查询
-     * @return MybatisPlusInterceptor
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *         mybatisPlusInterceptor
+     *  该方法作用为:
+     *   <effect>
+     *       配置分页拦截器,可以直接使用mp的Page类进行分页查询
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
      */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor(){

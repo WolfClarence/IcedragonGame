@@ -15,10 +15,36 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/**
+ * <p>
+ *     project: snow_dragonGame blogSystem
+ *
+ *  该类名称为:
+ *     <name>
+ *
+ *  该类作用为:
+ *   <effect>
+ *
+ *@author gengxuelong
+ *
+ */
 @Component
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
+     */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         authException.printStackTrace();

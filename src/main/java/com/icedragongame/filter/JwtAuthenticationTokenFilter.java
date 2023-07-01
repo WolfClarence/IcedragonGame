@@ -21,16 +21,49 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
-
 /**
- * @auther: gengxuelong
- * @date: 2023/6/29 13:14
+ * <p>
+ *     project: snow_dragonGame blogSystem
+ *
+ *  该类名称为:
+ *     <name>
+ *
+ *  该类作用为:
+ *   <effect>
+ *
+ *@author gengxuelong
+ *
  */
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该参数名称为:
+     *     <name>
+     *
+     *  该参数描述为:
+     *   <effect>
+     *
+     */
     @Resource
     private RedisTemplate<String,Object> redisTemplate;
 
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         //获取请求头中的token

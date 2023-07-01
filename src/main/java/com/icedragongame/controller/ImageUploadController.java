@@ -13,15 +13,50 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @auther: gengxuelong
- * @date: 2023/6/29 21:05
+ * <p>
+ *     project: snow_dragonGame blogSystem
+ *
+ *  该方法名称为:
+ *     <name>
+ *
+ *  该方法作用为:
+ *   <effect>
+ *
+ *   该方法设计参数描述:
+ *   <description>
+ *
  */
 @RestController
 @RequestMapping("image")
 public class ImageUploadController {
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该参数名称为:
+     *     <name>
+     *
+     *  该参数描述为:
+     *   <effect>
+     *
+     */
     @Autowired
     OssUtils ossUtils;
 
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
+     */
     @PostMapping("/upload")
     public R<Object> imageUpLoad(MultipartFile multipartFile){
         InputStream inputStream = null;
