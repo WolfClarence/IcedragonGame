@@ -1,8 +1,8 @@
-drop table if exists post;
-drop table if exists game;
-drop table if exists category;
-drop table if exists reply;
-drop table if exists user;
+drop table if exists `post`;
+drop table if exists `game`;
+drop table if exists `category`;
+drop table if exists `reply`;
+drop table if exists `user`;
 create table post
 (
     id  int  auto_increment  primary key,
@@ -74,7 +74,7 @@ create table user
     user_status   varchar(20)  not null comment '用户的状态,当为 已封禁 时,用户不再可用,当再解封后为 已解封'
 );
 insert into user values
-                     ('root','$2a$10$lEs5K8oq8pbqnacsMsAI0ulj/YyzWZ/cJ7Gug2BypTasQxF0nJoeW','超级管理员',1,10,'超级管理员状态'),
-                     ('gengxuelong','$2a$10$2YjMMLKMrmxIJ.54VAEe9OZj9toJHLm63OdPGF6iep/JX/AI2VXaa','耿雪龙',0,10,'超级管理员状态');
+                     ('root','$2a$10$lEs5K8oq8pbqnacsMsAI0ulj/YyzWZ/cJ7Gug2BypTasQxF0nJoeW','超级管理员',1,10,'超级管理员状态'),# 密码: root
+                     ('gengxuelong','$2a$10$2YjMMLKMrmxIJ.54VAEe9OZj9toJHLm63OdPGF6iep/JX/AI2VXaa','耿雪龙',0,10,'一般用户');# 密码:123456
 
 

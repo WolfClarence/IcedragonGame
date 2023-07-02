@@ -2,6 +2,7 @@ package com.icedragongame.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.icedragongame.common.R;
+import com.icedragongame.constant.ConstantBySelf;
 import com.icedragongame.dto.PagingDto;
 import com.icedragongame.entity.Post;
 import com.icedragongame.entity.User;
@@ -15,6 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -97,6 +99,35 @@ public class UserController {
         User user = userService.getOne(queryWrapper);
         BriefUserVo BUV = new BriefUserVo(user);
         return R.success(BUV);
+    }
+
+    @GetMapping("/personal/normal/userinfo")
+    @ApiOperation("得到所有的普通用户")
+    public R<Object> getNormalUserInfo(){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_identity", ConstantBySelf.USER_NORMAL_TAG);
+        List<User> list = userService.list(queryWrapper);
+        List<BriefUserVo> briefUserVos = BriefUserVo.getBUVbyUsers(list);
+        return R.success(briefUserVos);
+    }
+    @GetMapping("/personal/admin/userinfo")
+    @ApiOperation("得到所有的管理员用户")
+    public R<Object> getAdminUserInfo(){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_identity", ConstantBySelf.USER_ADMIN_TAG);
+        List<User> list = userService.list(queryWrapper);
+        List<BriefUserVo> briefUserVos = BriefUserVo.getBUVbyUsers(list);
+        return R.success(briefUserVos);
+    }
+
+    @GetMapping("/personal/userinfo")
+    @ApiOperation("得到所有用户")
+    public R<Object> getUserInfo(){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("user_identity", ConstantBySelf.USER_ADMIN_TAG);
+        List<User> list = userService.list(queryWrapper);
+        List<BriefUserVo> briefUserVos = BriefUserVo.getBUVbyUsers(list);
+        return R.success(briefUserVos);
     }
 
     /**

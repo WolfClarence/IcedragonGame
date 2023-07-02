@@ -29,6 +29,8 @@ mybatis-plus:
     db-config:
       id-type: auto
 gxl:
+  sql-init:
+    sql-will-init: true
   oss:
     access-key: AmjB_zGL0xduM9GgETHt5Lm_TBmc4Lda_ptAv1Mh
     secret-key: 1V9i1WJY9URmz21paAVEKuPN3IKnkrWrIr1kifCe
