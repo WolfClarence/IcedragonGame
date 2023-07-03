@@ -18,4 +18,5 @@ public class PostDetailVo {
     String game_name;
     String game_description;
     String category;
+    String image_url;
 }

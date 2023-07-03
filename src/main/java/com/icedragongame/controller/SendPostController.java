@@ -85,7 +85,7 @@ public class SendPostController {
      *
      */
     @PostMapping ("/postingPage")
-    @ApiOperation("将文章信息写入数据库")
+    @ApiOperation("(将文章信息写入数据库)(已完成)")
     public R<String> sendPost(@RequestBody PostDto postDto){//传入分类的名字
         Post post = MyBeanUtils.beanCopy(postDto,Post.class,true);
         Category category = categoryService.getOne(new LambdaUpdateWrapper<Category>().eq(Category::getCategoryName,post.getCategory()));

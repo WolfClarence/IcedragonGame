@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TodayHotPostVO {
-    Integer id;
+public class PostForTodayHotVO {
+    Integer id;//postid,用来进入详情页
     String game_name;
     String title;
     String image_url;

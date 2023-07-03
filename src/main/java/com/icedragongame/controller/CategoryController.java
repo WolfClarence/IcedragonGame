@@ -26,15 +26,15 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/all")
-    @ApiOperation(value = "得到所有游戏分类(完成)",notes = "得到所有游戏分类")
-    public R<Object> getAll (){
+    @ApiOperation(value = "(主页侧边游戏分类)得到所有游戏分类(完成)",notes = "得到所有游戏分类")
+    public R<List<Category>> getAll (){
         List<Category> list = categoryService.list();
 
         return R.success(list);
     }
     @GetMapping("/part/{num}")
-    @ApiOperation(value = "得到所有游戏分类(完成)",notes = "得到所有游戏分类")
-    public R<Object> getPart (@PathVariable String num){
+    @ApiOperation(value = "(主页侧边游戏分类)得到所有游戏分类(完成)",notes = "得到所有游戏分类")
+    public R<List<Category>> getPart (@PathVariable String num){
         List<Category> list = categoryService.list(new QueryWrapper<Category>().last("limit "+num));
 
         return R.success(list);

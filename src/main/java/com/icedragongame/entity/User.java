@@ -35,5 +35,6 @@ public class User  implements Serializable{
     //用户的状态,当为 已封禁 时,用户不再可用,当再解封后为 已解封
     @TableField(fill = FieldFill.INSERT)
     private String userStatus;
+    private String image_url;
 }
 

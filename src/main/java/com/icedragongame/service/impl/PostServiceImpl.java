@@ -11,7 +11,7 @@ import com.icedragongame.service.CategoryService;
 import com.icedragongame.service.PostService;
 import com.icedragongame.utils.MyBeanUtils;
 import com.icedragongame.vo.PageVo;
-import com.icedragongame.vo.PostVo;
+import com.icedragongame.vo.PostForBigBlockVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -33,34 +33,34 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements PostS
     CategoryService categoryService;
 
     @Override
-    public List<PostVo> listForVO(AbstractWrapper query) {
+    public List<PostForBigBlockVo> listForVO(AbstractWrapper query) {
         List<Post> list = list(query);
-        List<PostVo> postVoList = new ArrayList<>();
+        List<PostForBigBlockVo> postVoList = new ArrayList<>();
         for (Post post : list) {
-            PostVo postVo = getPostVoByPost(post);
+            PostForBigBlockVo postVo = getPostVoByPost(post);
             postVoList.add(postVo);
         }
         return postVoList;
     }
 
     @Override
-    public PostVo getByIdForVO(int query) {
+    public PostForBigBlockVo getByIdForVO(int query) {
         Post post = getById(query);
         return getPostVoByPost(post);
     }
-    public PostVo getPostVoByPost(Post post){
+    public PostForBigBlockVo getPostVoByPost(Post post){
         Integer categoryId = post.getCategoryId();
         Category byId = categoryService.getById(categoryId);
         post.setCategory(byId.getCategoryName());
-        return MyBeanUtils.beanCopy(post, PostVo.class);
+        return MyBeanUtils.beanCopy(post, PostForBigBlockVo.class);
     }
 
     @Override
-    public PageVo<PostVo> pageForPostVO(PagingDto postPage, AbstractWrapper query) {
+    public PageVo<PostForBigBlockVo> pageForPostVO(PagingDto postPage, AbstractWrapper query) {
         Page<Post> page = new Page<>(postPage.getPage_indices(),postPage.getPage_num());
         Page<Post> pageForPost = page(page, query);
         List<Post> records = pageForPost.getRecords();
-        List<PostVo> postVoList = records.stream().map(this::getPostVoByPost).collect(Collectors.toList());
+        List<PostForBigBlockVo> postVoList = records.stream().map(this::getPostVoByPost).collect(Collectors.toList());
         return new PageVo<>(pageForPost.getTotal(),postVoList);
     }
 }

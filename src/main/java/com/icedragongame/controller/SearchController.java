@@ -8,7 +8,7 @@ import com.icedragongame.entity.Post;
 import com.icedragongame.myenum.SystemError;
 import com.icedragongame.service.CategoryService;
 import com.icedragongame.service.PostService;
-import com.icedragongame.vo.PostVo;
+import com.icedragongame.vo.PostForBigBlockVo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,10 +67,13 @@ public class SearchController {
      *
      */
     @GetMapping("/search")
-    @ApiOperation("当有category字段时,要求数据必须是该类,当有key时,要求数据可以是title中含有,也可以game name含有,sort为0时按时间降序排序,否则按热度降序排序")
-    public R<List<PostVo>> search(@RequestParam(value = "sort",required = false) Integer sort,
-                                  @RequestParam(value = "category",required = false) String category,
-                                  @RequestParam(value = "key_word",required = false) String keyWord){
+    @ApiOperation("(搜索功能,分页)(未完成)当有category字段时,要求数据必须是该类,当有key时,要求数据可以是title中含有,也可以game name含有,sort为0时按时间降序排序,否则按热度降序排序")
+    public R<List<PostForBigBlockVo>> search(@RequestParam(value = "sort",required = false) Integer sort,
+                                             @RequestParam(value = "category",required = false) String category,
+                                             @RequestParam(value = "key_word",required = false) String keyWord,
+                                             @RequestParam(value = "key_word",required = false) String page_indices,
+                                             @RequestParam(value = "key_word",required = false) String page_num
+                                             ){
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
         //排序类型
         if(sort == null) sort = ConstantBySelf.ORDER_BY_TIME;//未选类别，默认为按时间
@@ -89,9 +93,11 @@ public class SearchController {
         }
         //关键字
         if(!(keyWord == null || keyWord.isEmpty())){//类别不为空
-            queryWrapper.eq("title",keyWord).or().eq("content",keyWord);
+            queryWrapper.like("title",keyWord).or().like("content",keyWord);
         }
-        List<PostVo> list = postService.listForVO(queryWrapper);
+        List<PostForBigBlockVo> list = new ArrayList<>();
         return R.success((list));
     }
+
+
 }

@@ -65,7 +65,7 @@ public class LoginController {
      *   <description>
      *
      */
-    @ApiOperation(value = "登陆接口",notes = "登陆")
+    @ApiOperation(value = "(登陆接口)(已完成)",notes = "登陆")
     @PostMapping("/login")
     public R<Object> login(@RequestBody UserLoginDto UserLoginDto){
         User user = MyBeanUtils.beanCopy(UserLoginDto, User.class);
@@ -95,6 +95,7 @@ public class LoginController {
      *
      */
     @PostMapping("/logout")
+    @ApiOperation(value = "(等出)(已完成)")
     @ApiImplicitParam(name = "token", required = false,paramType = "header",dataType = "String")
     public R<Object> logout(){
         loginService.logout();
@@ -116,7 +117,7 @@ public class LoginController {
      *
      */
     @PostMapping("/register")
-    @ApiOperation("identity默认为0,即普通用户,可以不指定")
+    @ApiOperation("(注册)(已完成)identity默认为0,即普通用户,可以不指定")
     public R<Object> register(@RequestBody UserRegisterDto userRegisterDto){
         System.out.println(userRegisterDto);
         User user = MyBeanUtils.beanCopy(userRegisterDto, User.class,true);

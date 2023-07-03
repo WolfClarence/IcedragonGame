@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.icedragongame.dto.PagingDto;
 import com.icedragongame.entity.Post;
 import com.icedragongame.vo.PageVo;
-import com.icedragongame.vo.PostVo;
+import com.icedragongame.vo.PostForBigBlockVo;
 
 import java.util.List;
 
@@ -17,10 +17,10 @@ import java.util.List;
  */
 public interface PostService extends IService<Post> {
 
-    List<PostVo> listForVO(AbstractWrapper query);
-    PostVo getByIdForVO(int query);
-    PostVo getPostVoByPost(Post post);
+    List<PostForBigBlockVo> listForVO(AbstractWrapper query);
+    PostForBigBlockVo getByIdForVO(int query);
+    PostForBigBlockVo getPostVoByPost(Post post);
 
-    PageVo<PostVo> pageForPostVO(PagingDto postPage, AbstractWrapper query);
+    PageVo<PostForBigBlockVo> pageForPostVO(PagingDto postPage, AbstractWrapper query);
 }
 

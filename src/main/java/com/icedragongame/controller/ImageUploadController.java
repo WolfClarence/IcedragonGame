@@ -1,6 +1,7 @@
 package com.icedragongame.controller;
 
 import com.icedragongame.common.R;
+import com.icedragongame.dto.UserImageDto;
 import com.icedragongame.myenum.SystemError;
 import com.icedragongame.utils.OssUtils;
 import com.icedragongame.vo.ImageUploadVo;
@@ -60,8 +61,8 @@ public class ImageUploadController {
      *
      */
     @PostMapping("/upload")
-    @ApiOperation("上传图片到云端,得到一个可以全网直接访问到的图片链接")
-    public R<Object> imageUpLoad(MultipartFile multipartFile){
+    @ApiOperation("(已完成)上传图片到云端,得到一个可以全网直接访问到的图片链接")
+    public R<ImageUploadVo> imageUpLoad(MultipartFile multipartFile){
         InputStream inputStream = null;
         try {
             inputStream = multipartFile.getInputStream();
@@ -78,5 +79,12 @@ public class ImageUploadController {
         }
         String link = ossUtils.imageUpload(inputStream, type);
         return R.success(new ImageUploadVo(link));
+    }
+
+    @PostMapping("/setUserImage")
+    @ApiOperation("(为用户设置图片url,通过图片上传接口获得用户图片的imageurl后立马调用这个接口) (未完成)")
+    public R<Object> imageUpLoad1(UserImageDto userImageDto){
+
+        return R.success();
     }
 }

@@ -10,8 +10,9 @@ import com.icedragongame.service.ReplyService;
 import com.icedragongame.utils.MyBeanUtils;
 import com.icedragongame.utils.MyRedisUtils;
 import com.icedragongame.vo.PostDetailVo;
-import com.icedragongame.vo.PostVo;
+import com.icedragongame.vo.PostForBigBlockVo;
 import com.icedragongame.vo.ReplyVo;
+import com.icedragongame.vo.PostForTodayHotVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,9 +86,10 @@ public class PostController {
     MyRedisUtils myRedisUtils;
 
     @GetMapping("/postingPage/{num}")
-    @ApiOperation("得到今日最热帖子若干(未完成)")
-    public R<String> getTodayHot(@PathVariable String num){//传入分类的名字
-       return R.success();
+    @ApiOperation("(今日热门推荐)得到今日最热帖子若干(未完成)  ,要求今日帖子,热度计算公式:2*replynum+scannum")
+    public R<PostForTodayHotVO> getTodayHot(@PathVariable String num){//传入分类的名字
+
+       return R.success(new PostForTodayHotVO());
     }
 
 
@@ -107,11 +109,11 @@ public class PostController {
      *
      */
     @GetMapping("/getPostDetailById/{postId}")
-    @ApiOperation("查看指定帖子本身详情")
-    public R<Object> getPostDetailById(@PathVariable Integer postId){
+    @ApiOperation("(得到文章详情)(已完成)")
+    public R<PostDetailVo> getPostDetailById(@PathVariable Integer postId){
         Post post = postService.getById(postId);
         System.out.println(post);
-        PostVo postVo = postService.getPostVoByPost(post);
+        PostForBigBlockVo postVo = postService.getPostVoByPost(post);
         System.out.println(postVo);
         PostDetailVo postDetailVo = MyBeanUtils.beanCopy(post,PostDetailVo.class);
         System.out.println("------------------"+postDetailVo);
@@ -160,7 +162,7 @@ public class PostController {
      *
      */
     @GetMapping("/scanNumUpOne/{postId}")
-    @ApiOperation("对某个文章的浏览量加一")
+    @ApiOperation("(对某个文章的浏览量加一)(已完成)")
     public R<Object> scanNumUpOne(@PathVariable("postId") Integer postId){
         Integer integer = myRedisUtils.getMapValue(ConstantBySelf.REDIS_KEY_SCANS_POST,postId);
         myRedisUtils.setMapValue(ConstantBySelf.REDIS_KEY_SCANS_POST,postId,integer+1);

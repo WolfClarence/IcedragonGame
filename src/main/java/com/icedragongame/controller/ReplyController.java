@@ -76,7 +76,7 @@ public class ReplyController {
     //这里回复帖子的用户username应该用session传过来，实际上在replydto中有username属性
     //未测试
     @PostMapping("/ReplyAPost")
-    @ApiOperation("这里回复帖子的用户username应该用session传过来，实际上在replydto中有username属性")
+    @ApiOperation("(回复,文章回复数加一)(已完成)")
     public R<Object> ReplyAPost (@RequestBody ReplyDto replyDto){
 
         Integer postId = replyDto.getPost_id();
