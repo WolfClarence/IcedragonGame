@@ -116,7 +116,9 @@ public class LoginController {
      *
      */
     @PostMapping("/register")
+    @ApiOperation("identity默认为0,即普通用户,可以不指定")
     public R<Object> register(@RequestBody UserRegisterDto userRegisterDto){
+        System.out.println(userRegisterDto);
         User user = MyBeanUtils.beanCopy(userRegisterDto, User.class,true);
         System.out.println("register user -------------------------->"+user);
         User entity = userService.getById(user.getUsername());

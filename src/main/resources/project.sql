@@ -76,5 +76,3 @@ create table user
 insert into user values
                      ('root','$2a$10$6c1iHYH2JeXQLpY9qMEvmuprGARa6DDVTfix/qEvswS7TQn/9sGvS','超级管理员',1,10,'超级管理员状态'),# 密码: root
                      ('gengxuelong','$2a$10$Pw0DUtXSc61k90b9qq.iwesEhWYaQ37hkJzoVoMfz0kMa7PmWflM2','耿雪龙',0,10,'一般用户');# 密码:123456
-
-

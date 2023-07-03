@@ -79,6 +79,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public boolean register(User user) {
+        System.out.println("user:==============="+user);
         //对数据进行非空判断
         if(!StringUtils.hasText(user.getUsername())||!StringUtils.hasText(user.getPassword())){
             throw new SystemExceptionBySelf(SystemError.FIELD_NOT_EXITS);
