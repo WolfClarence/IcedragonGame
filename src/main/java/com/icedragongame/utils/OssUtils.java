@@ -1,7 +1,7 @@
 package com.icedragongame.utils;
 
 import com.google.gson.Gson;
-import com.icedragongame.common.myenum.SystemError;
+import com.icedragongame.myenum.SystemError;
 import com.icedragongame.exception.SystemExceptionBySelf;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;

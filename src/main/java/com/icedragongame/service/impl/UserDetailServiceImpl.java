@@ -1,7 +1,7 @@
 package com.icedragongame.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.icedragongame.common.myenum.SystemError;
+import com.icedragongame.myenum.SystemError;
 import com.icedragongame.dto.LoginUserDetails;
 import com.icedragongame.entity.User;
 import com.icedragongame.exception.SystemExceptionBySelf;

@@ -1,10 +1,7 @@
 package com.icedragongame.common;
 
-import com.icedragongame.common.myenum.SystemError;
-import lombok.Data;
+import com.icedragongame.myenum.SystemError;
 
-import java.util.HashMap;
-import java.util.Map;
 /**
  * <p>
  *     project: snow_dragonGame blogSystem

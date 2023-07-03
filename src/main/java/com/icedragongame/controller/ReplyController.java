@@ -1,7 +1,7 @@
 package com.icedragongame.controller;
 
 import com.icedragongame.common.R;
-import com.icedragongame.common.myenum.SystemError;
+import com.icedragongame.myenum.SystemError;
 import com.icedragongame.dto.ReplyDto;
 import com.icedragongame.entity.Post;
 import com.icedragongame.entity.Reply;

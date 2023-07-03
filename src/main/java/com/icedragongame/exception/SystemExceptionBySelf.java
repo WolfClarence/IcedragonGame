@@ -1,6 +1,6 @@
 package com.icedragongame.exception;
 
-import com.icedragongame.common.myenum.SystemError;
+import com.icedragongame.myenum.SystemError;
 import lombok.Data;
 
 /**

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.icedragongame.common.R;
 import com.icedragongame.constant.ConstantBySelf;
 import com.icedragongame.dto.LoginUserDetails;
+import com.icedragongame.myenum.SystemError;
 import com.icedragongame.utils.JwtUtil;
 import com.icedragongame.utils.MyRedisUtils;
 import com.icedragongame.utils.WebSmallUtils;
@@ -81,7 +82,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             e.printStackTrace();
             //token超时  token非法
             //响应告诉前端需要重新登录
-            R result = R.error("token过期或者非法");
+            R result = R.error(SystemError.TOKEN_ERROR);
             WebSmallUtils.renderString(response, JSON.toJSONString(result));
             return;
         }
@@ -91,7 +92,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         //如果获取不到
         if(Objects.isNull(loginUser)){
             //说明登录过期  提示重新登录
-            R result = R.error("登陆过期");
+            R result = R.error(SystemError.TOKEN_EXPIRED);
             WebSmallUtils.renderString(response, JSON.toJSONString(result));
             return;
         }

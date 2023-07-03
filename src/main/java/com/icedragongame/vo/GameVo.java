@@ -1,4 +1,4 @@
-package com.icedragongame.dto;
+package com.icedragongame.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class GameDto {
+public class GameVo {
     private Integer id;
 
     private String game_name;

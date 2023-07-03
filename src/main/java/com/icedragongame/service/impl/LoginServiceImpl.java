@@ -1,6 +1,6 @@
 package com.icedragongame.service.impl;
 
-import com.icedragongame.common.myenum.SystemError;
+import com.icedragongame.myenum.SystemError;
 import com.icedragongame.constant.ConstantBySelf;
 import com.icedragongame.dto.LoginUserDetails;
 import com.icedragongame.entity.User;

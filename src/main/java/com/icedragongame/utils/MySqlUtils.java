@@ -53,7 +53,9 @@ public class MySqlUtils {
         }
     }
     public boolean isTableExist(String tableName){
-        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+        Connection conn = null;
+        try  {
+            conn = DriverManager.getConnection(url, username, password);
             DatabaseMetaData meta = conn.getMetaData();
             ResultSet resultSet = meta.getTables(null, null, tableName, new String[] {"TABLE"});
             if (resultSet.next()) {
@@ -64,6 +66,13 @@ public class MySqlUtils {
             }
         } catch (SQLException e) {
             System.out.println("An error occurred while checking for table existence: " + e.getMessage());
+        }finally {
+            try {
+                assert conn != null;
+                conn.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
         return false;
     }

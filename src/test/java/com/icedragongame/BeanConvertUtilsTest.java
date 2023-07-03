@@ -2,6 +2,7 @@ package com.icedragongame;
 
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.UserService;
+import com.icedragongame.sysschedulejob.SysScheduleJob;
 import com.icedragongame.utils.OssUtils;
 import com.icedragongame.utils.MySqlUtils;
 import org.junit.jupiter.api.Test;
@@ -28,8 +29,10 @@ public class BeanConvertUtilsTest {
     PasswordEncoder passwordEncoder;
     @Resource
     MySqlUtils sqlUtils;
+    @Resource
+    SysScheduleJob sysScheduleJob;
     @Test
     public  void test() throws FileNotFoundException {
-        sqlUtils.initDatabase();
+        sysScheduleJob.doSchedule();
     }
 }

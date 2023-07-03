@@ -29,7 +29,11 @@ public class SysScheduleJob {
      * 每个十分钟向数据库服务器更新以一次数据
      */
     @Scheduled(cron = "${gxl.schedule.time}")
-    public void putScanDataToMysqlFromRedis(){
+    public void putScanDataToMysqlFromRedis() {
+        doSchedule();
+    }
+
+    public void doSchedule(){
         Map<Integer, Integer> scanForPostList = myRedisUtils.getMap(ConstantBySelf.REDIS_KEY_SCANS_POST);
         for (Map.Entry<Integer, Integer> integerIntegerEntry : scanForPostList.entrySet()) {
             Integer postId = integerIntegerEntry.getKey();
@@ -43,7 +47,7 @@ public class SysScheduleJob {
         LambdaQueryWrapper<Post> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(Post::getScanNum,0);
         List<Post> posts = postService.list(lambdaQueryWrapper);
-        Map<Integer, Integer> collect = posts.stream().collect(Collectors.toMap(Post::getId, post -> post.getScanNum().intValue()));
+        Map<Integer, Integer> collect = posts.stream().collect(Collectors.toMap(Post::getId, Post::getScanNum));
         myRedisUtils.setMultiMapValue(ConstantBySelf.REDIS_KEY_SCANS_POST,collect);
     }
 }

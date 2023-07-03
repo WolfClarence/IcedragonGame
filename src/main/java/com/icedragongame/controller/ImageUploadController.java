@@ -1,7 +1,7 @@
 package com.icedragongame.controller;
 
 import com.icedragongame.common.R;
-import com.icedragongame.common.myenum.SystemError;
+import com.icedragongame.myenum.SystemError;
 import com.icedragongame.utils.OssUtils;
 import com.icedragongame.vo.ImageUploadVo;
 import io.swagger.annotations.ApiOperation;

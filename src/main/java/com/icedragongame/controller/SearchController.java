@@ -2,7 +2,7 @@ package com.icedragongame.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.icedragongame.common.R;
-import com.icedragongame.common.myenum.SystemError;
+import com.icedragongame.myenum.SystemError;
 import com.icedragongame.constant.ConstantBySelf;
 import com.icedragongame.entity.Category;
 import com.icedragongame.entity.Game;

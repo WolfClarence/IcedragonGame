@@ -1,7 +1,7 @@
 package com.icedragongame.controller;
 
 import com.icedragongame.common.R;
-import com.icedragongame.dto.GameDto;
+import com.icedragongame.vo.GameVo;
 import com.icedragongame.entity.Game;
 import com.icedragongame.service.CategoryService;
 import com.icedragongame.service.GameService;
@@ -33,8 +33,8 @@ public class GameController {
     @ApiOperation(value = "得到所有游戏数据",notes = "得到所有游戏数据")
     public R<Object> getAll (){
         List<Game> list = gameService.list();
-        List<GameDto> collect = list.stream().map(
-                game -> (MyBeanUtils.beanCopy(game, GameDto.class))
+        List<GameVo> collect = list.stream().map(
+                game -> (MyBeanUtils.beanCopy(game, GameVo.class))
                         .setCategory_name((categoryService.getById(game.getCategoryId()).getCategoryName()))
         ).collect(Collectors.toList());
         return R.success(collect);
