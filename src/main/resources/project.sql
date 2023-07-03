@@ -13,30 +13,21 @@ create table post
     download_url varchar(200)    not null,
     points       int  not null default 0,
     audit_status varchar(100)    not null default '未审核' comment '未审核 审核通过 审核未通过',
-    username     varchar(45)     not null,
+    username     varchar(80)     not null,
     image_url    varchar(100)    null,
-    game_id      int             not null,
+    game_name      varchar(100)             not null,
+    game_description varchar(500)  null ,
+    category_id int not null ,
     content   longtext null
 ) comment='文章表';
 insert into post values
-                     (1,'原神是世界上最好玩的游戏',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300',1,'文章初始化,尚未书写'),
-                     (2,'使命召唤是世界上最好玩的游戏',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300',2,'文章初始化,尚未书写'),
-                     (3,'王者荣耀是世界上最好玩的游戏',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300',3,'文章初始化,尚未书写'),
-                     (4,'英雄联盟是世界上最好玩的游戏',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300',4,'文章初始化,尚未书写'),
-                     (5,'奔跑吧少年是世界上最好玩的游戏',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300',5,'文章初始化,尚未书写');
+                     (1,'元神奔跑把是世界上最好玩的游戏',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (2,'元神奔跑把是世界上最好玩的游戏',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (3,'元神奔跑把是世界上最好玩的游戏',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (4,'元神奔跑把是世界上最好玩的游戏',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (5,'元神奔跑把是世界上最好玩的游戏',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (6,'元神奔跑把是世界上最好玩的游戏',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写');
 
-create table game(
-     id int  primary key auto_increment,
-     game_name varchar(80) not null ,
-     game_describe varchar(500) null,
-     category_id int
-);
-insert into game values
-                     (1,'元神','一个灰常厉害的游戏',1),
-                     (2,'使命召唤','一个灰常厉害的游戏',2),
-                     (3,'王者荣耀','一个灰常厉害的游戏',3),
-                     (4,'英雄联盟','一个灰常厉害的游戏',4),
-                     (5,'奔跑吧少年','一个灰常厉害的游戏',5);
 create table category(
     id int primary key  auto_increment,
     category_name varchar(80) not null

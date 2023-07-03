@@ -1,4 +1,4 @@
-package com.icedragongame.dto;
+package com.icedragongame.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,5 +16,6 @@ public class PostDetailVo {
     String content;
     String title;
     String game_name;
+    String game_description;
     String category;
 }

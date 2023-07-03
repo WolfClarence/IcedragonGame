@@ -32,7 +32,14 @@ public class Post  implements Serializable {
     private String auditStatus;
     private String username;
     private String imageUrl;
-    private Integer gameId;
     private String content;
+    String game_name;
+    String game_description;
+    Integer categoryId;
+
+
+    @TableField(exist = false)
+    String category;
+
 }
 

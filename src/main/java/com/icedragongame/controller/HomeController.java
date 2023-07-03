@@ -4,14 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.icedragongame.common.R;
-import com.icedragongame.myenum.SystemError;
 import com.icedragongame.dto.PagingDto;
 import com.icedragongame.entity.Category;
-import com.icedragongame.entity.Game;
 import com.icedragongame.entity.Post;
 import com.icedragongame.entity.User;
+import com.icedragongame.myenum.SystemError;
 import com.icedragongame.service.CategoryService;
-import com.icedragongame.service.GameService;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.UserService;
 import com.icedragongame.vo.PageVo;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -54,8 +51,6 @@ public class HomeController {
     @Resource
     private PostService postService;
 
-    @Resource
-    private GameService gameService;
 
     @Resource
     private CategoryService categoryService;
@@ -159,21 +154,12 @@ public class HomeController {
     @PostMapping("/category/{category}")
     @ApiOperation(value = "通过类别得到文章列表,方法为分页")
     public R<Object> category(@PathVariable(value = "category") String category, @RequestBody PagingDto pagingDto) {
-        LambdaQueryWrapper<Game> wrapperForGame = new LambdaQueryWrapper<>();
         Category category1 = categoryService.getOne( new LambdaUpdateWrapper<Category>().eq(Category::getCategoryName,category));
         if(category1==null){
             return R.error(SystemError.NO_THIS_CATEGORY);
         }
-        wrapperForGame.eq(Game::getCategoryId,category1.getId());
-        List<Game> gameList = gameService.list(wrapperForGame);
-        QueryWrapper<Post> query = new QueryWrapper<>();
-        System.out.println(gameList);
-        List<Integer> gameIds = gameList.stream().map(Game::getId).collect(Collectors.toList());
-        if(gameIds.size()==0){
-            gameIds.add(-1);
-        }
-        query.in("game_id",gameIds);
-        PageVo<PostVo> postVoPageVo =postService.pageForPostVO(pagingDto,query);
-        return R.success(postVoPageVo);
+        int categoryId = categoryService.getOne(new LambdaUpdateWrapper<Category>().eq(Category::getCategoryName,category)).getId();
+        List<PostVo> postVoList = postService.listForVO(new LambdaQueryWrapper<Post>().eq(Post::getCategoryId,categoryId));
+        return R.success(postVoList);
     }
 }

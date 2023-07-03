@@ -37,7 +37,7 @@ public class MySqlUtils {
     }
 
     public void initDatabase(){
-        List<String> tableList = Arrays.asList("category","user","post","reply","game","likes");
+        List<String> tableList = Arrays.asList("category","user","post","reply","likes");
         boolean flag = true;
         for (String s : tableList) {
             boolean tableExist = isTableExist(s);

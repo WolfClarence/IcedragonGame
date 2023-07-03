@@ -2,13 +2,11 @@ package com.icedragongame.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.icedragongame.common.R;
-import com.icedragongame.myenum.SystemError;
 import com.icedragongame.constant.ConstantBySelf;
 import com.icedragongame.entity.Category;
-import com.icedragongame.entity.Game;
 import com.icedragongame.entity.Post;
+import com.icedragongame.myenum.SystemError;
 import com.icedragongame.service.CategoryService;
-import com.icedragongame.service.GameService;
 import com.icedragongame.service.PostService;
 import com.icedragongame.vo.PostVo;
 import io.swagger.annotations.ApiOperation;
@@ -18,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -52,8 +48,6 @@ public class SearchController {
      */
     @Resource
     private PostService postService;
-    @Resource
-    private GameService gameService;
 
     @Resource
     private CategoryService categoryService;
@@ -76,16 +70,14 @@ public class SearchController {
     public R<List<PostVo>> search(@RequestParam(value = "sort",required = false) Integer sort,
                                   @RequestParam(value = "category",required = false) String category,
                                   @RequestParam(value = "key_word",required = false) String keyWord){
-        QueryWrapper<Post> query = new QueryWrapper<>();
+        QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
         //排序类型
         if(sort == null) sort = ConstantBySelf.ORDER_BY_TIME;//未选类别，默认为按时间
         if(sort.equals(ConstantBySelf.ORDER_BY_TIME)){//按时间
-            query.orderByDesc("build_time");
+            queryWrapper.orderByDesc("build_time");
         }else{//按热度
-            query.orderByDesc("2 * reply_num + scan_num");
+            queryWrapper.orderByDesc("2 * reply_num + scan_num");
         }
-
-        List<Integer> game_ids = new ArrayList<>();
         //游戏类别
         if(!(category == null || category.isEmpty())){//类别不为空
             Category category1= categoryService.getOne(new QueryWrapper<Category>().eq("category_name",category));
@@ -93,17 +85,13 @@ public class SearchController {
                 return R.error(SystemError.NO_THIS_CATEGORY);
             }
             int category_id = category1.getId();
-            List<Game> gameList = gameService.list(new QueryWrapper<Game>().eq("category_id",category_id));
-            game_ids = gameList.stream().map(Game::getId).collect(Collectors.toList());
-            query.in("game_id",game_ids);
+            queryWrapper.eq("category_id",category_id);
         }
         //关键字
         if(!(keyWord == null || keyWord.isEmpty())){//类别不为空
-            List<Game> gameList = gameService.list(new QueryWrapper<Game>().like("game_name",keyWord));
-            List<Integer> collect = gameList.stream().map(Game::getId).collect(Collectors.toList());
-            query.and(qw->qw.in("game_id",collect).or().like("title",keyWord));
+            queryWrapper.eq("title",keyWord).eq("content",keyWord);
         }
-        List<PostVo> list = postService.listForVO(query);
+        List<PostVo> list = postService.listForVO(queryWrapper);
         return R.success((list));
     }
 }

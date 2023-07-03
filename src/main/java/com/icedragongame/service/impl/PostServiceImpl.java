@@ -6,10 +6,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.icedragongame.dao.PostDao;
 import com.icedragongame.dto.PagingDto;
 import com.icedragongame.entity.Category;
-import com.icedragongame.entity.Game;
 import com.icedragongame.entity.Post;
 import com.icedragongame.service.CategoryService;
-import com.icedragongame.service.GameService;
 import com.icedragongame.service.PostService;
 import com.icedragongame.utils.MyBeanUtils;
 import com.icedragongame.vo.PageVo;
@@ -30,8 +28,7 @@ import java.util.stream.Collectors;
 @Service
 public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements PostService {
 
-    @Resource
-    GameService gameService;
+
     @Resource
     CategoryService categoryService;
 
@@ -52,12 +49,10 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements PostS
         return getPostVoByPost(post);
     }
     public PostVo getPostVoByPost(Post post){
-        PostVo postVo = MyBeanUtils.beanCopy(post, PostVo.class);
-        Game game = gameService.getById(post.getGameId());
-        postVo.setGame_name(game.getGameName());
-        Category category = categoryService.getById(game.getCategoryId());
-        postVo.setCategory(category.getCategoryName());
-        return postVo;
+        Integer categoryId = post.getCategoryId();
+        Category byId = categoryService.getById(categoryId);
+        post.setCategory(byId.getCategoryName());
+        return MyBeanUtils.beanCopy(post, PostVo.class);
     }
 
     @Override
