@@ -31,6 +31,7 @@ mybatis-plus:
 gxl:
   sql-init:
     sql-will-init: true # 实现数据库检查和初始化,如果数据库中没有相应的表,则自动执行sql文件
+    if-direction: true #无条件直接俄执行sql文件
   oss:
     access-key: AmjB_zGL0xduM9GgETHt5Lm_TBmc4Lda_ptAv1Mh
     secret-key: 1V9i1WJY9URmz21paAVEKuPN3IKnkrWrIr1kifCe

@@ -3,6 +3,7 @@ drop table if exists `game`;
 drop table if exists `category`;
 drop table if exists `reply`;
 drop table if exists `user`;
+drop table if exists `game`;
 create table post
 (
     id  int  auto_increment  primary key,

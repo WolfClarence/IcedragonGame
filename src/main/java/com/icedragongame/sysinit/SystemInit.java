@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 public class SystemInit {
 
     private boolean sqlWillInit;
+    private boolean ifDirection;
     @Autowired
     PostService postService;
     @Resource
@@ -38,13 +39,13 @@ public class SystemInit {
     @PostConstruct
     public void init() {
         log.info("___________systemInit______________");
-//        doInit();
+        doInit();
     }
 
     private void doInit() {
         if (sqlWillInit) {
             log.info("开始检查数据库是否含有需要的表,如果缺少,则进行数据库初始化");
-            mySqlUtils.initDatabase();
+            mySqlUtils.initDatabase(ifDirection);
             log.info("数据库初始化完毕");
         } else {
             log.info("未启动数据库初始化,若像启动,将application.yml的字段gxl.sql-init.is-sql-init改为true即可");

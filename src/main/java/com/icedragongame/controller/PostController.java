@@ -3,13 +3,13 @@ package com.icedragongame.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.icedragongame.common.R;
 import com.icedragongame.constant.ConstantBySelf;
-import com.icedragongame.vo.PostDetailVo;
 import com.icedragongame.entity.Post;
 import com.icedragongame.entity.Reply;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.ReplyService;
 import com.icedragongame.utils.MyBeanUtils;
 import com.icedragongame.utils.MyRedisUtils;
+import com.icedragongame.vo.PostDetailVo;
 import com.icedragongame.vo.PostVo;
 import com.icedragongame.vo.ReplyVo;
 import io.swagger.annotations.Api;
@@ -83,6 +83,13 @@ public class PostController {
      */
     @Autowired
     MyRedisUtils myRedisUtils;
+
+    @GetMapping("/postingPage/{num}")
+    @ApiOperation("得到今日最热帖子若干(未完成)")
+    public R<String> getTodayHot(@PathVariable String num){//传入分类的名字
+       return R.success();
+    }
+
 
     /**
      * <p>

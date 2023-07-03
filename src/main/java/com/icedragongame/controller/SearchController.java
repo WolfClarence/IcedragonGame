@@ -89,7 +89,7 @@ public class SearchController {
         }
         //关键字
         if(!(keyWord == null || keyWord.isEmpty())){//类别不为空
-            queryWrapper.eq("title",keyWord).eq("content",keyWord);
+            queryWrapper.eq("title",keyWord).or().eq("content",keyWord);
         }
         List<PostVo> list = postService.listForVO(queryWrapper);
         return R.success((list));

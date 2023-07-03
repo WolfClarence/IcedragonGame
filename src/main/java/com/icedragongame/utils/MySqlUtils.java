@@ -36,20 +36,27 @@ public class MySqlUtils {
         System.out.println(tableName);
     }
 
-    public void initDatabase(){
-        List<String> tableList = Arrays.asList("category","user","post","reply","likes");
-        boolean flag = true;
-        for (String s : tableList) {
-            boolean tableExist = isTableExist(s);
-            if(!tableExist){
-                flag = false;
-                break;
-            }
-        }
-        if(!flag){
+    public void initDatabase(boolean isDirection){
+        System.out.println(isDirection+"-----------------------------------");
+        if(isDirection){
+            log.info("无条件执行sql文件");
             writeSqlFileToDatabase("project.sql");
+            log.info("执行完毕");
         }else{
-            log.info("数据库已存在,不用初始化");
+            List<String> tableList = Arrays.asList("category","user","post","reply","likes");
+            boolean flag = true;
+            for (String s : tableList) {
+                boolean tableExist = isTableExist(s);
+                if(!tableExist){
+                    flag = false;
+                    break;
+                }
+            }
+            if(!flag){
+                writeSqlFileToDatabase("project.sql");
+            }else{
+                log.info("数据库已存在,不用初始化");
+            }
         }
     }
     public boolean isTableExist(String tableName){
