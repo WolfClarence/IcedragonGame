@@ -38,7 +38,7 @@ public class SystemInit {
     @PostConstruct
     public void init() {
         log.info("___________systemInit______________");
-        doInit();
+//        doInit();
     }
 
     private void doInit() {

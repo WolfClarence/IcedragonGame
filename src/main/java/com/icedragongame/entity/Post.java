@@ -33,9 +33,9 @@ public class Post  implements Serializable {
     private String username;
     private String imageUrl;
     private String content;
-    String game_name;
-    String game_description;
-    Integer categoryId;
+    private String game_name;
+    private String game_description;
+    private Integer categoryId;
 
 
     @TableField(exist = false)

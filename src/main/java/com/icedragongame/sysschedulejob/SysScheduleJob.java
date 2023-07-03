@@ -30,7 +30,7 @@ public class SysScheduleJob {
      */
     @Scheduled(cron = "${gxl.schedule.time}")
     public void putScanDataToMysqlFromRedis() {
-        doSchedule();
+//        doSchedule();
     }
 
     public void doSchedule(){
