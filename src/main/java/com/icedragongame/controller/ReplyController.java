@@ -85,6 +85,7 @@ public class ReplyController {
             Reply reply = MyBeanUtils.beanCopy(replyDto,Reply.class);
             System.out.println(reply);
             replyService.save(reply);
+            post.setReplyNum(post.getReplyNum()+1);
             return R.success();
         }else {
             return R.error(SystemError.POST_NOT_FOUND);
