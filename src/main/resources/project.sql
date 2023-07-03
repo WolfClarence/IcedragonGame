@@ -48,6 +48,19 @@ insert into category values
                          (4,'策略类'),
                          (5,'即时战略类');
 
+create table likes
+(
+    id int primary key auto_increment,
+    post_id int not null ,
+    username varchar(80) not null
+);
+insert into likes values
+                      (1,1,'gengxuelong'),
+                      (2,2,'gengxuelong'),
+                      (3,3,'gengxuelong'),
+                      (4,4,'gengxuelong'),
+                      (4,5,'gengxuelong');
+
 create table reply
 (
     id      int   auto_increment primary key ,
@@ -76,3 +89,5 @@ create table user
 insert into user values
                      ('root','$2a$10$6c1iHYH2JeXQLpY9qMEvmuprGARa6DDVTfix/qEvswS7TQn/9sGvS','超级管理员',1,10,'超级管理员状态'),# 密码: root
                      ('gengxuelong','$2a$10$Pw0DUtXSc61k90b9qq.iwesEhWYaQ37hkJzoVoMfz0kMa7PmWflM2','耿雪龙',0,10,'一般用户');# 密码:123456
+
+
