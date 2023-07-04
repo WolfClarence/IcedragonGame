@@ -14,7 +14,6 @@
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="99e82dac-bd16-4a24-aba6-6f042788ba5e">
       <console name="mydb@10.13.0.126" type="STANDARD" schema="mydb" session="Main"><![CDATA[select * from user;
-select * from game;
 select * from category;
 select * from post;]]></console>
     </connection>

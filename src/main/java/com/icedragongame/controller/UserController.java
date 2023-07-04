@@ -1,6 +1,9 @@
 package com.icedragongame.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.icedragongame.common.R;
 import com.icedragongame.constant.ConstantBySelf;
 import com.icedragongame.dto.PagingDto;
@@ -8,6 +11,7 @@ import com.icedragongame.dto.UserNickDto;
 import com.icedragongame.dto.UserPointAddDto;
 import com.icedragongame.entity.Post;
 import com.icedragongame.entity.User;
+import com.icedragongame.myenum.SystemError;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.ReplyService;
 import com.icedragongame.service.UserService;
@@ -174,7 +178,7 @@ public class UserController {
      */
     @PostMapping("/manager/uncheckedlist")
     @ApiOperation("(得到所有未审核的文章,分页方式)(未完成)")
-    public R<PageVo<PostForLittleBlockVO>> getUnauditedPost(@RequestBody PagingDto pagingDto){
+    public R<Object> getUnauditedPost(@RequestBody PagingDto pagingDto){
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("audit_status","未审核");
         PageVo<PostForLittleBlockVO> postVoPageVo = postService.pageForLittlePostVO(pagingDto, queryWrapper);
@@ -207,7 +211,29 @@ public class UserController {
     @PostMapping("/update/nick")
     @ApiOperation("(更新用户nickname)(未完成)")
     public R<Object> updateUser(UserNickDto userNickDto){
-        return null;
+        /*fail
+        UpdateWrapper<User> query = new UpdateWrapper<>();
+        query.eq("username",userNickDto.getUsername());//获取用户
+        query.set("user_nickname",userNickDto.getNick_name());//更改昵称
+        userService.update(query);
+        */
+        /*fail
+        UpdateWrapper<User> query = new UpdateWrapper<>();
+        query.eq("username",userNickDto.getUsername());//获取用户
+        User user = new User();
+        user.setUserNickname(userNickDto.getNick_name());
+        userService.update(user,query);
+         */
+        User user = userService.getById(userNickDto.getUsername());//获取用户
+        if (user!=null){//找到用户
+            LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();
+            updateWrapper.eq(User::getUsername, userNickDto.getUsername())
+                    .set(User::getUserNickname, userNickDto.getNick_name());
+            userService.update(updateWrapper);
+        }else{//用户不存在
+            return R.error(SystemError.USER_NOT_FOUND);
+        }
+        return R.success("用户：" + userNickDto.getUsername() + " 的昵称更改成功：" + userNickDto.getNick_name());
     }
 
     @PostMapping("/update/point/")
