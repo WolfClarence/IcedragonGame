@@ -5,14 +5,15 @@ import com.icedragongame.common.R;
 import com.icedragongame.constant.ConstantBySelf;
 import com.icedragongame.entity.Post;
 import com.icedragongame.entity.Reply;
+import com.icedragongame.service.CategoryService;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.ReplyService;
 import com.icedragongame.utils.MyBeanUtils;
 import com.icedragongame.utils.MyRedisUtils;
 import com.icedragongame.vo.PostDetailVo;
 import com.icedragongame.vo.PostForBigBlockVo;
-import com.icedragongame.vo.ReplyVo;
 import com.icedragongame.vo.PostForTodayHotVO;
+import com.icedragongame.vo.ReplyVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,6 +75,8 @@ public class PostController {
     @Resource
     private ReplyService replyService;
 
+    private CategoryService categoryService;
+
     /**
      * <p>
      *     project: snow_dragonGame blogSystem
@@ -86,10 +92,40 @@ public class PostController {
     MyRedisUtils myRedisUtils;
 
     @GetMapping("/postingPage/{num}")
-    @ApiOperation("(今日热门推荐)得到今日最热帖子若干(未完成)  ,要求今日帖子,热度计算公式:2*replynum+scannum")
-    public R<PostForTodayHotVO> getTodayHot(@PathVariable String num){//传入分类的名字
+    @ApiOperation("(今日热门推荐)得到今日最热帖子若干(已完成)  ,要求今日帖子,热度计算公式:2*replynum+scannum")
+    public R<List<PostForTodayHotVO>> getTodayHot(@PathVariable String num){//传入分类名称
+        int i = 0;
+        int j = 0;
+        LambdaQueryWrapper<Post> queryWapper = new LambdaQueryWrapper<>();
+        //获取该类post
+        List<Post> posts = postService.list(queryWapper.eq(Post::getCategoryId,num));
+        List<Post> postList = new ArrayList<>();
+        //获取符合时间post
+        while(i<posts.size()){
+            //System.out.println(posts.get(i).getBuildTime());
+            //标准化
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            Date postDate = posts.get(i).getBuildTime();
+            Date nowdate = new Date();
 
-       return R.success(new PostForTodayHotVO());
+            //System.out.println(postDate);
+           // System.out.println(nowdate);
+            System.out.println(formatter.format(postDate));
+            if(formatter.format(postDate).equals(formatter.format(nowdate))){
+
+                postList.add(posts.get(j));
+                System.out.println(postList);
+                j++;
+            }
+            i++;
+        }
+        //热度排序
+        postService.sortPostByHot(postList);
+
+        //System.out.println(postList);
+        List<PostForTodayHotVO> postForTodayHotVOS = postList.stream().map(post -> MyBeanUtils.beanCopy(post,PostForTodayHotVO.class)).collect(Collectors.toList());
+        //System.out.println(postForTodayHotVOS);
+       return R.success(postForTodayHotVOS);
     }
 
 
