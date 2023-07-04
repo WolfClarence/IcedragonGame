@@ -2,10 +2,14 @@
 package com.icedragongame.vo;
 
 import com.icedragongame.entity.User;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)//set方法返回本身
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserInfoVo {
     /**
      * 主键

@@ -76,7 +76,9 @@ create table user
     user_nickname varchar(80)  not null unique ,
     user_identity int          not null comment '1:管理员,0:普通用户',
     user_points   int          not null comment '用户的积分',
-    user_status   varchar(20)  not null comment '用户的状态,当为 已封禁 时,用户不再可用,当再解封后为 已解封'
+    user_status   varchar(20)  not null comment '用户的状态,当为 已封禁 时,用户不再可用,当再解封后为 已解封',
+    user_image varchar(150) null
+
 );
 insert into user values
                      ('root','$2a$10$6c1iHYH2JeXQLpY9qMEvmuprGARa6DDVTfix/qEvswS7TQn/9sGvS','超级管理员',1,10,'超级管理员状态'),# 密码: root

@@ -81,5 +81,26 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements PostS
         List<PostForLittleBlockVO> postVoList = records.stream().map(this::getLittlePostVoByPost).collect(Collectors.toList());
         return new PageVo<>(pageForPost.getTotal(),postVoList);
     }
+
+    @Override
+    public List<Post> sortPostByHot(List<Post> postList) {
+        int i,j,first,second;
+        Post medim;
+        for(i =0;i<postList.size();i++){
+            for(j=i;j<postList.size();j++){
+                first = postList.get(i).getScanNum()+2*postList.get(i).getReplyNum();
+                second =postList.get(j).getScanNum()+2*postList.get(j).getReplyNum();
+                if(first<second){
+                    medim = postList.get(i);
+                    postList.set(i,postList.get(j));
+                    postList.set(j,medim);
+                }
+            }
+
+        }
+
+
+        return postList;
+    }
 }
 

@@ -26,5 +26,7 @@ public interface PostService extends IService<Post> {
 
     PostForLittleBlockVO getLittlePostVoByPost(Post post);
     PageVo<PostForLittleBlockVO> pageForLittlePostVO(PagingDto postPage, AbstractWrapper query);
+
+    List<Post> sortPostByHot (List<Post> postList);
 }
 
