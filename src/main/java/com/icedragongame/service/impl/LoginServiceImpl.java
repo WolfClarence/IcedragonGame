@@ -61,6 +61,7 @@ public class LoginServiceImpl implements LoginService {
         //把token和userinfo封装 返回
         //把User转换成UserInfoVo
         UserInfoVo userInfoVo = MyBeanUtils.beanCopy(loginUser.getUser(), UserInfoVo.class,true);
+        userInfoVo.setTagByPoints(userInfoVo.getUser_points());
         return new LoginVo(jwt,userInfoVo);
     }
 
