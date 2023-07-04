@@ -1,0 +1,92 @@
+{
+  "groups": [
+    {
+      "name": "gxl.oss",
+      "type": "com.icedragongame.utils.OssUtils",
+      "sourceType": "com.icedragongame.utils.OssUtils"
+    },
+    {
+      "name": "gxl.sql-init",
+      "type": "com.icedragongame.sysinit.SystemInit",
+      "sourceType": "com.icedragongame.sysinit.SystemInit"
+    },
+    {
+      "name": "spring.datasource.druid",
+      "type": "com.icedragongame.utils.MySqlUtils",
+      "sourceType": "com.icedragongame.utils.MySqlUtils"
+    }
+  ],
+  "properties": [
+    {
+      "name": "gxl.oss.access-key",
+      "type": "java.lang.String",
+      "sourceType": "com.icedragongame.utils.OssUtils"
+    },
+    {
+      "name": "gxl.oss.bucket",
+      "type": "java.lang.String",
+      "sourceType": "com.icedragongame.utils.OssUtils"
+    },
+    {
+      "name": "gxl.oss.domain",
+      "type": "java.lang.String",
+      "sourceType": "com.icedragongame.utils.OssUtils"
+    },
+    {
+      "name": "gxl.oss.max-file-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.icedragongame.utils.OssUtils"
+    },
+    {
+      "name": "gxl.oss.secret-key",
+      "type": "java.lang.String",
+      "sourceType": "com.icedragongame.utils.OssUtils"
+    },
+    {
+      "name": "gxl.sql-init.if-direction",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.icedragongame.sysinit.SystemInit"
+    },
+    {
+      "name": "gxl.sql-init.my-redis-utils",
+      "type": "com.icedragongame.utils.MyRedisUtils",
+      "sourceType": "com.icedragongame.sysinit.SystemInit"
+    },
+    {
+      "name": "gxl.sql-init.my-sql-utils",
+      "type": "com.icedragongame.utils.MySqlUtils",
+      "sourceType": "com.icedragongame.sysinit.SystemInit"
+    },
+    {
+      "name": "gxl.sql-init.post-service",
+      "type": "com.icedragongame.service.PostService",
+      "sourceType": "com.icedragongame.sysinit.SystemInit"
+    },
+    {
+      "name": "gxl.sql-init.sql-will-init",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.icedragongame.sysinit.SystemInit"
+    },
+    {
+      "name": "spring.datasource.druid.password",
+      "type": "java.lang.String",
+      "sourceType": "com.icedragongame.utils.MySqlUtils"
+    },
+    {
+      "name": "spring.datasource.druid.table-name",
+      "type": "java.lang.String",
+      "sourceType": "com.icedragongame.utils.MySqlUtils"
+    },
+    {
+      "name": "spring.datasource.druid.url",
+      "type": "java.lang.String",
+      "sourceType": "com.icedragongame.utils.MySqlUtils"
+    },
+    {
+      "name": "spring.datasource.druid.username",
+      "type": "java.lang.String",
+      "sourceType": "com.icedragongame.utils.MySqlUtils"
+    }
+  ],
+  "hints": []
+}
