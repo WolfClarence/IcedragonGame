@@ -1,0 +1,43 @@
+server:
+  port: 8080
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://10.13.0.126:3306/mydb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: root
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 5MB
+  redis:
+    host: 10.13.0.126
+    port: 6379
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+mybatis-plus:
+  configuration:
+    #在映射实体或者属性时，将数据库中表名和字段名中的下划线去掉，按照驼峰命名法映射
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+gxl:
+  sql-init:
+    sql-will-init: true # 实现数据库检查和初始化,如果数据库中没有相应的表,则自动执行sql文件
+    if-direction: false #无条件直接俄执行sql文件
+  oss:
+    access-key: AmjB_zGL0xduM9GgETHt5Lm_TBmc4Lda_ptAv1Mh
+    secret-key: 1V9i1WJY9URmz21paAVEKuPN3IKnkrWrIr1kifCe
+    bucket: gxl-image-store
+    domain: http://rx0irz5ci.hn-bkt.clouddn.com/
+    max-file-size: 4194304 # 4MB
+  schedule:
+    time: "* 0/10 * * * ?" # 每十分钟更新一次redis
+
