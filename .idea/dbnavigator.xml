@@ -13,9 +13,10 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="99e82dac-bd16-4a24-aba6-6f042788ba5e">
-      <console name="mydb@10.13.0.126" type="STANDARD" schema="mydb" session="Main"><![CDATA[select * from user_post;
-select * from post;
-SELECT * FROM post WHERE post_id IN (123);]]></console>
+      <console name="mydb@10.13.0.126" type="STANDARD" schema="mydb" session="Main"><![CDATA[select * from user;
+select * from game;
+select * from category;
+select * from post;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -26,6 +27,7 @@ SELECT * FROM post WHERE post_id IN (123);]]></console>
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="99e82dac-bd16-4a24-aba6-6f042788ba5e" dataset="mydb.user" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="99e82dac-bd16-4a24-aba6-6f042788ba5e" dataset="mydb.attentions" active-filter-id="" />
     <filter-actions connection-id="99e82dac-bd16-4a24-aba6-6f042788ba5e" dataset="mydb.post" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">

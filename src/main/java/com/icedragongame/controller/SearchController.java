@@ -3,17 +3,16 @@ package com.icedragongame.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.icedragongame.common.R;
 import com.icedragongame.constant.ConstantBySelf;
+import com.icedragongame.dto.PagingDto;
 import com.icedragongame.entity.Category;
 import com.icedragongame.entity.Post;
 import com.icedragongame.myenum.SystemError;
 import com.icedragongame.service.CategoryService;
 import com.icedragongame.service.PostService;
+import com.icedragongame.vo.PageVo;
 import com.icedragongame.vo.PostForBigBlockVo;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -67,12 +66,13 @@ public class SearchController {
      *
      */
     @GetMapping("/search")
-    @ApiOperation("(搜索功能,分页)(未完成)当有category字段时,要求数据必须是该类,当有key时,要求数据可以是title中含有,也可以game name含有,sort为0时按时间降序排序,否则按热度降序排序")
-    public R<List<PostForBigBlockVo>> search(@RequestParam(value = "sort",required = false) Integer sort,
+    @ApiOperation("(搜索功能,分页)(未完成)当有category字段时,要求数据必须是该类" +
+            "当有key时,要求数据可以是title中含有,也可以game name含有" +
+            "sort为0时按时间降序排序,否则按热度降序排序")
+    public R<Object> search(@RequestParam(value = "sort",required = false) Integer sort,
                                              @RequestParam(value = "category",required = false) String category,
                                              @RequestParam(value = "key_word",required = false) String keyWord,
-                                             @RequestParam(value = "key_word",required = false) String page_indices,
-                                             @RequestParam(value = "key_word",required = false) String page_num
+                                             @RequestBody PagingDto pagingDto
                                              ){
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
         //排序类型
@@ -93,10 +93,10 @@ public class SearchController {
         }
         //关键字
         if(!(keyWord == null || keyWord.isEmpty())){//类别不为空
-            queryWrapper.like("title",keyWord).or().like("content",keyWord);
+            queryWrapper.like("title",keyWord).or().like("game_name",keyWord);
         }
-        List<PostForBigBlockVo> list = new ArrayList<>();
-        return R.success((list));
+        PageVo<PostForBigBlockVo> postVoPageVo = postService.pageForPostVO(pagingDto, queryWrapper);
+        return R.success((postVoPageVo));
     }
 
 
