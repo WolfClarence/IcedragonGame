@@ -39,5 +39,5 @@ gxl:
     domain: http://rx0irz5ci.hn-bkt.clouddn.com/
     max-file-size: 4194304 # 4MB
   schedule:
-    time: "* 0/10 * * * ?" # 每十分钟更新一次redis
+    time: "* 0/100 * * * ?" # 每十分钟更新一次redis
 
