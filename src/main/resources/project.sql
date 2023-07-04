@@ -3,7 +3,7 @@ drop table if exists `game`;
 drop table if exists `category`;
 drop table if exists `reply`;
 drop table if exists `user`;
-drop table if exists `game`;
+drop table if exists `attentions`;
 create table post
 (
     id  int  auto_increment  primary key,
@@ -40,13 +40,13 @@ insert into category values
                          (4,'策略类'),
                          (5,'即时战略类');
 
-create table likes
+create table attentions
 (
     id int primary key auto_increment,
     post_id int not null ,
     username varchar(80) not null
 );
-insert into likes values
+insert into attentions values
                       (1,1,'gengxuelong'),
                       (2,2,'gengxuelong'),
                       (3,3,'gengxuelong'),
