@@ -12,6 +12,7 @@ import com.icedragongame.service.PostService;
 import com.icedragongame.utils.MyBeanUtils;
 import com.icedragongame.vo.PageVo;
 import com.icedragongame.vo.PostForBigBlockVo;
+import com.icedragongame.vo.PostForLittleBlockVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -61,6 +62,23 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements PostS
         Page<Post> pageForPost = page(page, query);
         List<Post> records = pageForPost.getRecords();
         List<PostForBigBlockVo> postVoList = records.stream().map(this::getPostVoByPost).collect(Collectors.toList());
+        return new PageVo<>(pageForPost.getTotal(),postVoList);
+    }
+
+    @Override
+    public PostForLittleBlockVO getLittlePostVoByPost(Post post) {
+        Integer categoryId = post.getCategoryId();
+        Category byId = categoryService.getById(categoryId);
+        post.setCategory(byId.getCategoryName());
+        return MyBeanUtils.beanCopy(post, PostForLittleBlockVO.class);
+    }
+
+    @Override
+    public PageVo<PostForLittleBlockVO> pageForLittlePostVO(PagingDto postPage, AbstractWrapper query) {
+        Page<Post> page = new Page<>(postPage.getPage_indices(),postPage.getPage_num());
+        Page<Post> pageForPost = page(page, query);
+        List<Post> records = pageForPost.getRecords();
+        List<PostForLittleBlockVO> postVoList = records.stream().map(this::getLittlePostVoByPost).collect(Collectors.toList());
         return new PageVo<>(pageForPost.getTotal(),postVoList);
     }
 }

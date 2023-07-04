@@ -6,6 +6,7 @@ import com.icedragongame.dto.PagingDto;
 import com.icedragongame.entity.Post;
 import com.icedragongame.vo.PageVo;
 import com.icedragongame.vo.PostForBigBlockVo;
+import com.icedragongame.vo.PostForLittleBlockVO;
 
 import java.util.List;
 
@@ -22,5 +23,8 @@ public interface PostService extends IService<Post> {
     PostForBigBlockVo getPostVoByPost(Post post);
 
     PageVo<PostForBigBlockVo> pageForPostVO(PagingDto postPage, AbstractWrapper query);
+
+    PostForLittleBlockVO getLittlePostVoByPost(Post post);
+    PageVo<PostForLittleBlockVO> pageForLittlePostVO(PagingDto postPage, AbstractWrapper query);
 }
 

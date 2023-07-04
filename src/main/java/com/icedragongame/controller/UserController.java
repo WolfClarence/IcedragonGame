@@ -175,11 +175,10 @@ public class UserController {
     @PostMapping("/manager/uncheckedlist")
     @ApiOperation("(得到所有未审核的文章,分页方式)(未完成)")
     public R<PageVo<PostForLittleBlockVO>> getUnauditedPost(@RequestBody PagingDto pagingDto){
-//        QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.eq("audit_status","未审核");
-//        PageVo<PostForLittleBlockVO> postVoPageVo = postService.pageForPostVO(pagingDto, queryWrapper);
-//        return R.success(postVoPageVo);
-        return null;
+        QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("audit_status","未审核");
+        PageVo<PostForLittleBlockVO> postVoPageVo = postService.pageForLittlePostVO(pagingDto, queryWrapper);
+        return R.success(postVoPageVo);
     }
 
 
