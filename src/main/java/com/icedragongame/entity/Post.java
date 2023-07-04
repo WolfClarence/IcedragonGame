@@ -33,8 +33,8 @@ public class Post  implements Serializable {
     private String username;
     private String imageUrl;
     private String content;
-    private String game_name;
-    private String game_description;
+    private String gameName;
+    private String gameDescription;
     private Integer categoryId;
 
 
