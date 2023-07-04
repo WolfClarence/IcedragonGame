@@ -10,7 +10,7 @@ import com.icedragongame.service.AttentionsService;
 import com.icedragongame.service.PostService;
 import com.icedragongame.utils.MyBeanUtils;
 import com.icedragongame.vo.PageVo;
-import com.icedragongame.vo.PostForLittleBlockVO;
+import com.icedragongame.vo.PostForBigBlockVo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,15 +40,15 @@ public class LikesController {
         attentionsService.remove(new QueryWrapper<Attentions>().eq("post_id",likesDto.getPost_id()).eq("username",likesDto.getUsername()));
         return R.success();
     }
-    @GetMapping("/getAll/{username}")
+    @PostMapping("/getAll/{username}")
     @ApiOperation(value = "(得到一个人所有是喜欢的作品,分页)(已完成)")
-    public R<Object> getAll(@PathVariable("username")String username, @RequestBody PagingDto pagingDto){
-        LambdaQueryWrapper<Attentions> queryWapper = new LambdaQueryWrapper<>();
-        queryWapper.eq(Attentions::getUsername,username);
-        PageVo<PostForLittleBlockVO> postForLittleBlockVO = postService.pageForLittlePostVO(pagingDto,queryWapper);
+    public R<PageVo<PostForBigBlockVo>> getAll(@PathVariable("username")String username, @RequestBody PagingDto pagingDto){
+        LambdaQueryWrapper<Attentions> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Attentions::getUsername,username);
+        PageVo<PostForBigBlockVo> postForBigBlockVoPageVo = postService.pageForPostVO(pagingDto,queryWrapper);
 
 
-        return R.success(postForLittleBlockVO);
+        return R.success(postForBigBlockVoPageVo);
     }
 
 }
