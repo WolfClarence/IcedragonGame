@@ -15,10 +15,7 @@ import com.icedragongame.myenum.SystemError;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.ReplyService;
 import com.icedragongame.service.UserService;
-import com.icedragongame.vo.BriefUserVo;
-import com.icedragongame.vo.PageVo;
-import com.icedragongame.vo.PostForBigBlockVo;
-import com.icedragongame.vo.PostForLittleBlockVO;
+import com.icedragongame.vo.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -99,13 +96,13 @@ public class UserController {
      *
      */
     @GetMapping("/personal/userinfo/{username}")
-    @ApiOperation("(进入个人页面,便更新个人信息,积分和tag)(未完成) 得到一个用户的详细信息")
-    public R<BriefUserVo> getUserInfoByName(@PathVariable("username") String username){
+    @ApiOperation("(进入个人页面,便更新个人信息,积分和tag)(已完成) 得到一个用户的详细信息")
+    public R<UserInfoVo> getUserInfoByName(@PathVariable("username") String username){
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username); // 根据用户名查询
         User user = userService.getOne(queryWrapper);
-        BriefUserVo BUV = new BriefUserVo(user);
-        return R.success(BUV);
+        UserInfoVo userInfo = new UserInfoVo(user);
+        return R.success(userInfo);
     }
 
     @GetMapping("/personal/normal/userinfo")
@@ -177,7 +174,7 @@ public class UserController {
      *
      */
     @PostMapping("/manager/uncheckedlist")
-    @ApiOperation("(得到所有未审核的文章,分页方式)(未完成)")
+    @ApiOperation("(得到所有未审核的文章,分页方式)(已完成)")
     public R<Object> getUnauditedPost(@RequestBody PagingDto pagingDto){
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("audit_status","未审核");
@@ -209,7 +206,7 @@ public class UserController {
     }
 
     @PostMapping("/update/nick")
-    @ApiOperation("(更新用户nickname)(未完成)")
+    @ApiOperation("(更新用户nickname)(已完成)")
     public R<Object> updateUser(UserNickDto userNickDto){
         /*fail
         UpdateWrapper<User> query = new UpdateWrapper<>();
@@ -237,9 +234,20 @@ public class UserController {
     }
 
     @PostMapping("/update/point/")
-    @ApiOperation("(更新用户积分,按照一定规则,观看一个文章加一分,评论一个加5分,前端传加分数据)(未完成)")
+    @ApiOperation("(更新用户积分,按照一定规则,观看一个文章加一分,评论一个加5分,前端传加分数据)(已完成)")
     public R<Object> updateUser(UserPointAddDto userPointAddDto){
-        return null;
+        User user = userService.getById(userPointAddDto.getUsername());//获取用户
+        if (user!=null){//用户存在
+            LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();
+            Integer finalPoints = new Integer(user.getUserPoints() + userPointAddDto.getAdd_num());
+            updateWrapper.eq(User::getUsername, userPointAddDto.getUsername())
+                    .set(User::getUserPoints, finalPoints);
+            userService.update(updateWrapper);
+            return R.success("用户：" + userPointAddDto.getUsername() +
+                    " 加分：" + userPointAddDto.getAdd_num());
+        }else {//用户不存在
+            return R.error(SystemError.USER_NOT_FOUND);
+        }
     }
 
 

@@ -13,9 +13,9 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="99e82dac-bd16-4a24-aba6-6f042788ba5e">
-      <console name="mydb@10.13.0.126" type="STANDARD" schema="mydb" session="Main"><![CDATA[select * from user;
-select * from category;
-select * from post;]]></console>
+      <console name="mydb@10.13.0.126" type="STANDARD" schema="mydb" session="Main"><![CDATA[select * from category;
+select * from post;
+select * from category;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -46,6 +46,9 @@ select * from post;]]></console>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />
+  </component>
+  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
+    <recently-used-interfaces />
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>

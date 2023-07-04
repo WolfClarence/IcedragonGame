@@ -65,8 +65,8 @@ public class SearchController {
      *   <description>
      *
      */
-    @GetMapping("/search")
-    @ApiOperation("(搜索功能,分页)(未完成)当有category字段时,要求数据必须是该类" +
+    @PostMapping("/search")
+    @ApiOperation("(搜索功能,分页)(已完成)当有category字段时,要求数据必须是该类" +
             "当有key时,要求数据可以是title中含有,也可以game name含有" +
             "sort为0时按时间降序排序,否则按热度降序排序")
     public R<Object> search(@RequestParam(value = "sort",required = false) Integer sort,
