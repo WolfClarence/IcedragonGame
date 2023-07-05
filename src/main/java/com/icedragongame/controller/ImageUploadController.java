@@ -94,7 +94,7 @@ public class ImageUploadController {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getUsername,userImageDto.getUsername());
         LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();
-        updateWrapper.eq(User::getUsername,userImageDto.getUsername()).set(User::getImage_url,userImageDto.getImage_url());
+        updateWrapper.eq(User::getUsername,userImageDto.getUsername()).set(User::getImageUrl,userImageDto.getImage_url());
         userService.update(updateWrapper);
 
 
