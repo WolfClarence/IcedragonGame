@@ -1,5 +1,4 @@
 drop table if exists `post`;
-drop table if exists `game`;
 drop table if exists `category`;
 drop table if exists `reply`;
 drop table if exists `user`;
@@ -23,11 +22,26 @@ create table post
 ) comment='文章表';
 insert into post values
                      (1,'元神奔跑把是世界上最好玩的游戏',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
-                     (2,'111',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
-                     (3,'222',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
-                     (4,'333',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
-                     (5,'111bbb',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
-                     (6,'111aaa',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写');
+                     (2,'111',123,3,'2013-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (3,'222',123,3,'2031-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (4,'333',123,3,'2053-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (5,'111bbb',123,3,'1023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (7,'111aaa',123,3,'2223-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (8,'111aaa',123,3,'2123-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (9,'111aaa',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (10,'111aaa',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (11,'111aaa',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (12,'111aaa',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (13,'111aaa',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (14,'111aaa',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (15,'111aaa',123,3,'3023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (16,'111aaa',123,3,'2123-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','元神奔跑吧','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (17,'111aaa',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','王者农药','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (18,'111aaa',123,3,'2022-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','王者农药','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (19,'111aaa',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','王者农药','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (20,'111aaa',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','王者农药','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (21,'111aaa',123,3,'2023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','王者农药','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写'),
+                     (22,'111aaa',123,3,'6023-2-2 1:1:1','http://baidu.com',10,'未审核','gengxuelong','https://picsum.photos/id/1/200/300','王者农药','控制一个元神,来会奔跑,豪华零氪',1,'文章初始化,尚未书写');
 
 create table category(
     id int primary key  auto_increment,
@@ -51,7 +65,7 @@ insert into attentions values
                       (2,2,'gengxuelong'),
                       (3,3,'gengxuelong'),
                       (4,4,'gengxuelong'),
-                      (4,5,'gengxuelong');
+                      (5,5,'gengxuelong');
 
 create table reply
 (
@@ -77,11 +91,16 @@ create table user
     user_identity int          not null comment '1:管理员,0:普通用户',
     user_points   int          not null comment '用户的积分',
     user_status   varchar(20)  not null comment '用户的状态,当为 已封禁 时,用户不再可用,当再解封后为 已解封',
-    user_image varchar(150) null
+    image_url varchar(150) null
 
 );
 insert into user values
-                     ('root','$2a$10$6c1iHYH2JeXQLpY9qMEvmuprGARa6DDVTfix/qEvswS7TQn/9sGvS','超级管理员',1,10,'超级管理员状态'),# 密码: root
-                     ('gengxuelong','$2a$10$Pw0DUtXSc61k90b9qq.iwesEhWYaQ37hkJzoVoMfz0kMa7PmWflM2','耿雪龙',0,10,'一般用户');# 密码:123456
+                     ('root','$2a$10$B982SlXnTicDF0aB5fgFE.RRvDtEgV96kRJm12X8tPxnWIqkJma2G','超级管理员',1,10,'超级管理员状态','https://picsum.photos/id/1/200/300'),# 密码: root
+                     ('gengxuelong','$2a$10$u2SJSxQ.E5V.DeJasBTDcOySjoDNd.D09o9cFKZ2CRtvZaX9vt9dK','耿雪龙',0,10,'一般用户','https://picsum.photos/id/1/200/300'),# 密码:123456
+                     ('wenrui','$2a$10$u2SJSxQ.E5V.DeJasBTDcOySjoDNd.D09o9cFKZ2CRtvZaX9vt9dK','文睿',0,10,'一般用户','https://picsum.photos/id/1/200/300'),# 密码:123456
+                     ('haha','$2a$10$u2SJSxQ.E5V.DeJasBTDcOySjoDNd.D09o9cFKZ2CRtvZaX9vt9dK','fafs',0,10,'一般用户','https://picsum.photos/id/1/200/300'),# 密码:123456
+                     ('xixi','$2a$10$u2SJSxQ.E5V.DeJasBTDcOySjoDNd.D09o9cFKZ2CRtvZaX9vt9dK','dsfsfs',0,10,'一般用户','https://picsum.photos/id/1/200/300'),# 密码:123456
+                     ('didi','$2a$10$u2SJSxQ.E5V.DeJasBTDcOySjoDNd.D09o9cFKZ2CRtvZaX9vt9dK','ewsf',0,10,'一般用户','https://picsum.photos/id/1/200/300'),# 密码:123456
+                     ('sisi','$2a$10$u2SJSxQ.E5V.DeJasBTDcOySjoDNd.D09o9cFKZ2CRtvZaX9vt9dK','fsfasw',0,10,'一般用户','https://picsum.photos/id/1/200/300');# 密码:123456
 
 

@@ -1,16 +1,16 @@
 package com.icedragongame.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.icedragongame.common.R;
 import com.icedragongame.constant.ConstantBySelf;
-import com.icedragongame.entity.Category;
 import com.icedragongame.entity.Post;
 import com.icedragongame.entity.Reply;
-import com.icedragongame.myenum.SystemError;
+import com.icedragongame.entity.User;
 import com.icedragongame.service.CategoryService;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.ReplyService;
+import com.icedragongame.service.UserService;
 import com.icedragongame.utils.MyBeanUtils;
 import com.icedragongame.utils.MyRedisUtils;
 import com.icedragongame.vo.PostDetailVo;
@@ -26,9 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -94,52 +92,67 @@ public class PostController {
     @Autowired
     MyRedisUtils myRedisUtils;
 
+    @Autowired
+    UserService userService;
+
     @GetMapping("/postingPage/{num}")
     @ApiOperation("(今日热门推荐)得到今日最热帖子若干(已完成)  ,要求今日帖子,热度计算公式:2*replynum+scannum")
-    public R<List<PostForTodayHotVO>> getTodayHot(@PathVariable String num){//传入分类名称
-        int i = 0;
-        int j = 0;
-        int categoryId;
-        List<Post> posts = new ArrayList<>();
-        List<Post> postList = new ArrayList<>();
-        LambdaQueryWrapper<Post> queryWapper = new LambdaQueryWrapper<>();
-        //获取游戏id
+    public R<List<PostForTodayHotVO>> getTodayHot(@PathVariable int num){//传入分类名称
+//        int i = 0;
+//        int j = 0;
+//        int categoryId;
+//        List<Post> posts = new ArrayList<>();
+//        List<Post> postList = new ArrayList<>();
+//        LambdaQueryWrapper<Post> queryWapper = new LambdaQueryWrapper<>();
+//        //获取游戏id
+//        Category category = categoryService.getOne( new LambdaUpdateWrapper<Category>().eq(Category::getCategoryName,num));
+//        if(category==null){
+//            return R.error(SystemError.NO_THIS_CATEGORY);
+//        }
+//        categoryId = categoryService.getOne(new LambdaUpdateWrapper<Category>().eq(Category::getCategoryName,category)).getId();
+//        posts = postService.list(queryWapper.eq(Post::getCategoryId,categoryId));
 
-        if(!(num==null||num.isEmpty())){
-            Category category = categoryService.getOne( new LambdaUpdateWrapper<Category>().eq(Category::getCategoryName,num));
-            if(category==null){
-                return R.error(SystemError.NO_THIS_CATEGORY);
-            }
-            categoryId = category.getId();
-            posts = postService.list(queryWapper.eq(Post::getCategoryId,categoryId));
-        }
+//        if(!(num==null||num.isEmpty())){
+//            Category category = categoryService.getOne( new LambdaUpdateWrapper<Category>().eq(Category::getCategoryName,num));
+//            if(category==null){
+//                return R.error(SystemError.NO_THIS_CATEGORY);
+//            }
+//            categoryId = category.getId();
+//            posts = postService.list(queryWapper.eq(Post::getCategoryId,categoryId));
+//        }
 
         //获取该类post
 
 
-        //获取符合时间post
-        while(i<posts.size()){
-            //System.out.println(posts.get(i).getBuildTime());
-            //标准化
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-            Date postDate = posts.get(i).getBuildTime();
-            Date nowdate = new Date();
+//        //获取符合时间post
+//        while(i<posts.size()){
+//            //System.out.println(posts.get(i).getBuildTime());
+//            //标准化
+//            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+//            Date postDate = posts.get(i).getBuildTime();
+//            Date nowdate = new Date();
+//
+//            //System.out.println(postDate);
+//            // System.out.println(nowdate);
+//            System.out.println(formatter.format(postDate));
+//            if(formatter.format(postDate).equals(formatter.format(nowdate))){
+//
+//                postList.add(posts.get(j));
+//                System.out.println(postList);
+//                j++;
+//            }
+//            i++;
+//        }
+//        //热度排序
+//        postService.sortPostByHot(postList);
+//
+//        System.out.println(postList);
 
-            //System.out.println(postDate);
-            // System.out.println(nowdate);
-            System.out.println(formatter.format(postDate));
-            if(formatter.format(postDate).equals(formatter.format(nowdate))){
-
-                postList.add(posts.get(j));
-                System.out.println(postList);
-                j++;
-            }
-            i++;
-        }
-        //热度排序
-        postService.sortPostByHot(postList);
-
-        System.out.println(postList);
+        QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
+        queryWrapper.gt("build_time", LocalDateTime.now().minusHours(24))
+                .orderByDesc("2*reply_num + scan_num")
+                .last("limit "+num);
+        List<Post> postList = postService.list(queryWrapper);
         List<PostForTodayHotVO> postForTodayHotVOS = postList.stream().map(post -> MyBeanUtils.beanCopy(post,PostForTodayHotVO.class)).collect(Collectors.toList());
         System.out.println(postForTodayHotVOS);
         return R.success(postForTodayHotVOS);
@@ -190,13 +203,17 @@ public class PostController {
      *   <description>
      *
      */
-    @ApiOperation("查看指定帖子回复详情,并按时间倒叙排列")
+    @ApiOperation("(已完成)查看指定帖子回复详情,并按时间倒叙排列")
     @GetMapping("/getPostReplyById/{postId}")
     public R<List<ReplyVo>> getPostReplyById(@PathVariable Integer postId){
         LambdaQueryWrapper<Reply> ss = new LambdaQueryWrapper<>();
         ss.eq(Reply::getPostId,postId).orderByDesc(Reply::getBuildTime);
         List<Reply> replyList = replyService.list(ss);
         List<ReplyVo> replyVoList = replyList.stream().map(reply -> MyBeanUtils.beanCopy(reply,ReplyVo.class)).collect(Collectors.toList());
+        for (ReplyVo replyVo : replyVoList) {
+            User byId = userService.getById(replyVo.getUsername());
+            replyVo.setUser_url(byId.getImageUrl());
+        }
         return R.success(replyVoList);
     }
 
