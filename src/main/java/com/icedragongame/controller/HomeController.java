@@ -14,6 +14,7 @@ import com.icedragongame.service.PostService;
 import com.icedragongame.service.UserService;
 import com.icedragongame.vo.PageVo;
 import com.icedragongame.vo.PostForBigBlockVo;
+import com.icedragongame.vo.PostForLittleBlockVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -100,7 +101,7 @@ public class HomeController {
      *
      */
     @GetMapping("/hotgame/{num}")
-    @ApiOperation("(优质神贴)(已完成测试)得到最热的游戏文章,默认值为10,可设置文章数量")
+    @ApiOperation("(优质神贴)(已完成)得到最热的游戏文章,默认值为10,可设置文章数量")
     public R<List<PostForBigBlockVo>> hotgame(@PathVariable("num") Integer num) {
         num = (num==null||num<0)? 0 :num;
         QueryWrapper<Post> query = new QueryWrapper<>();
@@ -152,8 +153,8 @@ public class HomeController {
      *
      */
     @PostMapping("/category/{sort}/{category}")
-    @ApiOperation(value = "(类别页数据展示)(已完成测试)通过类别得到文章列表,方法为分页,sort,1:不排序,2:按时间排序,3:按热度排序")
-    public R<Object> category(@PathVariable(value = "category") String category, @RequestBody PagingDto pagingDto, @PathVariable String sort) {
+    @ApiOperation(value = "(类别页数据展示)(已完成)通过类别得到文章列表,方法为分页,sort,1:不排序,2:按时间排序,3:按热度排序")
+    public R<PageVo<PostForLittleBlockVO>> category(@PathVariable(value = "category") String category, @RequestBody PagingDto pagingDto, @PathVariable String sort) {
 
 
         Category category1 = categoryService.getOne( new LambdaUpdateWrapper<Category>().eq(Category::getCategoryName,category));
@@ -161,25 +162,24 @@ public class HomeController {
             return R.error(SystemError.NO_THIS_CATEGORY);
         }
         int categoryId = categoryService.getOne(new LambdaUpdateWrapper<Category>().eq(Category::getCategoryName,category)).getId();
-        LambdaQueryWrapper<Post> queryWrapper = new LambdaQueryWrapper<>();
         QueryWrapper<Post> query = new QueryWrapper<>();
-        PageVo<PostForBigBlockVo> pageVo = new PageVo<>();
+        PageVo<PostForLittleBlockVO> pageVo = new PageVo<>();
         if (sort.equals("1")){
-            queryWrapper.eq(Post::getCategoryId,categoryId);
-            pageVo = postService.pageForPostVO(pagingDto, queryWrapper);
+            query.eq("category_id",categoryId);
+            pageVo = postService.pageForLittlePostVO(pagingDto, query);
 
 
         }else if(sort.equals("2")){
             query.eq("category_id",categoryId);
 
-            query.orderByDesc("create_time");
-            pageVo = postService.pageForPostVO(pagingDto, query);
+            query.orderByDesc("build_time");
+            pageVo = postService.pageForLittlePostVO(pagingDto, query);
             //System.out.println(pageVo);
         }else if(sort.equals("3")){
             query.eq("category_id",categoryId);
             //System.out.println(categoryId);
             query.orderByDesc("2 * reply_num + scan_num");
-            pageVo = postService.pageForPostVO(pagingDto, query);
+            pageVo = postService.pageForLittlePostVO(pagingDto, query);
 
         }
 
@@ -204,5 +204,22 @@ public class HomeController {
         }
 
         return R.success(pageVo);
+
+
+    }
+
+    @PostMapping("/all/{sort}/{num}")
+    @ApiOperation(value = "(最新上新,热度游戏)(已完成) 方法为传数量 ,sort为1为最新上新,按时间排列,2为热度游戏,按热度排序, ")
+    public R<List<PostForBigBlockVo>> getAllByNum(@PathVariable(value = "sort") int sort,@PathVariable(value = "num") int num ) {
+
+        QueryWrapper<Post> query = new QueryWrapper<>();
+        if (sort==1){
+            query.orderByDesc("build_time");
+        }else if(sort==2){
+            query.orderByDesc("2 * reply_num + scan_num");
+        }
+        query.last("limit "+num);
+        List<PostForBigBlockVo> postForBigBlockVos = postService.listForVO(query);
+        return R.success(postForBigBlockVos);
     }
 }

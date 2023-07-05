@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author gengxuelong
@@ -49,6 +50,17 @@ public class LikesController {
 
 
         return R.success(postForBigBlockVoPageVo);
+    }
+
+    @PostMapping("/getAll/{username}/{num}")
+    @ApiOperation(value = "(得到一个人所有是喜欢的作品,指定数量)(已完成)")
+    public R<List<PostForBigBlockVo>> getAllByNum(@PathVariable("username")String username,@PathVariable("num")int num){
+        LambdaQueryWrapper<Attentions> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Attentions::getUsername,username);
+        List<PostForBigBlockVo> postForBigBlockVos = postService.listForVO(queryWrapper);
+
+
+        return R.success(postForBigBlockVos);
     }
 
 }

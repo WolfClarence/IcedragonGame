@@ -39,7 +39,8 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements PostS
 
     @Override
     public List<PostForBigBlockVo> listForVO(AbstractWrapper query) {
-        List<Post> list = list(query);
+        List<Post> list = this.list(query);
+        System.out.println("list========>"+list);
         List<PostForBigBlockVo> postVoList = new ArrayList<>();
         for (Post post : list) {
             PostForBigBlockVo postVo = getBigBlockPostVoByPost(post);
@@ -54,10 +55,12 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements PostS
         return getBigBlockPostVoByPost(post);
     }
     public PostForBigBlockVo getBigBlockPostVoByPost(Post post){
+        System.out.println("getBigBlockPostVoByPost"+post);
         Integer categoryId = post.getCategoryId();
         Category byId = categoryService.getById(categoryId);
         post.setCategory(byId.getCategoryName());
         PostForBigBlockVo postForBigBlockVo = MyBeanUtils.beanCopy(post, PostForBigBlockVo.class);
+        System.out.println("getBigBlockPostVoByPost"+postForBigBlockVo);
         User byId1 = userService.getById(postForBigBlockVo.getUsername());
         postForBigBlockVo.setCreate_username_image_url(byId1.getImageUrl());
         return postForBigBlockVo;

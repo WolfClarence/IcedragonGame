@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.ibatis.type.JdbcType;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -31,6 +32,7 @@ public class Post  implements Serializable {
     //未审核 审核通过 审核未通过
     private String auditStatus;
     private String username;
+    @TableField(jdbcType = JdbcType.VARCHAR)
     private String imageUrl;
     private String content;
     private String gameName;
