@@ -11,9 +11,7 @@ import com.icedragongame.utils.OssUtils;
 import com.icedragongame.vo.ImageUploadVo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -88,9 +86,10 @@ public class ImageUploadController {
         return R.success(new ImageUploadVo(link));
     }
 
+    //@RequestParam String username, @RequestParam String imageUrl
     @PostMapping("/setUserImage")
     @ApiOperation("(为用户设置图片url,通过图片上传接口获得用户图片的imageurl后立马调用这个接口) (已完成)")
-    public R<Object> imageUpLoad1(UserImageDto userImageDto){
+    public R<Object> imageUpLoad1(@RequestBody UserImageDto userImageDto){
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getUsername,userImageDto.getUsername());
         LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();

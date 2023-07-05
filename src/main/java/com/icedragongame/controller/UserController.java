@@ -101,6 +101,7 @@ public class UserController {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username); // 根据用户名查询
         User user = userService.getOne(queryWrapper);
+        System.out.println(user+"--------------------------------------------------------??");
         UserInfoVo userInfo = new UserInfoVo(user);
         return R.success(userInfo);
     }
