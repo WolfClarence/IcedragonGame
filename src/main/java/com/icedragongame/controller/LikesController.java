@@ -1,6 +1,5 @@
 package com.icedragongame.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.icedragongame.common.R;
 import com.icedragongame.dto.LikesDto;
@@ -15,13 +14,16 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author gengxuelong
  * @date 2023/7/3 12:21
  */
-@RestController("/likes")
+@RestController()
+@RequestMapping("/likes")
 public class LikesController {
     @Resource
     AttentionsService attentionsService;
@@ -44,23 +46,31 @@ public class LikesController {
     @PostMapping("/getAll/{username}")
     @ApiOperation(value = "(得到一个人所有是喜欢的作品,分页)(已完成测试)")
     public R<PageVo<PostForBigBlockVo>> getAll(@PathVariable("username")String username, @RequestBody PagingDto pagingDto){
-        LambdaQueryWrapper<Attentions> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Attentions::getUsername,username);
-        PageVo<PostForBigBlockVo> postForBigBlockVoPageVo = postService.pageForPostVO(pagingDto,queryWrapper);
+        QueryWrapper<Attentions> queryWrapper = new QueryWrapper<>();
+        List<Attentions> username1 = attentionsService.list(new QueryWrapper<Attentions>().eq("username", username));
+        List<Integer> postIds = username1.stream().map(Attentions::getPostId).collect(Collectors.toList());
+        if(postIds.size() != 0){
+            queryWrapper.in("id",postIds);
+            PageVo<PostForBigBlockVo> postForBigBlockVoPageVo = postService.pageForPostVO(pagingDto,queryWrapper);
+            return R.success(postForBigBlockVoPageVo);
+        }
+        return R.success(new PageVo<>());
 
-
-        return R.success(postForBigBlockVoPageVo);
     }
 
     @PostMapping("/getAll/{username}/{num}")
     @ApiOperation(value = "(得到一个人所有是喜欢的作品,指定数量)(已完成)")
     public R<List<PostForBigBlockVo>> getAllByNum(@PathVariable("username")String username,@PathVariable("num")int num){
-        LambdaQueryWrapper<Attentions> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Attentions::getUsername,username);
-        List<PostForBigBlockVo> postForBigBlockVos = postService.listForVO(queryWrapper);
+        QueryWrapper<Attentions> queryWrapper = new QueryWrapper<>();
+        List<Attentions> username1 = attentionsService.list(new QueryWrapper<Attentions>().eq("username", username));
+        List<Integer> postIds = username1.stream().map(Attentions::getPostId).collect(Collectors.toList());
+        if(postIds.size() != 0){
+            queryWrapper.in("id",postIds);
+            List<PostForBigBlockVo> postForBigBlockVoPageVo = postService.listForVO(queryWrapper);
+            return R.success(postForBigBlockVoPageVo);
+        }
 
-
-        return R.success(postForBigBlockVos);
+        return R.success(new ArrayList<>());
     }
 
 }

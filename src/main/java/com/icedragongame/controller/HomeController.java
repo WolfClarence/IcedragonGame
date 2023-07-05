@@ -194,7 +194,7 @@ public class HomeController {
         QueryWrapper<Post> query = new QueryWrapper<>();
         PageVo<PostForBigBlockVo> pageVo = new PageVo<>();
         if (sort==1){
-            query.orderByDesc("create_time");
+            query.orderByDesc("build_time");
             pageVo = postService.pageForPostVO(pagingDto, query);
 
         }else if(sort==2){
