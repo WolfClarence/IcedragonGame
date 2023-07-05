@@ -16,12 +16,7 @@
       <console name="mydb@10.13.0.126" type="STANDARD" schema="mydb" session="Main"><![CDATA[select * from category;
 select * from post;
 select * from category;
-select * from user;
-SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH
-
-FROM INFORMATION_SCHEMA.COLUMNS
-
-WHERE TABLE_NAME = 'user';]]></console>
+select * from user;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">

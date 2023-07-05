@@ -77,7 +77,14 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements PostS
         Integer categoryId = post.getCategoryId();
         Category byId = categoryService.getById(categoryId);
         post.setCategory(byId.getCategoryName());
-        return MyBeanUtils.beanCopy(post, PostForLittleBlockVO.class);
+        PostForLittleBlockVO postVo = MyBeanUtils.beanCopy(post, PostForLittleBlockVO.class);
+
+        User byId1 = userService.getById(postVo.getUsername());
+        if(byId1 != null) {
+            postVo.setCreate_username_image_url(byId1.getImageUrl());
+        }
+
+        return postVo;
     }
 
     @Override
