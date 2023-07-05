@@ -77,7 +77,7 @@ public class AdminController {
      *   <description>
      *
      */
-    @ApiOperation(value = "(封禁用户)(已完成)", notes = "封禁用户")
+    @ApiOperation(value = "(封禁用户)(已完成测试)", notes = "封禁用户")
     @PostMapping("/banUser/{username}")
     public R<String> banUser ( @PathVariable String  username){
 
@@ -112,7 +112,7 @@ public class AdminController {
      *
      */
     @PostMapping("/freeUser/{username}")
-    @ApiOperation(value = "(解封用户)(已完成)",notes = "解封用户")
+    @ApiOperation(value = "(解封用户)(已完成测试)",notes = "解封用户")
     public R<String> freeUser ( @PathVariable String username){
         User user = userService.getById(username);
         if (user!=null){
@@ -146,7 +146,7 @@ public class AdminController {
     *
     */
 
-   @ApiOperation(value = "(修改文章的审核状态)(已完成)",notes = "status仅能取: 未审核,审核未通过,审核通过")
+   @ApiOperation(value = "(修改文章的审核状态)(已完成测试)",notes = "status仅能取: 未审核,审核未通过,审核通过")
     @PostMapping ("/changeAuditStatus/{postId}/{status}")
     public R<String> changeAuditStatus( @PathVariable("postId") Integer id,@PathVariable String status){
        if(!ConstantBySelf.POST_STATUS_LIST.contains(status)){

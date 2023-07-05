@@ -26,14 +26,14 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/all")
-    @ApiOperation(value = "(主页侧边游戏分类)得到所有游戏分类(完成)",notes = "得到所有游戏分类")
+    @ApiOperation(value = "(主页侧边游戏分类)得到所有游戏分类(完成测试)",notes = "得到所有游戏分类")
     public R<List<Category>> getAll (){
         List<Category> list = categoryService.list();
 
         return R.success(list);
     }
     @GetMapping("/part/{num}")
-    @ApiOperation(value = "(主页侧边游戏分类)得到所有游戏分类(完成)",notes = "得到所有游戏分类")
+    @ApiOperation(value = "(主页侧边游戏分类)得到所有游戏分类(完成测试)",notes = "得到所有游戏分类")
     public R<List<Category>> getPart (@PathVariable String num){
         List<Category> list = categoryService.list(new QueryWrapper<Category>().last("limit "+num));
 
