@@ -77,7 +77,7 @@ public class AdminController {
      *   <description>
      *
      */
-    @ApiOperation(value = "(封禁用户)(已完成)", notes = "封禁用户")
+    @ApiOperation(value = "(封禁用户)(已完成测试)", notes = "封禁用户")
     @PostMapping("/banUser/{username}")
     public R<String> banUser ( @PathVariable String  username){
 
@@ -112,7 +112,7 @@ public class AdminController {
      *
      */
     @PostMapping("/freeUser/{username}")
-    @ApiOperation(value = "(解封用户)(已完成)",notes = "解封用户")
+    @ApiOperation(value = "(解封用户)(已完成测试)",notes = "解封用户")
     public R<String> freeUser ( @PathVariable String username){
         User user = userService.getById(username);
         if (user!=null){
@@ -130,28 +130,28 @@ public class AdminController {
     }
 
 
-   /**
-    * <p>
-    *     project: snow_dragonGame blogSystem
-    *
-    *  该方法名称为:
-    *     <name>
-    *
-    *  该方法作用为:
-    *   <effect>
-    *       修改审核状态
-    *
-    *   该方法设计参数描述:
-    *   <description>
-    *
-    */
+    /**
+     * <p>
+     *     project: snow_dragonGame blogSystem
+     *
+     *  该方法名称为:
+     *     <name>
+     *
+     *  该方法作用为:
+     *   <effect>
+     *       修改审核状态
+     *
+     *   该方法设计参数描述:
+     *   <description>
+     *
+     */
 
-   @ApiOperation(value = "(修改文章的审核状态)(已完成)",notes = "status仅能取: 未审核,审核未通过,审核通过")
+    @ApiOperation(value = "(修改文章的审核状态)(已完成测试)",notes = "status仅能取: 未审核,审核未通过,审核通过")
     @PostMapping ("/changeAuditStatus/{postId}/{status}")
     public R<String> changeAuditStatus( @PathVariable("postId") Integer id,@PathVariable String status){
-       if(!ConstantBySelf.POST_STATUS_LIST.contains(status)){
-           return R.error(SystemError.WRONG_FORMAT_FOR_POST_STATUS);
-       }
+        if(!ConstantBySelf.POST_STATUS_LIST.contains(status)){
+            return R.error(SystemError.WRONG_FORMAT_FOR_POST_STATUS);
+        }
         Post post = postService.getById(id);
         if(post!=null) {
             String result = post.getAuditStatus();

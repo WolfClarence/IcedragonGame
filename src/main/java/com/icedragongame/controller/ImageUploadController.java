@@ -66,7 +66,7 @@ public class ImageUploadController {
      *
      */
     @PostMapping("/upload")
-    @ApiOperation("(已完成)上传图片到云端,得到一个可以全网直接访问到的图片链接")
+    @ApiOperation("(已完成测试)上传图片到云端,得到一个可以全网直接访问到的图片链接")
     public R<ImageUploadVo> imageUpLoad(MultipartFile multipartFile){
         InputStream inputStream = null;
         try {
@@ -88,7 +88,7 @@ public class ImageUploadController {
 
     //@RequestParam String username, @RequestParam String imageUrl
     @PostMapping("/setUserImage")
-    @ApiOperation("(为用户设置图片url,通过图片上传接口获得用户图片的imageurl后立马调用这个接口) (已完成)")
+    @ApiOperation("(为用户设置图片url,通过图片上传接口获得用户图片的imageurl后立马调用这个接口) (已完成测试)")
     public R<Object> imageUpLoad1(@RequestBody UserImageDto userImageDto){
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getUsername,userImageDto.getUsername());

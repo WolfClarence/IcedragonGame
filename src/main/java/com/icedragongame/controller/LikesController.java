@@ -29,19 +29,19 @@ public class LikesController {
     PostService postService;
 
     @PostMapping("/add")
-    @ApiOperation(value = "(喜欢)(已完成)")
+    @ApiOperation(value = "(喜欢)(已完成测试)")
     public R<Object> addLikes(@RequestBody LikesDto likesDto){
         attentionsService.save(MyBeanUtils.beanCopy(likesDto,Attentions.class));
         return R.success();
     }
     @PostMapping("/delete")
-    @ApiOperation(value = "(取消喜欢)(已完成)")
+    @ApiOperation(value = "(取消喜欢)(已完成测试)")
     public R<Object> delete(@RequestBody LikesDto likesDto){
         attentionsService.remove(new QueryWrapper<Attentions>().eq("post_id",likesDto.getPost_id()).eq("username",likesDto.getUsername()));
         return R.success();
     }
     @PostMapping("/getAll/{username}")
-    @ApiOperation(value = "(得到一个人所有是喜欢的作品,分页)(已完成)")
+    @ApiOperation(value = "(得到一个人所有是喜欢的作品,分页)(已完成测试)")
     public R<PageVo<PostForBigBlockVo>> getAll(@PathVariable("username")String username, @RequestBody PagingDto pagingDto){
         LambdaQueryWrapper<Attentions> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Attentions::getUsername,username);
