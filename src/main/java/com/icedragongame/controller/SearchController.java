@@ -68,10 +68,14 @@ public class SearchController {
             "当有key时,要求数据可以是title中含有,也可以game name含有" +
             "sort为0时按时间降序排序,否则按热度降序排序")
     public R<Object> search(@RequestParam(value = "sort",required = false) Integer sort,
-                                             @RequestParam(value = "category",required = false) String category,
-                                             @RequestParam(value = "key_word",required = false) String keyWord,
-                                             @RequestBody PagingDto pagingDto
+                             @RequestParam(value = "category",required = false) String category,
+                             @RequestParam(value = "key_word",required = false) String keyWord,
+                             @RequestBody PagingDto pagingDto
                                              ){
+        System.out.println(pagingDto);
+        System.out.println(sort);
+        System.out.println(category);
+        System.out.println(keyWord);
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
         //排序类型
         if(sort == null) sort = ConstantBySelf.ORDER_BY_TIME;//未选类别，默认为按时间
