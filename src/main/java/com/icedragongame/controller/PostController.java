@@ -175,7 +175,7 @@ public class PostController {
      *   <description>
      *
      */
-    @ApiOperation("(查看指定帖子回复详情,并按时间倒叙排列)(已完成)")
+    @ApiOperation("(查看指定帖子回复详情,并按时间倒叙排列)(已完成 )")
     @GetMapping("/getPostReplyById/{postId}")
     public R<List<ReplyVo>> getPostReplyById(@PathVariable Integer postId){
         LambdaQueryWrapper<Reply> ss = new LambdaQueryWrapper<>();
