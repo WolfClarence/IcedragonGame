@@ -37,8 +37,9 @@ public class UserInfoVo {
         user_identity = user.getUserIdentity();
         user_points = user.getUserPoints();
         user_status = user.getUserStatus();
-        image_url = user.getImage_url();
+        image_url = user.getImageUrl();
         setTagByPoints(user.getUserPoints());
+        System.out.println(user.toString());
     }
 
     public void setTagByPoints(Integer points){
