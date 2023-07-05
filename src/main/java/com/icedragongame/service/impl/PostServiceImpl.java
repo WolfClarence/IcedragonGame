@@ -7,8 +7,10 @@ import com.icedragongame.dao.PostDao;
 import com.icedragongame.dto.PagingDto;
 import com.icedragongame.entity.Category;
 import com.icedragongame.entity.Post;
+import com.icedragongame.entity.User;
 import com.icedragongame.service.CategoryService;
 import com.icedragongame.service.PostService;
+import com.icedragongame.service.UserService;
 import com.icedragongame.utils.MyBeanUtils;
 import com.icedragongame.vo.PageVo;
 import com.icedragongame.vo.PostForBigBlockVo;
@@ -32,13 +34,15 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements PostS
 
     @Resource
     CategoryService categoryService;
+    @Resource
+    UserService userService;
 
     @Override
     public List<PostForBigBlockVo> listForVO(AbstractWrapper query) {
         List<Post> list = list(query);
         List<PostForBigBlockVo> postVoList = new ArrayList<>();
         for (Post post : list) {
-            PostForBigBlockVo postVo = getPostVoByPost(post);
+            PostForBigBlockVo postVo = getBigBlockPostVoByPost(post);
             postVoList.add(postVo);
         }
         return postVoList;
@@ -47,13 +51,16 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements PostS
     @Override
     public PostForBigBlockVo getByIdForVO(int query) {
         Post post = getById(query);
-        return getPostVoByPost(post);
+        return getBigBlockPostVoByPost(post);
     }
-    public PostForBigBlockVo getPostVoByPost(Post post){
+    public PostForBigBlockVo getBigBlockPostVoByPost(Post post){
         Integer categoryId = post.getCategoryId();
         Category byId = categoryService.getById(categoryId);
         post.setCategory(byId.getCategoryName());
-        return MyBeanUtils.beanCopy(post, PostForBigBlockVo.class);
+        PostForBigBlockVo postForBigBlockVo = MyBeanUtils.beanCopy(post, PostForBigBlockVo.class);
+        User byId1 = userService.getById(postForBigBlockVo.getUsername());
+        postForBigBlockVo.setCreate_username_image_url(byId1.getImageUrl());
+        return postForBigBlockVo;
     }
 
     @Override
@@ -61,7 +68,7 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements PostS
         Page<Post> page = new Page<>(postPage.getPage_indices(),postPage.getPage_num());
         Page<Post> pageForPost = page(page, query);
         List<Post> records = pageForPost.getRecords();
-        List<PostForBigBlockVo> postVoList = records.stream().map(this::getPostVoByPost).collect(Collectors.toList());
+        List<PostForBigBlockVo> postVoList = records.stream().map(this::getBigBlockPostVoByPost).collect(Collectors.toList());
         return new PageVo<>(pageForPost.getTotal(),postVoList);
     }
 

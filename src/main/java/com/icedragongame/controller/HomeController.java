@@ -177,7 +177,6 @@ public class HomeController {
             query.eq(category,category);
             query.orderByDesc("2 * reply_num + scan_num");
             pageVo = postService.pageForLittlePostVO(pagingDto, query);
-
         }
 
         return R.success(pageVo);
@@ -191,7 +190,7 @@ public class HomeController {
         QueryWrapper<Post> query = new QueryWrapper<>();
         PageVo<PostForBigBlockVo> pageVo = new PageVo<>();
         if (sort==1){
-            query.orderByDesc("create_time");
+            query.orderByDesc("build_time");
             pageVo = postService.pageForPostVO(pagingDto, query);
 
         }else if(sort==2){
@@ -203,5 +202,21 @@ public class HomeController {
         return R.success(pageVo);
 
 
+    }
+
+    @PostMapping("/all/{sort}/{num}")
+    @ApiOperation(value = "(最新上新,热度游戏)(已完成) 方法为传数量 ,sort为1为最新上新,按时间排列,2为热度游戏,按热度排序, ")
+    public R<List<PostForBigBlockVo>> getAllByNum(@PathVariable(value = "sort") int sort,@PathVariable(value = "num") int num ) {
+
+        QueryWrapper<Post> query = new QueryWrapper<>();
+        if (sort==1){
+            query.orderByDesc("build_time");
+
+        }else if(sort==2){
+            query.orderByDesc("2 * reply_num + scan_num");
+        }
+        query.last("limit "+num);
+        List<PostForBigBlockVo> postForBigBlockVos = postService.listForVO(query);
+        return R.success(postForBigBlockVos);
     }
 }

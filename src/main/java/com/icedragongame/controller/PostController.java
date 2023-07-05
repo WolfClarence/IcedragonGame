@@ -151,7 +151,7 @@ public class PostController {
     public R<PostDetailVo> getPostDetailById(@PathVariable Integer postId){
         Post post = postService.getById(postId);
         System.out.println(post);
-        PostForBigBlockVo postVo = postService.getPostVoByPost(post);
+        PostForBigBlockVo postVo = postService.getBigBlockPostVoByPost(post);
         System.out.println(postVo);
         PostDetailVo postDetailVo = MyBeanUtils.beanCopy(post,PostDetailVo.class);
         System.out.println("------------------"+postDetailVo);

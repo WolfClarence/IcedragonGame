@@ -1,5 +1,6 @@
 package com.icedragongame;
 
+import com.icedragongame.entity.Post;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.UserService;
 import com.icedragongame.sysschedulejob.SysScheduleJob;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.Resource;
 import java.io.FileNotFoundException;
+import java.util.Date;
 
 /**
  * @auther: gengxuelong
@@ -33,6 +35,10 @@ public class BeanConvertUtilsTest {
     SysScheduleJob sysScheduleJob;
     @Test
     public  void test() throws FileNotFoundException {
-        sysScheduleJob.doSchedule();
+        Post post = new Post();
+        for (int i = 100; i < 200; i++) {
+           post = new Post(i,"哈哈真实强"+i,10,0,new Date(),"http://",10,"已通过","gengxuelong","","hahaa","王者农药","xx",2,"");
+           postService.save(post);
+        }
     }
 }

@@ -20,7 +20,7 @@ public interface PostService extends IService<Post> {
 
     List<PostForBigBlockVo> listForVO(AbstractWrapper query);
     PostForBigBlockVo getByIdForVO(int query);
-    PostForBigBlockVo getPostVoByPost(Post post);
+    PostForBigBlockVo getBigBlockPostVoByPost(Post post);
 
     PageVo<PostForBigBlockVo> pageForPostVO(PagingDto postPage, AbstractWrapper query);
 
