@@ -29,12 +29,15 @@ public class UserInfoVo {
 
     private String tag;
 
+    private String image_url;
+
     public UserInfoVo(User user){
         username = user.getUsername();
         user_nickname = user.getUserNickname();
         user_identity = user.getUserIdentity();
         user_points = user.getUserPoints();
         user_status = user.getUserStatus();
+        image_url = user.getImage_url();
         setTagByPoints(user.getUserPoints());
     }
 
