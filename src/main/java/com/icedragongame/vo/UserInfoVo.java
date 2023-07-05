@@ -39,16 +39,19 @@ public class UserInfoVo {
         user_status = user.getUserStatus();
         image_url = user.getImageUrl();
         setTagByPoints(user.getUserPoints());
-        System.out.println(user.toString());
     }
 
     public void setTagByPoints(Integer points){
-        if(points <= 100){
-            tag = "小白";
-        }else if(points <= 500) {
-            tag = "中白";
-        }else{
-            tag = "大白";
+        if(points < 100){
+            tag = "平民";
+        }else if(points < 200) {
+            tag = "冰雪信徒";
+        }else if(points < 300){
+            tag = "冰雪龙执事";
+        }else if(points < 400){
+            tag = "冰雪龙司铎";
+        }else{//points >= 400
+            tag = "冰雪龙主教";
         }
     }
     /** UserInfoVo userInfo = new UserInfoVo()
