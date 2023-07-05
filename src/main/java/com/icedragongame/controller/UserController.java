@@ -208,7 +208,7 @@ public class UserController {
 
     @PostMapping("/update/nick")
     @ApiOperation("(更新用户nickname)(已完成)")
-    public R<Object> updateUser(UserNickDto userNickDto){
+    public R<Object> updateUser(@RequestBody UserNickDto userNickDto){
         /*fail
         UpdateWrapper<User> query = new UpdateWrapper<>();
         query.eq("username",userNickDto.getUsername());//获取用户
@@ -226,17 +226,17 @@ public class UserController {
         if (user!=null){//找到用户
             LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();
             updateWrapper.eq(User::getUsername, userNickDto.getUsername())
-                    .set(User::getUserNickname, userNickDto.getNick_name());
+                    .set(User::getUserNickname, userNickDto.getUser_nickname());
             userService.update(updateWrapper);
         }else{//用户不存在
             return R.error(SystemError.USER_NOT_FOUND);
         }
-        return R.success("用户：" + userNickDto.getUsername() + " 的昵称更改成功：" + userNickDto.getNick_name());
+        return R.success("用户：" + userNickDto.getUsername() + " 的昵称更改成功：" + userNickDto.getUser_nickname());
     }
 
     @PostMapping("/update/point/")
     @ApiOperation("(更新用户积分,按照一定规则,观看一个文章加一分,评论一个加5分,前端传加分数据)(已完成)")
-    public R<Object> updateUser(UserPointAddDto userPointAddDto){
+    public R<Object> updateUser(@RequestBody UserPointAddDto userPointAddDto){
         User user = userService.getById(userPointAddDto.getUsername());//获取用户
         if (user!=null){//用户存在
             LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();

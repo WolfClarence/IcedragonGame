@@ -13,5 +13,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserNickDto {
     String username;
-    String nick_name;
+    String user_nickname;
 }
