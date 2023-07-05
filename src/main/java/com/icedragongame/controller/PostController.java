@@ -5,9 +5,11 @@ import com.icedragongame.common.R;
 import com.icedragongame.constant.ConstantBySelf;
 import com.icedragongame.entity.Post;
 import com.icedragongame.entity.Reply;
+import com.icedragongame.entity.User;
 import com.icedragongame.service.CategoryService;
 import com.icedragongame.service.PostService;
 import com.icedragongame.service.ReplyService;
+import com.icedragongame.service.UserService;
 import com.icedragongame.utils.MyBeanUtils;
 import com.icedragongame.utils.MyRedisUtils;
 import com.icedragongame.vo.PostDetailVo;
@@ -57,6 +59,9 @@ public class PostController {
      */
     @Resource
     private PostService postService;
+
+    @Resource
+    private UserService userService;
 
     /**
      * <p>
@@ -170,13 +175,17 @@ public class PostController {
      *   <description>
      *
      */
-    @ApiOperation("查看指定帖子回复详情,并按时间倒叙排列")
+    @ApiOperation("(查看指定帖子回复详情,并按时间倒叙排列)(已完成)")
     @GetMapping("/getPostReplyById/{postId}")
     public R<List<ReplyVo>> getPostReplyById(@PathVariable Integer postId){
         LambdaQueryWrapper<Reply> ss = new LambdaQueryWrapper<>();
         ss.eq(Reply::getPostId,postId).orderByDesc(Reply::getBuildTime);
         List<Reply> replyList = replyService.list(ss);
         List<ReplyVo> replyVoList = replyList.stream().map(reply -> MyBeanUtils.beanCopy(reply,ReplyVo.class)).collect(Collectors.toList());
+        for (ReplyVo replyVo : replyVoList) {
+            User byId = userService.getById(replyVo.getUsername());
+            replyVo.setUser_url(byId.getImageUrl());
+        }
         return R.success(replyVoList);
     }
 

@@ -12,6 +12,7 @@ import java.util.Date;
 public class ReplyVo {
     private Integer id;
     private String replyContext;
-    private Date buildTime;
+    private Date build_time;
     private String username;
+    private String user_url;
 }
