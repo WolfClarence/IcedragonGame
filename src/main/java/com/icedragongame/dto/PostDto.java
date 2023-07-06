@@ -38,4 +38,5 @@ public class PostDto {
     private String username;
 
     private String content;
+    private String image_url    ;
 }
