@@ -1,17 +1,16 @@
 package com.icedragongame.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.AbstractWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.icedragongame.constant.ConstantBySelf;
 import com.icedragongame.dao.PostDao;
 import com.icedragongame.dto.PagingDto;
-import com.icedragongame.entity.Category;
-import com.icedragongame.entity.Post;
-import com.icedragongame.entity.User;
-import com.icedragongame.service.CategoryService;
-import com.icedragongame.service.PostService;
-import com.icedragongame.service.UserService;
+import com.icedragongame.entity.*;
+import com.icedragongame.service.*;
 import com.icedragongame.utils.MyBeanUtils;
+import com.icedragongame.utils.MyRedisUtils;
 import com.icedragongame.vo.PageVo;
 import com.icedragongame.vo.PostForBigBlockVo;
 import com.icedragongame.vo.PostForLittleBlockVO;
@@ -36,6 +35,12 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements PostS
     CategoryService categoryService;
     @Resource
     UserService userService;
+    @Resource
+    ReplyService replyService;
+    @Resource
+    MyRedisUtils myRedisUtils;
+    @Resource
+    AttentionsService attentionsService ;
 
     @Override
     public List<PostForBigBlockVo> listForVO(AbstractWrapper query) {
@@ -58,11 +63,22 @@ public class PostServiceImpl extends ServiceImpl<PostDao, Post> implements PostS
         System.out.println("getBigBlockPostVoByPost"+post);
         Integer categoryId = post.getCategoryId();
         Category byId = categoryService.getById(categoryId);
+        //设置类别
         post.setCategory(byId.getCategoryName());
         PostForBigBlockVo postForBigBlockVo = MyBeanUtils.beanCopy(post, PostForBigBlockVo.class);
         System.out.println("getBigBlockPostVoByPost"+postForBigBlockVo);
+        //设置用户头像
         User byId1 = userService.getById(postForBigBlockVo.getUsername());
         postForBigBlockVo.setCreate_username_image_url(byId1.getImageUrl());
+        //设置回复数字
+        List<Reply> list = replyService.list(new LambdaUpdateWrapper<Reply>().eq(Reply::getPostId, post.getId()));
+        postForBigBlockVo.setReply_num(list.size());
+        //设置观看人数,将redis里的放尽进来
+        Integer mapValue = myRedisUtils.getMapValue(ConstantBySelf.REDIS_KEY_SCANS_POST, post.getId());
+        postForBigBlockVo.setScan_num(mapValue);
+        //设置喜欢数量
+        List<Attentions> attentions = attentionsService.list(new LambdaUpdateWrapper<Attentions>().eq(Attentions::getPostId, post.getId()));
+        postForBigBlockVo.setLikes_num(attentions.size());
         return postForBigBlockVo;
     }
 

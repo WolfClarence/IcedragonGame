@@ -86,6 +86,7 @@ public class ReplyController {
             System.out.println(reply);
             replyService.save(reply);
             post.setReplyNum(post.getReplyNum()+1);
+            postService.updateById(post);
             return R.success();
         }else {
             return R.error(SystemError.POST_NOT_FOUND);
