@@ -27,7 +27,7 @@ public class PostDto {
 
     private String game_name;//游戏名
 
-    private String game_describe;//游戏介绍
+    private String game_description;//游戏介绍
 
     private String category;//分类
 
