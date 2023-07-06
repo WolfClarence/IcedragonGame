@@ -155,6 +155,7 @@ public class UserController {
     public R<PageVo<PostForBigBlockVo>> getUserPostRecordByName(@PathVariable("username") String username,@RequestBody PagingDto pagingDto){
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username); // 根据用户名查询
+        queryWrapper.eq("audit_status","审核通过");
         PageVo<PostForBigBlockVo> postVoPageVo = postService.pageForPostVO(pagingDto, queryWrapper);
         return R.success(postVoPageVo);
     }

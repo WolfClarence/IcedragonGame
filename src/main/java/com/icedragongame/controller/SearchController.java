@@ -77,6 +77,8 @@ public class SearchController {
         System.out.println(category);
         System.out.println(keyWord);
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
+        //状态为审核通过
+        queryWrapper.eq("audit_status","审核通过");
         //排序类型
         if(sort == null) sort = ConstantBySelf.ORDER_BY_TIME;//未选类别，默认为按时间
         if(sort.equals(ConstantBySelf.ORDER_BY_TIME)){//按时间

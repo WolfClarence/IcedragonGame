@@ -13,7 +13,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="99e82dac-bd16-4a24-aba6-6f042788ba5e">
-      <console name="mydb@10.13.0.126" type="STANDARD" schema="mysql" session="Main" />
+      <console name="mydb@10.13.0.126" type="STANDARD" schema="mysql" session="Main"><![CDATA[select * from post;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -64,6 +64,8 @@
           <host value="10.13.0.126" />
           <port value="3306" />
           <database value="mysql" />
+          <tns-folder value="" />
+          <tns-profile value="" />
           <type value="USER_PASSWORD" />
           <user value="root" />
           <deprecated-pwd value="cm9vdA==" />

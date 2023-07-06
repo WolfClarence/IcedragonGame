@@ -80,6 +80,7 @@ public class HomeController {
     public R<List<PostForBigBlockVo>> newGame(@PathVariable("num") Integer num){
         num = num==null||num<0?10:num;
         QueryWrapper<Post> query = new QueryWrapper<>();
+        query.eq("audit_status","审核通过");
         query.orderByDesc("build_time");
         query.last("limit "+num);
         List<PostForBigBlockVo> postVoList = postService.listForVO(query);
@@ -105,6 +106,7 @@ public class HomeController {
     public R<List<PostForBigBlockVo>> hotgame(@PathVariable("num") Integer num) {
         num = (num==null||num<0)? 0 :num;
         QueryWrapper<Post> query = new QueryWrapper<>();
+        query.eq("audit_status","审核通过");
         query.orderByDesc("2 * reply_num + scan_num");
         query.last("limit "+num);
         List<PostForBigBlockVo> list = postService.listForVO(query);
@@ -132,8 +134,9 @@ public class HomeController {
         if(user==null){
             return R.error(SystemError.USER_NOT_FOUND);
         }
-        LambdaQueryWrapper<Post> upQuery = new LambdaQueryWrapper<>();
-        upQuery.eq(Post::getUsername,username);
+        QueryWrapper<Post> upQuery = new QueryWrapper<>();
+        upQuery.eq("audit_status","审核通过");
+        upQuery.eq("username",username);
         PageVo<PostForBigBlockVo> postVoPageVo = postService.pageForPostVO(pagingDto, upQuery);
         return R.success(postVoPageVo);
     }
@@ -163,6 +166,7 @@ public class HomeController {
         }
         int categoryId = categoryService.getOne(new LambdaUpdateWrapper<Category>().eq(Category::getCategoryName,category)).getId();
         QueryWrapper<Post> query = new QueryWrapper<>();
+        query.eq("audit_status","审核通过");
         PageVo<PostForLittleBlockVO> pageVo = new PageVo<>();
         if (sort.equals("1")){
             query.eq("category_id",categoryId);
@@ -192,6 +196,7 @@ public class HomeController {
 
         LambdaQueryWrapper<Post> queryWrapper = new LambdaQueryWrapper<>();
         QueryWrapper<Post> query = new QueryWrapper<>();
+        query.eq("audit_status","审核通过");
         PageVo<PostForBigBlockVo> pageVo = new PageVo<>();
         if (sort==1){
             query.orderByDesc("build_time");
@@ -213,6 +218,7 @@ public class HomeController {
     public R<List<PostForBigBlockVo>> getAllByNum(@PathVariable(value = "sort") int sort,@PathVariable(value = "num") int num ) {
 
         QueryWrapper<Post> query = new QueryWrapper<>();
+        query.eq("audit_status","审核通过");
         if (sort==1){
             query.orderByDesc("build_time");
         }else if(sort==2){

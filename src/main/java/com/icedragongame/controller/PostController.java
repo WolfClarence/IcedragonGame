@@ -149,6 +149,7 @@ public class PostController {
 //        System.out.println(postList);
 
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("audit_status","审核通过");
         queryWrapper.gt("build_time", LocalDateTime.now().minusHours(24))
                 .orderByDesc("2*reply_num + scan_num")
                 .last("limit "+num);
