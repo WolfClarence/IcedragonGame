@@ -20,4 +20,5 @@ public class PostDetailVo {
     String category;
     String image_url;
     Integer points;
+    String download_url;
 }
