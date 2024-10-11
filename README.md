@@ -1,4 +1,4 @@
-This is a game platform I developed with my teammates when I was in NPU in China. So many comments are in Chinese.
+This is a game platform I developed with my teammates when I was in NPU in China. Mainly use SpringBoot as backend, Vue as frontend, and use mysql, redis to store data.
 
 The basic logic: users can get points by posting games or login or comment. Then they can use the points to download the game links that other users post.
 
